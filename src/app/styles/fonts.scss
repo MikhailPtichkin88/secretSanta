@@ -1,0 +1,35 @@
+@font-face {
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 300;
+  src:
+    url("../../shared/assets/fonts/Gotham-Light.woff") format(woff),
+    url("../../shared/assets/fonts/Gotham-Light.woff2") format(woff2);
+}
+
+@font-face {
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("../../shared/assets/fonts/Gotham-Book.woff") format(woff),
+    url("../../shared/assets/fonts/Gotham-Book.woff2") format(woff2);
+}
+
+@font-face {
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url("../../shared/assets/fonts/Gotham-Medium.woff") format(woff),
+    url("../../shared/assets/fonts/Gotham-Medium.woff2") format(woff2);
+}
+
+@font-face {
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url("../../shared/assets/fonts/Gotham-Bold.woff") format(woff),
+    url("../../shared/assets/fonts/Gotham-Bold.woff2") format(woff2);
+}

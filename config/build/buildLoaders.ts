@@ -1,8 +1,7 @@
-import {ModuleOptions} from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import {BuildOptions} from "./types/types";
-import ReactRefreshTypeScript from "react-refresh-typescript";
+import {ModuleOptions} from "webpack";
 import {buildBabelLoader} from "./babel/buildBabelLoader";
+import {BuildOptions} from "./types/types";
 export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
   const isProd = options.mode === "production";
   const isDev = options.mode === "development";
@@ -28,13 +27,25 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
   const assetLoader = {
     test: /\.(png|jpg|jpeg|gif)$/i,
     type: "asset/resource",
+    generator: {
+      filename: "images/[hash][ext][query]",
+    },
   };
-
+  const fontsLoader = {
+    test: /\.(woff|woff2)$/i,
+    type: "asset/resource",
+    generator: {
+      filename: "fonts/[hash][ext][query]",
+    },
+  };
   const cssLoaderWithModules = {
     loader: "css-loader",
     options: {
       modules: {
-        localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:8]",
+        auto: (resPath: string) => Boolean(resPath.includes("module.scss")),
+        localIdentName: isDev
+          ? "[path][name]__[local]--[hash:base64:5]"
+          : "[hash:base64:8]",
       },
     },
   };
@@ -47,27 +58,30 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
       "sass-loader",
     ],
   };
-  const tsLoader = {
-    test: /\.tsx?$/,
-    use: [
-      {
-        loader: "ts-loader",
-        options: {
-          getCustomTransformers: () => ({
-            before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
-          }),
-          transpileOnly: true,
-        },
-      },
-    ],
-    exclude: /node_modules/,
-  };
+
+  /** используем Babel для транспиляции ts, tsx */
+  // const tsLoader = {
+  //   test: /\.tsx?$/,
+  //   use: [
+  //     {
+  //       loader: "ts-loader",
+  //       options: {
+  //         getCustomTransformers: () => ({
+  //           before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+  //         }),
+  //         transpileOnly: true,
+  //       },
+  //     },
+  //   ],
+  //   exclude: /node_modules/,
+  // };
 
   return [
-    scssLoader,
+    fontsLoader,
+    assetLoader,
     // tsLoader,
     babelLoader,
-    assetLoader,
     svgrLoader,
+    scssLoader,
   ];
 }

@@ -1,0 +1,14 @@
+@import "./reset";
+@import "./mixines/mixines";
+@import "./variables/global";
+@import "./themes/light";
+@import "./themes/dark";
+@import "./fonts";
+
+.app {
+  @include p2-book;
+
+  font-family: var(--font-family-main);
+  line-height: var(--line-height);
+  color: var(--text-accent-color);
+}

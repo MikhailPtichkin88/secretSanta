@@ -1,0 +1,26 @@
+.app_light_theme {
+  --bg-main-color: #fff;
+  --bg-secondary-color: #e6e6e6;
+  --bg-inverted-main-color: #0b0b0b;
+  --bg-disabled-color: #9f9f9f;
+
+  // text
+  --text-accent-color: #010101;
+  --text-secondary-color: #9f9f9f;
+  --text-link-color: #35a7ff;
+  --text-danger-color: #83242a;
+
+  // button
+  --button-primary-color: #2a87ce;
+  --button-primary-hover-color: #20679e;
+  --button-primary-outline-color: #86caff;
+  --button-accent-color: #44ab42;
+  --button-accent-hover-color: #349d32;
+  --button-accent-outline-color: #c8fec7;
+  --button-secondary-color: #0b0b0b;
+  --button-secondary-hover-color: #000;
+  --button-secondary-outline-color: #464646;
+  --button-danger-color: #ac353d;
+  --button-danger-hover-color: #83242a;
+  --button-danger-outline-color: #ff9ba2;
+}
