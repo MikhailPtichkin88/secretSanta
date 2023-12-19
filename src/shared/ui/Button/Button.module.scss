@@ -1,0 +1,142 @@
+@use "@/app/styles/mixines/mixines.scss" as mixins;
+
+.button {
+  border-radius: 6px;
+  color: var(--button-font-color);
+  border: none;
+  outline: none;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+  cursor: pointer;
+
+  &[disabled] {
+    opacity: 0.8;
+    cursor: auto;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.accent {
+  background-color: var(--button-accent-color);
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 var(--button-accent-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-accent-hover-color);
+  }
+}
+
+.accent_outlined {
+  background-color: var(--bg-main-color);
+  color: var(--button-accent-color);
+  border: 1px solid var(--button-accent-color);
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 var(--button-accent-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-accent-outline-color);
+  }
+}
+
+.primary {
+  background-color: var(--button-primary-color);
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 var(--button-primary-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-primary-hover-color);
+  }
+}
+
+.primary_outlined {
+  background-color: var(--bg-main-color);
+  color: var(--button-primary-color);
+  border: 1px solid var(--button-primary-color);
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 var(--button-primary-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-primary-outline-color);
+  }
+}
+
+.secondary {
+  background-color: var(--button-secondary-color);
+
+  &:hover {
+    box-shadow: 4px 12px 14px 4px var(--button-secondary-outline-color);
+  }
+
+  &:active {
+    box-shadow: 0 1px 4px 1px var(--button-secondary-outline-color);
+  }
+}
+
+.secondary_outlined {
+  background-color: var(--bg-main-color);
+  color: var(--button-secondary-color);
+  border: 1px solid var(--button-secondary-color);
+
+  &:hover {
+    filter: drop-shadow(0 6px 12px rgb(41 41 41 / 8%));
+  }
+
+  &:active {
+    background-color: rgba(0 0 0 / 10%);
+  }
+}
+
+.danger {
+  background-color: var(--button-danger-color);
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 4px 8px 0 var(--button-danger-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-danger-hover-color);
+  }
+}
+
+.danger_outlined {
+  background-color: var(--bg-main-color);
+  color: var(--button-danger-color);
+  border: 1px solid var(--button-danger-color);
+
+  &:hover {
+    box-shadow: 0 4px 8px 0 var(--button-danger-outline-color);
+  }
+
+  &:active {
+    background-color: var(--button-danger-outline-color);
+  }
+}
+
+.size_s {
+  padding: 6px 12px;
+
+  @include mixins.p2-book;
+}
+
+.size_m {
+  padding: 12px 24px;
+
+  @include mixins.p1-book;
+}
+
+.size_l {
+  padding: 18px 32px;
+
+  @include mixins.h4-book;
+}

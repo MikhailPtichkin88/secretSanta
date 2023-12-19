@@ -3,12 +3,23 @@
   --bg-secondary-color: #e6e6e6;
   --bg-inverted-main-color: #0b0b0b;
   --bg-disabled-color: #9f9f9f;
+  --bg-danger-color: #d64751;
+  --bg-accent-color: #44ab42;
 
   // text
   --text-accent-color: #010101;
   --text-secondary-color: #9f9f9f;
   --text-link-color: #35a7ff;
-  --text-danger-color: #83242a;
+  --text-danger-color: #d64751;
+
+  // border
+  --border-primary: #909090;
+  --border-danger: #d64751;
+  --border-accent: #44ab42;
+  --border-focus: #2a87ce;
+
+  // hover (box-shadow)
+  --hover-color: rgba(0 0 0 / 10%);
 
   // button
   --button-primary-color: #2a87ce;
@@ -19,8 +30,12 @@
   --button-accent-outline-color: #c8fec7;
   --button-secondary-color: #0b0b0b;
   --button-secondary-hover-color: #000;
-  --button-secondary-outline-color: #464646;
-  --button-danger-color: #ac353d;
-  --button-danger-hover-color: #83242a;
+  --button-secondary-outline-color: rgba(0 0 0 / 10%);
+  --button-danger-color: #d64751;
+  --button-danger-hover-color: #ac353d;
   --button-danger-outline-color: #ff9ba2;
+  --button-font-color: #fff;
+
+  // card
+  --card-bg-main-color: #fff;
 }

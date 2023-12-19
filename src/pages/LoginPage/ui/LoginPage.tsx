@@ -1,9 +1,10 @@
-import {classNames} from "@/shared/lib/classNames/classNames";
+import { LoginForm } from '@/features/Authorization/ui/LoginForm/LoginForm'
+import cls from './LoginPage.module.scss'
 
-interface LoginPageProps {
-  className?: string;
+export const LoginPage = () => {
+  return (
+    <div className={cls.loginPage}>
+      <LoginForm />
+    </div>
+  )
 }
-
-export const LoginPage = ({className}: LoginPageProps) => {
-  return <div>LoginPage</div>;
-};

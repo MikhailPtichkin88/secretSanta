@@ -1,3 +1,20 @@
 {
-  
+  "проверка перевода": "check translation",
+  "кнопка": "En",
+  "Невалидные данные": "Invalid data",
+  "Вход": "Login",
+  "Регистрация": "Registration",
+  "Восстановление пароля": "Restore password",
+  "Новый пароль": "Set new password",
+  "Нет учетной записи?": "Not registered?",
+  "Уже есть учетная запись?": "Already have registration?",
+  "Почта": "Email",
+  "Пароль": "Password",
+  "Продолжить": "Continue",
+  "Некорректный формат почты": "Invalid email format",
+  "Пароль должен быть более 5 символов": "Password length must be more than 5",
+  "Некорректный логин или пароль": "Invalid login or password",
+  "Запомнить меня": "Remember me"
+
+
 }

@@ -1,14 +1,8 @@
-@mixin p4-book {
-  font-size: 10px;
+@mixin p3-book {
+  font-size: 12px;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.5px;
-}
-
-@mixin p3-light {
-  font-size: 12px;
-  font-weight: 300;
-  letter-spacing: -0.6px;
 }
 
 @mixin p2-book {

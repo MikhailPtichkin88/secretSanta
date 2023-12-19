@@ -1,0 +1,81 @@
+@use "@/app/styles/mixines/mixines.scss" as mixins;
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border-primary);
+  outline: none;
+
+  &:focus {
+    border-color: var(--border-focus);
+  }
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 var(--hover-color);
+  }
+}
+
+.bordered {
+  border: 1px solid var(--border-primary);
+  border-radius: 3px;
+}
+
+.error {
+  border-color: var(--border-danger);
+}
+
+.success {
+  border-color: var(--border-accent);
+}
+
+.eyeIcon,
+.successIcon,
+.errorIcon {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 8px);
+  z-index: 2;
+}
+
+.eyeIcon {
+  cursor: pointer;
+}
+
+.errorIcon {
+  color: var(--bg-danger-color);
+}
+
+.successIcon {
+  color: var(--bg-accent-color);
+}
+
+.errorMessage {
+  @include mixins.p3-book;
+
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  color: var(--text-danger-color);
+}
+
+.size_s {
+  padding: 5px 10px;
+
+  @include mixins.p2-book;
+}
+
+.size_m {
+  padding: 8px 14px;
+
+  @include mixins.p1-book;
+}
+
+.size_l {
+  padding: 12px 18px;
+
+  @include mixins.h4-book;
+}
