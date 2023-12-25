@@ -6,3 +6,8 @@ export interface authSchema {
   isLoading: boolean
   error: string | undefined
 }
+
+export interface IAuthData {
+  email: string
+  password: string
+}

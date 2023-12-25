@@ -1,0 +1,15 @@
+.profileblock {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.logoutIcon {
+  fill: var(--text-link-color);
+  transition: transform 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}

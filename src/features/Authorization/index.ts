@@ -1,3 +1,4 @@
+import { RegisterForm } from './ui/RegisterForm/RegisterForm'
 import { getAuthEmail } from './model/selectors/getAuthEmail'
 import { getAuthRememberMe } from './model/selectors/getAuthRememberMe'
 import { getAuthIsLoading } from './model/selectors/getAuthIsLoading'
@@ -15,3 +16,5 @@ export {
   getAuthRememberMe,
   getAuthEmail,
 }
+
+export { RegisterForm }

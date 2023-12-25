@@ -13,3 +13,9 @@
   color: var(--text-accent-color);
   background-color: var(--bg-secondary-color);
 }
+
+.container {
+  width: 1170px;
+  margin: 0 auto;
+  height: calc(100vh - 80px);
+}

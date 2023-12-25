@@ -1,9 +1,13 @@
-import {classNames} from "@/shared/lib/classNames/classNames";
-
+import { RegisterForm } from '@/features/Authorization'
+import cls from './RegisterPager.module.scss'
 interface RegisterPageProps {
-  className?: string;
+  className?: string
 }
 
-export const RegisterPage = ({className}: RegisterPageProps) => {
-  return <div>Register Page</div>;
-};
+export const RegisterPage = ({ className }: RegisterPageProps) => {
+  return (
+    <div className={cls.registerpage}>
+      <RegisterForm />
+    </div>
+  )
+}

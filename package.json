@@ -46,6 +46,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@reduxjs/toolkit": "^2.0.1",
     "@svgr/webpack": "^8.1.0",

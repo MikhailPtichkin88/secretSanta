@@ -18,7 +18,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
           icon: true,
           svgoConfig: {
             plugins: [
-              { name: 'convertColors', params: { currentColor: true } },
+              { name: 'convertColors', params: { currentColor: false } },
             ],
           },
         },

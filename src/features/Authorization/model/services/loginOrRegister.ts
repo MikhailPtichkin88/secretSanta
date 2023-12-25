@@ -10,7 +10,7 @@ interface ILoginProps {
   rememberMe: boolean
 }
 
-const loginOrRegister = (type: 'login' | 'register') =>
+const loginOrRegister = (type: 'login' | 'registration') =>
   createAsyncThunk<User, ILoginProps, ThunkConfig<string>>(
     `auth/${type}`,
     async (data, thunkAPI) => {
@@ -34,4 +34,4 @@ const loginOrRegister = (type: 'login' | 'register') =>
   )
 
 export const login = loginOrRegister('login')
-export const register = loginOrRegister('register')
+export const register = loginOrRegister('registration')

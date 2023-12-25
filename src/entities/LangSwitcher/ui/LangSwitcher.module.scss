@@ -1,0 +1,13 @@
+.langswitcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    opacity: 0.6;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}

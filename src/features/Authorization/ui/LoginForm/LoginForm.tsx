@@ -11,6 +11,8 @@ import { getAuthError } from '../../model/selectors/getAuthError'
 import { getAuthIsLoading } from '../../model/selectors/getAuthIsLoading'
 import { login } from '../../model/services/loginOrRegister'
 import cls from './LoginForm.module.scss'
+import { NavLink } from 'react-router-dom'
+import { Checkbox } from '@/shared/ui/Checkbox'
 
 interface LoginFormProps {
   className?: string
@@ -75,14 +77,17 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         passwordMode
         errorMessage={errorMessage}
       />
-      <div className={cls.rememberMeBlock}>
-        <input
-          className={cls.checkbox}
-          type="checkbox"
-          checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)}
-        />
-        <span className={cls.label}>{t('Запомнить меня')}</span>
+      <Checkbox
+        className={cls.rememberMe}
+        label={t('Запомнить меня')}
+        checked={rememberMe}
+        onChange={setRememberMe}
+      />
+      <div className={cls.regLinkBlock}>
+        <span>{t('Нет учетной записи?')}</span>
+        <NavLink to="/register" className={cls.regLink}>
+          {t('Регистрация')}
+        </NavLink>
       </div>
       <Button disabled={isLoading} type="secondary" onClick={onSubmitHandler}>
         {t('Продолжить')}

@@ -1,0 +1,32 @@
+.themeswitcher {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .switch {
+    border: none;
+    background-color: #ffe74c;
+    border-radius: 100px;
+
+    &::before {
+      opacity: 1;
+      background-color: #ffe74c;
+    }
+
+    &::after {
+      left: 2px;
+    }
+
+    &.checked {
+      background-color: #2a87ce;
+
+      &::before {
+        background-color: #2a87ce;
+      }
+
+      &::after {
+        background-color: var(--bg-main-color);
+      }
+    }
+  }
+}
