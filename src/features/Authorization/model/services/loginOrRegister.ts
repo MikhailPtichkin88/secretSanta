@@ -1,6 +1,9 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
 import { userActions } from '@/entities/User/model/slice/userSlice'
-import { User } from '@/entities/User/model/types/userSchema'
+import {
+  LoginOrRegisterRes,
+  User,
+} from '@/entities/User/model/types/userSchema'
 import { LOCAL_STORAGE_USER_TOKEN } from '@/shared/const/const'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
@@ -10,25 +13,30 @@ interface ILoginProps {
   rememberMe: boolean
 }
 
-const loginOrRegister = (type: 'login' | 'registration') =>
+export const loginOrRegister = (type: 'login' | 'registration') =>
   createAsyncThunk<User, ILoginProps, ThunkConfig<string>>(
     `auth/${type}`,
     async (data, thunkAPI) => {
       const { extra, dispatch, rejectWithValue } = thunkAPI
       const { rememberMe, ...authData } = data
       try {
-        const res = await extra.api.post<User>(`/auth/${type}`, authData)
-        if (!res.data) {
+        const res = await extra.api.post<LoginOrRegisterRes>(
+          `/auth/${type}`,
+          authData
+        )
+        if (!res.data || res?.status !== 200) {
           throw new Error()
         }
-        const { token, ...restUserData } = res.data
+        const { token, userData } = res.data
         if (rememberMe && token) {
           localStorage.setItem(LOCAL_STORAGE_USER_TOKEN, token)
         }
-        dispatch(userActions.setUserData(restUserData))
-        return res.data
+        dispatch(userActions.setUserData(userData))
+        return userData
       } catch (error) {
-        rejectWithValue('Ошибка логинизации')
+        return rejectWithValue(
+          error?.response?.data?.message || 'Ошибка логинизации'
+        )
       }
     }
   )

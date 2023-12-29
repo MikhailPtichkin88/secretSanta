@@ -2,10 +2,6 @@
   height: 80px;
   background-color: var(--bg-main-color);
   width: 100%;
-
-  .switchBlock {
-    padding-left: 60px;
-  }
 }
 
 .navbar {
@@ -17,8 +13,12 @@
   background-size: 200px;
   background-repeat: no-repeat;
   background-position: 200px -20px;
-  max-width: 1170px;
+  max-width: 1950px;
   margin: 0 auto;
+
+  @media (max-width: 991px) {
+    background-size: 0;
+  }
 }
 
 .logoLink {
@@ -38,4 +38,22 @@
   font-weight: 700;
   color: var(--text-logo-color);
   opacity: 0.9;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.switchBlock {
+  gap: 60px;
+
+  @media (max-width: 1199px) {
+    margin-left: auto;
+    margin-right: 60px;
+    gap: 30px;
+  }
+
+  @media (max-width: 767px) {
+    margin: 0 auto;
+  }
 }

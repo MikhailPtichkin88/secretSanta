@@ -1,13 +1,15 @@
+import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
 import { AppRoutesProps } from '@/shared/config/routeConfig/routeConfig'
+import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 
 export const AuthCheck = (route: AppRoutesProps) => {
   //TODO replace with ReduxToolkit auth selector
-  const auth = false
+  const inited = useSelector(getUserIsInited)
   const location = useLocation()
 
-  if (!auth) {
-    return <Navigate to="/" state={{ from: location }} replace />
+  if (!inited) {
+    return <Navigate to="/login" state={{ from: location }} replace />
   }
 
   return route.element

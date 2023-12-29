@@ -6,6 +6,8 @@
   "Регистрация": "Registration",
   "Восстановление пароля": "Restore password",
   "Новый пароль": "Set new password",
+  "Подтвердите пароль": "Confirm your password",
+  "Забыли пароль?": "Forgot password?",
   "Нет учетной записи?": "Not registered?",
   "Уже есть учетная запись?": "Already have an accaunt?",
   "Почта": "Email",
@@ -14,7 +16,14 @@
   "Некорректный формат почты": "Invalid email format",
   "Пароль должен быть более 5 символов": "Password length must be more than 5",
   "Некорректный логин или пароль": "Invalid login or password",
-  "Запомнить меня": "Remember me"
-
+  "Запомнить меня": "Remember me",
+  "Введенные пароли не совпадают":  "Password mismatch",
+  "Отправить": "Send",
+  "Учетная запись успешно создана": "Your accaunt successfuly created",
+  "Введите почту": "Enter your email",
+  "Введите пароль": "Enter your password",
+  "Пользоватьель не найден": "User not found",
+  "Для восстановления пароля перейдите по ссылке в отправленном письме": "To restore password follow the link in the letter which was sent to your mail",
+  "На почту будет отправлено письмо с ссылкой на востановление пароля":  "We will send you a letter with link to restore password"
 
 }

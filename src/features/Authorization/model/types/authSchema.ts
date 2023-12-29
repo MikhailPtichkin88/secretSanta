@@ -5,9 +5,11 @@ export interface authSchema {
   rememberMe: boolean
   isLoading: boolean
   error: string | undefined
+  isAuthResult: boolean
 }
 
 export interface IAuthData {
-  email: string
-  password: string
+  email?: string
+  password?: string
+  confirmPassword?: string
 }

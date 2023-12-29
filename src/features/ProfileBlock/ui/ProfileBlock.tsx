@@ -12,7 +12,6 @@ interface ProfileBlockProps {
 
 export const ProfileBlock = ({ className }: ProfileBlockProps) => {
   const dispatch = useAppDispatch()
-
   const isInited = useSelector(getUserIsInited)
 
   const onLogoutHandler = () => {
@@ -21,7 +20,7 @@ export const ProfileBlock = ({ className }: ProfileBlockProps) => {
   return (
     <div className={classNames(cls.profileblock, {}, [className])}>
       <AvatarProfile />
-      {!isInited && (
+      {isInited && (
         <LogoutIcon
           className={cls.logoutIcon}
           width={50}

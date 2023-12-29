@@ -4,21 +4,39 @@ import placeholder from '@/shared/assets/img/avatar.png'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUserData } from '@/entities/User/model/selectors/getUserData'
+import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
+import { useEffect, useState } from 'react'
+import { getUserAvatar } from '@/entities/User'
 
 interface AvatarProfileProps {
   className?: string
 }
 
 export const AvatarProfile = ({ className }: AvatarProfileProps) => {
-  const { avatarUrl } = useSelector(getUserData)
-  const avatar = avatarUrl ? `${__API__}/${avatarUrl}` : placeholder
+  const userAvatar = useSelector(getUserAvatar)
+
+  const inited = useSelector(getUserIsInited)
+
+  const [avatar, setAvatar] = useState(placeholder)
+  console.log(userAvatar)
+
+  useEffect(() => {
+    console.log(inited)
+    console.log(userAvatar)
+    if (inited && userAvatar) {
+      setAvatar(`${__API__}/uploads/avatars/${userAvatar}`)
+    }
+    if (!inited && avatar !== placeholder) {
+      setAvatar(placeholder)
+    }
+  }, [inited, userAvatar])
 
   return (
     <NavLink
-      className={classNames(cls.avatarprofile)}
-      to={`${avatarUrl ? '/profile' : '/login'}`}
+      className={classNames(cls.avatarprofile, {}, [className])}
+      to={inited ? '/profile' : `/login`}
     >
-      <img className={cls.avatarImg} src={avatar} alt="avatar" />
+      <img className={cls.avatarImg} src={avatar} alt="avatar" loading="lazy" />
     </NavLink>
   )
 }

@@ -10,7 +10,7 @@ export const authMe = createAsyncThunk<User, void, ThunkConfig<string>>(
     const { extra, dispatch, rejectWithValue } = thunkAPI
 
     try {
-      const res = await extra.api.get<User>('/me')
+      const res = await extra.api.get<User>('/auth/me')
       if (!res.data) {
         const token = localStorage.getItem(LOCAL_STORAGE_USER_TOKEN)
         if (token) {
@@ -22,7 +22,7 @@ export const authMe = createAsyncThunk<User, void, ThunkConfig<string>>(
       dispatch(userActions.setUserData(res.data))
       return res.data
     } catch (error) {
-      rejectWithValue(error?.message || 'Ошибка авторизации')
+      return rejectWithValue(error?.message || 'Ошибка авторизации')
     }
   }
 )

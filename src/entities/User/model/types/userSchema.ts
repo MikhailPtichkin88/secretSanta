@@ -8,5 +8,9 @@ export interface User {
   fullName?: string
   email?: string
   avatarUrl?: string
+}
+
+export interface LoginOrRegisterRes {
+  userData: User
   token?: string
 }

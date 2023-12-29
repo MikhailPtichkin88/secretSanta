@@ -24,6 +24,7 @@ interface InputProps extends HtmlInputProps {
   autoFocus?: boolean
   readonly?: boolean
   passwordMode?: boolean
+  marginBottom?: number
 }
 
 export const Input = ({
@@ -39,6 +40,7 @@ export const Input = ({
   size = 'size_m',
   state,
   errorMessage,
+  marginBottom,
   ...otherProps
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false)
@@ -62,7 +64,10 @@ export const Input = ({
   }, [autoFocus])
 
   return (
-    <div className={cls.inputWrapper}>
+    <div
+      className={cls.inputWrapper}
+      style={{ marginBottom: marginBottom ?? 'unset' }}
+    >
       <input
         className={classNames(cls.input, mods, [className, cls[size]])}
         ref={inputRef}

@@ -15,6 +15,7 @@ const initialState: authSchema = {
   rememberMe: false,
   isLoading: false,
   error: undefined,
+  isAuthResult: false,
 }
 
 const authSlice = createSlice({
@@ -32,6 +33,12 @@ const authSlice = createSlice({
     },
     setRememberMe: (state, { payload }: PayloadAction<boolean>) => {
       state.rememberMe = payload
+    },
+    setAuthResult: (state, { payload }: PayloadAction<boolean>) => {
+      state.isAuthResult = payload
+    },
+    resetAuthError: (state) => {
+      state.error = undefined
     },
   },
   extraReducers: (builder) => {

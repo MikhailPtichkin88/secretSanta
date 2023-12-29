@@ -1,18 +1,31 @@
 import { useTheme } from '@/app/providers/ThemeProvider/lib/useTheme'
+import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
+import { authMe, getAuthIsLoading } from '@/features/Authorization'
 import { classNames } from '@/shared/lib/classNames/classNames'
-import SunIcon from '@/shared/assets/icons/sun.svg'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { PageLoader } from '@/shared/ui/PageLoader'
 import { Navbar } from '@/widgets/Navbar'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { AppRouter } from './providers/router'
 
 export const App = () => {
   const { theme } = useTheme()
+  const dispatch = useAppDispatch()
+  const inited = useSelector(getUserIsInited)
+  const isLoading = useSelector(getAuthIsLoading)
 
-  // делаем эффект с me запросом
+  useEffect(() => {
+    if (!inited) {
+      dispatch(authMe())
+    }
+  }, [])
+
   return (
     <div className={classNames('app', {}, [theme])}>
       <Navbar />
       <div className="container">
-        <AppRouter />
+        {isLoading ? <PageLoader /> : <AppRouter />}
       </div>
     </div>
   )

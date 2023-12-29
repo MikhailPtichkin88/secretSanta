@@ -1,7 +1,11 @@
 .profileblock {
   display: flex;
-  gap: 20px;
+  gap: 40px;
   align-items: center;
+
+  @media (max-width: 767px) {
+    gap: 20px;
+  }
 }
 
 .logoutIcon {
