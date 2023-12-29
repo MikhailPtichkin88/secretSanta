@@ -59,7 +59,6 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
       dispatch(authActions.resetAuthError())
     }
   }, [])
-
   return (
     <Card className={classNames(cls.restorepasswordform, {}, [className])}>
       {/* показываем форму до отправки письма */}

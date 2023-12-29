@@ -36,7 +36,7 @@ export const routeConfig: Record<string, AppRoutesProps> = {
   },
 
   setNewPassword: {
-    path: '/set_new_password',
+    path: '/setNewPassword',
     element: <SetNewPasswordPage />,
   },
 

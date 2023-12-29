@@ -1,9 +1,13 @@
-import {classNames} from "@/shared/lib/classNames/classNames";
-
+import { SetNewPasswordForm } from '@/features/Authorization'
+import cls from './SetNewPasswordPage.module.scss'
 interface SetNewPasswordPageProps {
-  className?: string;
+  className?: string
 }
 
-export const SetNewPasswordPage = ({className}: SetNewPasswordPageProps) => {
-  return <div>Set new password page</div>;
-};
+export const SetNewPasswordPage = ({ className }: SetNewPasswordPageProps) => {
+  return (
+    <div className={cls.setNewPasswordPage}>
+      <SetNewPasswordForm />
+    </div>
+  )
+}

@@ -18,11 +18,8 @@ export const AvatarProfile = ({ className }: AvatarProfileProps) => {
   const inited = useSelector(getUserIsInited)
 
   const [avatar, setAvatar] = useState(placeholder)
-  console.log(userAvatar)
 
   useEffect(() => {
-    console.log(inited)
-    console.log(userAvatar)
     if (inited && userAvatar) {
       setAvatar(`${__API__}/uploads/avatars/${userAvatar}`)
     }

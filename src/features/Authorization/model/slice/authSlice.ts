@@ -7,6 +7,8 @@ import {
 } from '../lib/stateChangeHelpers'
 import { authMe } from '../services/authMe'
 import { login, register } from '../services/loginOrRegister'
+import { resetPassword } from '../services/resetPassword'
+import { setNewPassword } from '../services/setNewPassword'
 
 const initialState: authSchema = {
   email: '',
@@ -55,6 +57,14 @@ const authSlice = createSlice({
       .addCase(authMe.fulfilled, successChangeState)
       .addCase(authMe.pending, pendingChangeState)
       .addCase(authMe.rejected, errorChangeState)
+      //resetPassword
+      .addCase(resetPassword.fulfilled, successChangeState)
+      .addCase(resetPassword.pending, pendingChangeState)
+      .addCase(resetPassword.rejected, errorChangeState)
+      //setNewPassword
+      .addCase(setNewPassword.fulfilled, successChangeState)
+      .addCase(setNewPassword.pending, pendingChangeState)
+      .addCase(setNewPassword.rejected, errorChangeState)
   },
 })
 
