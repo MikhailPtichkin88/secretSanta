@@ -4,6 +4,7 @@
 # Run lint-staged
 npm run build:prod
 npm run lint:ts:fix
-npx pretty-quick --staged
 npm run lint:scss:fix
+
+npx pretty-quick --staged
 
