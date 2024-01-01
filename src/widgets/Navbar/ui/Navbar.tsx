@@ -1,20 +1,16 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './Navbar.module.scss'
-import { useTranslation } from 'react-i18next'
-import { ThemeSwitcher } from '@/entities/ThemeSwitcher'
 import { LangSwitcher } from '@/entities/LangSwitcher'
-import { LogoLink } from './LogoLink/LogoLink'
-import backgImg from '@/shared/assets/img/snowflakes.png'
-import { Flex } from '@/shared/ui/Flex/Flex'
-import { AvatarProfile } from '@/entities/AvatarProfile/ui/AvatarProfile'
+import { ThemeSwitcher } from '@/entities/ThemeSwitcher'
 import { ProfileBlock } from '@/features/ProfileBlock'
+import backgImg from '@/shared/assets/img/snowflakes.png'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { Flex } from '@/shared/ui/Flex/Flex'
+import { LogoLink } from './LogoLink/LogoLink'
+import cls from './Navbar.module.scss'
 interface NavbarProps {
   className?: string
 }
 
 export const Navbar = ({ className }: NavbarProps) => {
-  const { t } = useTranslation()
-
   return (
     <div className={classNames(cls.wrapper, {}, [className])}>
       <nav

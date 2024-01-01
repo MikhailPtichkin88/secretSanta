@@ -1,18 +1,18 @@
-import {classNames} from "@/shared/lib/classNames/classNames";
+import { classNames } from '@/shared/lib/classNames/classNames'
 
 interface ErrorPageProps {
-  className?: string;
+  className?: string
 }
 
-export const ErrorPage = ({className}: ErrorPageProps) => {
+export const ErrorPage = ({ className }: ErrorPageProps) => {
   // const {t} = useTranslation();
   const reloadPage = () => {
-    location.reload();
-  };
+    location.reload()
+  }
   return (
-    <div className={classNames("", {}, [className])}>
-      <p>{"Произошла ошибка"}</p>
-      <button onClick={reloadPage}>{"Обновить страницу"}</button>
+    <div className={classNames('', {}, [className])}>
+      <p>{'Произошла ошибка'}</p>
+      <button onClick={reloadPage}>{'Обновить страницу'}</button>
     </div>
-  );
-};
+  )
+}

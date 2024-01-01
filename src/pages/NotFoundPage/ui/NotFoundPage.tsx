@@ -1,9 +1,9 @@
-import {classNames} from "@/shared/lib/classNames/classNames";
+import { classNames } from '@/shared/lib/classNames/classNames'
 
 interface NotFoundPageProps {
-  className?: string;
+  className?: string
 }
 
-export const NotFoundPage = ({className}: NotFoundPageProps) => {
-  return <>Not found page</>;
-};
+export const NotFoundPage = ({ className }: NotFoundPageProps) => {
+  return <>Not found page</>
+}

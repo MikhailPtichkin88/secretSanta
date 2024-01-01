@@ -13,7 +13,7 @@
 
   // Styles for the track
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 0;
@@ -28,7 +28,7 @@
 
   // Styles for the thumb (dot)
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

@@ -1,4 +1,4 @@
-import { SetNewPasswordForm } from './ui/SetNewPasswordForm/SetNewPasswordForm';
+import { SetNewPasswordForm } from './ui/SetNewPasswordForm/SetNewPasswordForm'
 import { authMe } from './model/services/authMe'
 import { ResetPasswordForm } from './ui/ResetPasswordForm/ResetPasswordForm'
 import { RegisterForm } from './ui/RegisterForm/RegisterForm'
@@ -22,5 +22,5 @@ export {
 
 export { RegisterForm }
 export { ResetPasswordForm }
-export {SetNewPasswordForm}
+export { SetNewPasswordForm }
 export { authMe }

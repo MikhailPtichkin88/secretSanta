@@ -15,7 +15,6 @@ interface InputProps extends HtmlInputProps {
   className?: string
   value?: string | number
   onChange?: (value: string) => void
-  type?: string
   state?: 'success' | 'error' | null
   errorMessage?: string
   size?: 'size_s' | 'size_m' | 'size_l'
@@ -31,7 +30,6 @@ export const Input = ({
   className,
   value,
   onChange,
-  type = 'text',
   placeholder,
   autoFocus,
   readonly,

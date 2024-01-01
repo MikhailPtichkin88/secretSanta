@@ -1,7 +1,7 @@
 .checkbox {
   width: 100%;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     position: absolute;
     opacity: 0;
   }
@@ -13,7 +13,7 @@
   }
 
   .checkboxLabel::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: -2px;
@@ -24,7 +24,7 @@
   }
 
   .checkboxLabel::after {
-    content: "✔";
+    content: '✔';
     position: absolute;
     top: 0;
     left: 3px;
@@ -33,7 +33,7 @@
     visibility: hidden;
   }
 
-  input[type="checkbox"]:checked + .checkboxLabel::after {
+  input[type='checkbox']:checked + .checkboxLabel::after {
     visibility: visible;
   }
 }
