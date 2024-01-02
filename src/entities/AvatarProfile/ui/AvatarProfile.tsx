@@ -32,7 +32,12 @@ export const AvatarProfile = ({ className }: AvatarProfileProps) => {
       className={classNames(cls.avatarprofile, {}, [className])}
       to={inited ? '/profile' : `/login`}
     >
-      <img className={cls.avatarImg} src={avatar} alt="avatar" loading="lazy" />
+      <img
+        className={cls.avatarImg}
+        src={avatar}
+        alt="users avatar img"
+        loading="lazy"
+      />
     </NavLink>
   )
 }
