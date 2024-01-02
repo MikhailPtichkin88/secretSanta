@@ -1,0 +1,20 @@
+.errorPage {
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto, sans-serif;
+}
+
+.card {
+  padding: 30px;
+}
+
+.title {
+  margin-bottom: 25px;
+}
+
+.button {
+  border: 1px solid;
+}

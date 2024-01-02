@@ -74,6 +74,7 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
             onChange={(value) => onChangeHandler(value)}
             errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
             marginBottom={25}
+            onPressEnter={onSubmitHandler}
           />
           <p className={cls.loginLinkBlock}>
             {t(
@@ -88,7 +89,7 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={onSubmitHandler}
           >
             {t('Отправить')}
@@ -108,7 +109,7 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={() => navigate('/login')}
           >
             {t('Вход')}

@@ -8,6 +8,7 @@ import { Navbar } from '@/widgets/Navbar'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { AppRouter } from './providers/router'
+import { ErrorBoundary } from './providers/ErrorBoundary'
 
 export const App = () => {
   const { theme } = useTheme()
@@ -24,9 +25,11 @@ export const App = () => {
   return (
     <div className={classNames('app', {}, [theme])}>
       <Navbar />
-      <div className="container">
-        {isLoading ? <PageLoader /> : <AppRouter />}
-      </div>
+      <ErrorBoundary>
+        <div className="container">
+          {isLoading ? <PageLoader /> : <AppRouter />}
+        </div>
+      </ErrorBoundary>
     </div>
   )
 }

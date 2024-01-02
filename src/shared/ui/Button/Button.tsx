@@ -4,10 +4,9 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 export type ButtonType = 'primary' | 'accent' | 'secondary' | 'danger'
 export type ButtonSize = 'size_s' | 'size_m' | 'size_l'
-interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
-  type?: ButtonType
+  theme?: ButtonType
   size?: ButtonSize
   outlined?: boolean
   fullWidth?: boolean
@@ -17,10 +16,11 @@ interface ButtonProps
 
 export const Button = ({
   className,
-  type = 'primary',
+  theme = 'primary',
   size = 'size_m',
   outlined = false,
   fullWidth = true,
+  type = 'button',
   disabled,
   children,
   ...props
@@ -28,15 +28,16 @@ export const Button = ({
   const mods: Mods = {
     [cls.fullWidth]: fullWidth,
     [cls.disabled]: disabled,
-    [cls[`${type}_outlined`]]: outlined,
+    [cls[`${theme}_outlined`]]: outlined,
   }
   return (
     <button
       className={classNames(cls.button, mods, [
         className,
-        cls[type],
+        cls[theme],
         cls[size],
       ])}
+      type={type}
       disabled={disabled}
       {...props}
     >

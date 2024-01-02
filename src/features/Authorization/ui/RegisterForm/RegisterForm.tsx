@@ -79,7 +79,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
   }
 
   useEffect(() => {
-    if (error && emailValue && passwordValue) {
+    if (error) {
       setErrors([{ email: error }, { password: ' ' }])
     }
   }, [error])
@@ -88,6 +88,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
     return () => {
       dispatch(authActions.setAuthResult(false))
       dispatch(authActions.resetAuthError())
+      setErrors([])
     }
   }, [])
 
@@ -104,6 +105,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
             value={emailValue}
             onChange={(value) => onChangeHandler(value, 'email')}
             errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
+            onPressEnter={onSubmitHandler}
           />
           <span className={cls.passwordLabel}>{t('Пароль')}</span>
           <Input
@@ -116,6 +118,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
             errorMessage={t(
               `${errors.find((error) => error.password)?.password}`
             )}
+            onPressEnter={onSubmitHandler}
           />
           <span className={cls.passwordLabel}>{t('Подтвердите пароль')}</span>
           <Input
@@ -128,6 +131,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
             errorMessage={t(
               `${errors.find((error) => error.password)?.password}`
             )}
+            onPressEnter={onSubmitHandler}
           />
           <Checkbox
             className={cls.rememberMe}
@@ -143,7 +147,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={onSubmitHandler}
           >
             {t('Продолжить')}
@@ -161,7 +165,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={() => navigate('/login')}
           >
             {t('Вход')}

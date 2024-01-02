@@ -70,14 +70,16 @@ export const LoginForm = ({ className }: LoginFormProps) => {
   }
 
   useEffect(() => {
-    if (error && emailValue && passwordValue) {
+    if (error) {
       setErrors([{ email: ' ' }, { password: error }])
     }
   }, [error])
 
   useEffect(() => {
+    setErrors([])
     return () => {
       dispatch(authActions.resetAuthError())
+      setErrors([])
     }
   }, [])
 
@@ -96,6 +98,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         value={emailValue}
         onChange={(value) => onChangeHandler(value, 'email')}
         errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
+        onPressEnter={onSubmitHandler}
       />
       <span className={cls.passwordLabel}>{t('Пароль')}</span>
       <Input
@@ -106,6 +109,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         state={errors.find((error) => error.password) ? 'error' : null}
         passwordMode
         errorMessage={t(`${errors.find((error) => error.password)?.password}`)}
+        onPressEnter={onSubmitHandler}
       />
       <Checkbox
         className={cls.rememberMe}
@@ -126,7 +130,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         </NavLink>
       </div>
 
-      <Button disabled={isLoading} type="secondary" onClick={onSubmitHandler}>
+      <Button disabled={isLoading} theme="secondary" onClick={onSubmitHandler}>
         {t('Продолжить')}
       </Button>
     </Card>

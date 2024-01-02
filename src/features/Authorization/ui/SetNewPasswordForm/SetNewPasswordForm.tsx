@@ -103,6 +103,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
             state={errors.find((error) => error.password) ? 'error' : null}
             marginBottom={20}
             passwordMode
+            onPressEnter={onSubmitHandler}
             errorMessage={t(
               `${errors.find((error) => error.password)?.password}`
             )}
@@ -119,6 +120,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
             errorMessage={t(
               `${errors.find((error) => error.password)?.password}`
             )}
+            onPressEnter={onSubmitHandler}
           />
 
           <div className={cls.loginLinkBlock}>
@@ -129,7 +131,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={onSubmitHandler}
           >
             {t('Отправить')}
@@ -147,7 +149,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
           </div>
           <Button
             disabled={isLoading}
-            type="secondary"
+            theme="secondary"
             onClick={() => navigate('/login')}
           >
             {t('Вход')}

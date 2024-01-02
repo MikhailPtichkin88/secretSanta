@@ -22,11 +22,9 @@ const container = createRoot(root)
 container.render(
   <StoreProvider>
     <BrowserRouter>
-      <ErrorBoundary>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </ErrorBoundary>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StoreProvider>
 )

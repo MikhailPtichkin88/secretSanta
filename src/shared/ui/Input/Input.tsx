@@ -24,6 +24,7 @@ interface InputProps extends HtmlInputProps {
   readonly?: boolean
   passwordMode?: boolean
   marginBottom?: number
+  onPressEnter?: () => void
 }
 
 export const Input = ({
@@ -39,6 +40,7 @@ export const Input = ({
   state,
   errorMessage,
   marginBottom,
+  onPressEnter,
   ...otherProps
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false)
@@ -52,6 +54,11 @@ export const Input = ({
     [cls.bordered]: bordered,
     [cls.readonly]: readonly,
     [cls[state]]: Boolean(state),
+  }
+  const onEnterPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onPressEnter()
+    }
   }
 
   useEffect(() => {
@@ -77,6 +84,7 @@ export const Input = ({
         autoFocus={isFocused}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onKeyDown={onEnterPressHandler}
         {...otherProps}
       />
       {passwordMode && (
