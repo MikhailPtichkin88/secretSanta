@@ -4,10 +4,11 @@ interface SetNewPasswordPageProps {
   className?: string
 }
 
-export const SetNewPasswordPage = ({ className }: SetNewPasswordPageProps) => {
+const SetNewPasswordPage = ({ className }: SetNewPasswordPageProps) => {
   return (
     <div className={cls.setNewPasswordPage}>
       <SetNewPasswordForm />
     </div>
   )
 }
+export default SetNewPasswordPage

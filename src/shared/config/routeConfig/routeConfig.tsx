@@ -1,7 +1,8 @@
 import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { RegisterPage } from '@/pages/RegisterPage'
-import { ResetPasswordPage } from '@/pages/ResetPasswordPage/ui/ResetPasswordPage'
+import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
+
 import { SetNewPasswordPage } from '@/pages/SetNewPasswordPage'
 import { Navigate, RouteProps } from 'react-router-dom'
 

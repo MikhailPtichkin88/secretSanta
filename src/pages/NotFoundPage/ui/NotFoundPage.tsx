@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@/shared/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import notFoundImg from '@/shared/assets/img/not_found.jpeg'
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   return (
@@ -23,3 +23,4 @@ export const NotFoundPage = () => {
     </div>
   )
 }
+export default NotFoundPage

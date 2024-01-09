@@ -1,1 +1,1 @@
-export { SetNewPasswordPage } from './ui/SetNewPasswordPage'
+export { SetNewPasswordPageAsync as SetNewPasswordPage } from './ui/SetNewPasswordPage.async'

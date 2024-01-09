@@ -1,1 +1,1 @@
-export { RegisterPage } from './ui/RegisterPage'
+export { RegisterPageAsync as RegisterPage } from './ui/RegisterPage.async'

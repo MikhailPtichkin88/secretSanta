@@ -5,10 +5,11 @@ interface ResetPasswordPageProps {
   className?: string
 }
 
-export const ResetPasswordPage = ({ className }: ResetPasswordPageProps) => {
+const ResetPasswordPage = ({ className }: ResetPasswordPageProps) => {
   return (
     <div className={cls.resetpasswordpage}>
       <ResetPasswordForm />
     </div>
   )
 }
+export default ResetPasswordPage
