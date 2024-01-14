@@ -16,6 +16,7 @@ import { login } from '../../model/services/loginOrRegister'
 import { authActions } from '../../model/slice/authSlice'
 import { IAuthData } from '../../model/types/authSchema'
 import cls from './LoginForm.module.scss'
+import { getUserId } from '@/entities/User'
 
 interface LoginFormProps {
   className?: string
@@ -24,6 +25,7 @@ interface LoginFormProps {
 export const LoginForm = ({ className }: LoginFormProps) => {
   const { t } = useTranslation()
   const inited = useSelector(getUserIsInited)
+  const userId = useSelector(getUserId)
   const error = useSelector(getAuthError)
   const isLoading = useSelector(getAuthIsLoading)
   const dispatch = useAppDispatch()
@@ -84,7 +86,9 @@ export const LoginForm = ({ className }: LoginFormProps) => {
   }, [])
 
   if (inited) {
-    return <Navigate to="/profile" state={{ from: location }} replace />
+    return (
+      <Navigate to={`/profile/${userId}`} state={{ from: location }} replace />
+    )
   }
 
   return (

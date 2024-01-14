@@ -1,9 +1,9 @@
-@import "./reset";
-@import "./mixines/mixines";
-@import "./variables/global";
-@import "./themes/light";
-@import "./themes/dark";
-@import "./fonts";
+@import './reset';
+@import './mixines/mixines';
+@import './variables/global';
+@import './themes/light';
+@import './themes/dark';
+@import './fonts';
 
 .app {
   @include p2-book;
@@ -15,7 +15,7 @@
 }
 
 .container {
-  max-width: 1950px;
+  max-width: 1170px;
   margin: 0 auto;
   height: calc(100vh - 80px);
 }

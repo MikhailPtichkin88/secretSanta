@@ -4,7 +4,7 @@ export interface UserSchema {
 }
 
 export interface User {
-  id?: string
+  _id?: string
   fullName?: string
   email?: string
   avatarUrl?: string

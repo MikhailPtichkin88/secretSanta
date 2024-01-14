@@ -1,5 +1,6 @@
 import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { ProfilePage } from '@/pages/ProfilePage'
 import { RegisterPage } from '@/pages/RegisterPage'
 import { ResetPasswordPage } from '@/pages/ResetPasswordPage'
 
@@ -12,12 +13,12 @@ export type AppRoutesProps = RouteProps & {
 export const routeConfig: Record<string, AppRoutesProps> = {
   main: {
     path: '/',
-    element: <Navigate to={'/profile'} />,
+    element: <Navigate to={'/login'} />,
   },
 
   profile: {
-    path: '/profile',
-    element: <div>Profile page</div>,
+    path: '/profile/:id',
+    element: <ProfilePage />,
     authOnly: true,
   },
 
