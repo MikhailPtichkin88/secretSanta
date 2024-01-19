@@ -1,3 +1,17 @@
 .profilecard {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 95px;
+  min-height: 360px;
+
+  @media (max-width: 991px) {
+    gap: 50px;
+  }
+
+  @media (max-width: 839px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }

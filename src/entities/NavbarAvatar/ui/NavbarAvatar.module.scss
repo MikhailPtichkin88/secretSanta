@@ -1,5 +1,6 @@
 .avatarImg {
   width: 60px;
   height: 60px;
-  object-fit: contain;
+  border-radius: 50%;
+  object-fit: cover;
 }

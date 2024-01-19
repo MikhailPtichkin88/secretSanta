@@ -1,4 +1,4 @@
-import { getUserAvatar, getUserId } from '@/entities/User'
+import { getUserAvatar, getUserData, getUserId } from '@/entities/User'
 import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
 import placeholder from '@/shared/assets/img/avatar.png'
 import { classNames } from '@/shared/lib/classNames/classNames'
@@ -15,7 +15,7 @@ interface AvatarProfileProps {
 
 export const NavbarAvatar = ({ className }: AvatarProfileProps) => {
   const inited = useSelector(getUserIsInited)
-  const userAvatar = useSelector(getUserAvatar)
+  const { avatarUrl } = useSelector(getUserData)
   const userId = useSelector(getUserId)
 
   const { t } = useTranslation()
@@ -23,13 +23,13 @@ export const NavbarAvatar = ({ className }: AvatarProfileProps) => {
   const [avatar, setAvatar] = useState(placeholder)
 
   useEffect(() => {
-    if (inited && userAvatar) {
-      setAvatar(`${__API__}/uploads/avatars/${userAvatar}`)
+    if (inited && avatarUrl) {
+      setAvatar(`${__API__}/uploads/avatars/${avatarUrl}`)
     }
     if (!inited && avatar !== placeholder) {
       setAvatar(placeholder)
     }
-  }, [inited, userAvatar])
+  }, [inited, avatarUrl])
 
   return (
     <NavLink

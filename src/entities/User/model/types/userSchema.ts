@@ -1,5 +1,7 @@
 export interface UserSchema {
   _inited?: boolean
+  error?: string
+  isLoading?: boolean
   user: User
 }
 
@@ -8,6 +10,8 @@ export interface User {
   fullName?: string
   email?: string
   avatarUrl?: string
+  age?: number
+  city?: string
 }
 
 export interface LoginOrRegisterRes {

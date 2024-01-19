@@ -1,12 +1,13 @@
 .tooltipRelativeWrapper {
   position: relative;
+  display: inline-flex;
 }
 
 .tooltipAbsoluteWrapper {
   position: absolute;
   padding: 10px;
   border-radius: 10px;
-  background: var(--bg-inverted-main-color);
+  background: var(--bg-inverted-color);
   color: var(--text-inverted-color);
   box-shadow: 0 1px 2px 0 var(--card-shadow-color);
   z-index: var(--tooltip-z-index);

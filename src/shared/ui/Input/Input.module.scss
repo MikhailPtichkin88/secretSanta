@@ -9,6 +9,8 @@
   border: none;
   border-bottom: 1px solid var(--border-primary);
   outline: none;
+  color: var(--text-main-color);
+  background-color: var(--bg-main-color);
 
   &:focus {
     border-color: var(--border-focus);
@@ -78,4 +80,11 @@
   padding: 12px 18px;
 
   @include mixins.h4-book;
+}
+
+.readonly {
+  border: none;
+  border-bottom: 1px solid var(--border-primary);
+  border-radius: 0;
+  pointer-events: none;
 }

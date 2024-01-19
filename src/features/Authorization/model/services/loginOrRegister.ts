@@ -1,4 +1,5 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
+import { profileActions } from '@/entities/ProfileForm'
 import { userActions } from '@/entities/User/model/slice/userSlice'
 import {
   LoginOrRegisterRes,
@@ -32,6 +33,7 @@ export const loginOrRegister = (type: 'login' | 'registration') =>
           localStorage.setItem(LOCAL_STORAGE_USER_TOKEN, token)
         }
         dispatch(userActions.setUserData(userData))
+        dispatch(profileActions.setProfileData(userData))
         return userData
       } catch (error) {
         return rejectWithValue(

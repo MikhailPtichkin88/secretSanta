@@ -1,4 +1,5 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
+import { profileActions } from '@/entities/ProfileForm'
 import { userActions } from '@/entities/User/model/slice/userSlice'
 import { User } from '@/entities/User/model/types/userSchema'
 import { LOCAL_STORAGE_USER_TOKEN } from '@/shared/const/const'
@@ -20,6 +21,7 @@ export const authMe = createAsyncThunk<User, void, ThunkConfig<string>>(
       }
 
       dispatch(userActions.setUserData(res.data))
+      dispatch(profileActions.setProfileData(res.data))
       return res.data
     } catch (error) {
       return rejectWithValue(error?.message || 'Ошибка авторизации')

@@ -1,0 +1,72 @@
+.profileform {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  label {
+    color: var(--text-secondary-color);
+    font-size: 18px;
+    margin-right: auto;
+  }
+
+  input {
+    font-size: 16px;
+
+    &:read-only {
+      font-size: 18px;
+    }
+  }
+
+  & > div {
+    max-width: 350px;
+    margin-left: 150px;
+  }
+
+  @media (max-width: 525px) {
+    gap: 20px;
+
+    & > div {
+      max-width: 100%;
+      margin-left: 0;
+    }
+  }
+}
+
+.editBtnWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+
+  .loader {
+    height: 40px;
+
+    & > div {
+      top: 13px;
+    }
+  }
+}
+
+.cancelBtn {
+  max-width: 150px;
+}
+
+.saveBtn {
+  max-width: 150px;
+}
+
+.editBtn {
+  margin-left: auto;
+  max-width: 200px;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+
+  svg {
+    stroke: var(--text-inverted-color);
+  }
+}
