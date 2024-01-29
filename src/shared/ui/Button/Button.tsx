@@ -1,6 +1,6 @@
 import { Mods, classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Button.module.scss'
-import { ButtonHTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
 
 export type ButtonType = 'primary' | 'accent' | 'secondary' | 'danger'
 export type ButtonSize = 'size_s' | 'size_m' | 'size_l'
@@ -14,34 +14,40 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
 }
 
-export const Button = ({
-  className,
-  theme = 'primary',
-  size = 'size_m',
-  outlined = false,
-  fullWidth = true,
-  type = 'button',
-  disabled,
-  children,
-  ...props
-}: ButtonProps) => {
-  const mods: Mods = {
-    [cls.fullWidth]: fullWidth,
-    [cls.disabled]: disabled,
-    [cls[`${theme}_outlined`]]: outlined,
+export const Button = forwardRef(
+  (
+    {
+      className,
+      theme = 'primary',
+      size = 'size_m',
+      outlined = false,
+      fullWidth = true,
+      type = 'button',
+      disabled,
+      children,
+      ...props
+    }: ButtonProps,
+    innerRef: React.MutableRefObject<HTMLButtonElement>
+  ) => {
+    const mods: Mods = {
+      [cls.fullWidth]: fullWidth,
+      [cls.disabled]: disabled,
+      [cls[`${theme}_outlined`]]: outlined,
+    }
+    return (
+      <button
+        className={classNames(cls.button, mods, [
+          className,
+          cls[theme],
+          cls[size],
+        ])}
+        ref={innerRef}
+        type={type}
+        disabled={disabled}
+        {...props}
+      >
+        {children}
+      </button>
+    )
   }
-  return (
-    <button
-      className={classNames(cls.button, mods, [
-        className,
-        cls[theme],
-        cls[size],
-      ])}
-      type={type}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-}
+)

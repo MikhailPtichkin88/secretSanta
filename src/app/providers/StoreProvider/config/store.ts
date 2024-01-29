@@ -4,6 +4,7 @@ import { userReducer } from '@/entities/User/model/slice/userSlice'
 import { $api } from '@/shared/api/axios'
 import { authReducer } from '@/features/Authorization'
 import { profileReducer } from '@/entities/ProfileForm'
+import { profileSessionsReducer } from '@/features/ProfileSessions'
 
 const extraArg: ThunkExtraArg = {
   api: $api,
@@ -15,6 +16,7 @@ export function createReduxStore(initialState?: StateSchema) {
       auth: authReducer,
       user: userReducer,
       profile: profileReducer,
+      profileSessions: profileSessionsReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ thunk: { extraArgument: extraArg } }),

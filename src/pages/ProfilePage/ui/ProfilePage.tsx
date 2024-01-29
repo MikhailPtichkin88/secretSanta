@@ -1,4 +1,4 @@
-import { ProfileCard } from '@/features/ProfileCard'
+import { ProfileCard } from '@/widgets/ProfileCard'
 import { Card } from '@/shared/ui/Card'
 import cls from './ProfilePage.module.scss'
 

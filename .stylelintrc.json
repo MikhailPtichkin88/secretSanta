@@ -3,7 +3,8 @@
   "customSyntax": "postcss-scss",
   "rules": {
     "selector-class-pattern": null,
-    "no-missing-end-of-source-newline": null
+    "no-missing-end-of-source-newline": null,
+    "property-no-vendor-prefix": null
   },
   "ignoreFiles": ["build/**/*"]
 }

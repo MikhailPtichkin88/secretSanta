@@ -1,0 +1,36 @@
+.sorticons {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+
+  & > svg {
+    fill: var(--bg-main-color);
+    stroke: var(--text-accent-color);
+    transition: fill 0.3s, stroke 0.3s;
+  }
+}
+
+.disabled {
+  svg {
+    fill: var(--text-secondary-color);
+    stroke: var(--text-secondary-color);
+  }
+
+  pointer-events: none;
+}
+
+.sortAsc {
+  .ascIcon {
+    fill: var(--text-link-color);
+    stroke: var(--text-link-color);
+  }
+}
+
+.sortDesc {
+  .descIcon {
+    fill: var(--text-link-color);
+    stroke: var(--text-link-color);
+  }
+}

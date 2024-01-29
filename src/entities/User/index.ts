@@ -1,4 +1,3 @@
-import { getUserIsLoading } from './model/selectors/getUserIsLoading'
 import { deleteUserAvatar } from './model/services/deleteUserAvatar'
 import { updateUser } from './model/services/updateUser'
 import { userActions } from '@/entities/User/model/slice/userSlice'

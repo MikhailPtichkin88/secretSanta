@@ -1,0 +1,11 @@
+.sortIcons {
+  svg:first-of-type {
+    position: relative;
+    top: 1px;
+  }
+
+  svg:last-of-type {
+    position: relative;
+    bottom: 1px;
+  }
+}

@@ -62,7 +62,7 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
       <div className={cls.container}>
         <label htmlFor="name">{t('Имя')}</label>
         <Input
-          name="name"
+          id="name"
           autoFocus={isEditMode}
           readonly={!isEditMode}
           value={fullName}
@@ -73,7 +73,7 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
       <div className={cls.container}>
         <label htmlFor="email">{t('Почта')}</label>
         <Input
-          name="email"
+          id="email"
           readonly={!isEditMode}
           value={email}
           errorMessage={errors.includes('email') && t('Невалидные данные')}
@@ -84,7 +84,7 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
         <label htmlFor="age">{t('Возраст')}</label>
         <Input
           readonly={!isEditMode}
-          name="age"
+          id="age"
           value={age}
           errorMessage={errors.includes('age') && t('Невалидные данные')}
           onChange={(value) => dispatch(profileActions.setProfileAge(value))}
@@ -93,7 +93,7 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
       <div className={cls.container}>
         <label htmlFor="city">{t('Город')}</label>
         <Input
-          name="city"
+          id="city"
           readonly={!isEditMode}
           value={city}
           errorMessage={errors.includes('city') && t('Невалидные данные')}

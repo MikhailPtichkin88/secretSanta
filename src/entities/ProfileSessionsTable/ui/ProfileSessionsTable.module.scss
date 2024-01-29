@@ -1,0 +1,155 @@
+.sessionstable {
+  border-collapse: collapse;
+
+  &table,
+  th,
+  td {
+    border-collapse: collapse;
+  }
+
+  tbody {
+    tr {
+      td {
+        line-height: 20px;
+        text-align: center;
+      }
+    }
+  }
+
+  & > div {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .headerCell {
+    padding: 15px;
+    position: relative;
+    background-color: var(--table-header-bg-color);
+    line-height: 20px;
+
+    & > div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
+    &:not(:last-of-type) {
+      &::after {
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        background-color: var(--text-secondary-color);
+      }
+    }
+  }
+
+  .bodyRow {
+    color: var(--text-accent-color);
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--border-primary);
+    }
+  }
+
+  .titleCell {
+    padding: 20px;
+    width: 20%;
+
+    & > div {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .statusCell {
+    width: 15%;
+
+    & > div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .green,
+    .grey {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+
+      @media (max-width: 991px) {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .green {
+      background-color: var(--bg-accent-color);
+    }
+
+    .grey {
+      background-color: var(--bg-disabled-color);
+    }
+
+    .statusTitle {
+      @media (max-width: 991px) {
+        display: none;
+      }
+    }
+
+    .statusTooltip {
+      display: none;
+
+      @media (max-width: 991px) {
+        display: block;
+      }
+    }
+  }
+}
+
+.createdAtCell {
+  width: 20%;
+}
+
+.participantsCell {
+  width: 10%;
+}
+
+.infoCell {
+  width: 30%;
+
+  @media (max-width: 761px) {
+    width: 20%;
+  }
+}
+
+.tabsTitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.icon {
+  stroke: var(--text-danger-color);
+}

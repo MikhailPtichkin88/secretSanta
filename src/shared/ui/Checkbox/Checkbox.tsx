@@ -1,5 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Checkbox.module.scss'
+import { forwardRef } from 'react'
 
 interface CheckboxProps {
   className?: string
@@ -8,23 +9,25 @@ interface CheckboxProps {
   onChange: (value: boolean) => void
 }
 
-export const Checkbox = ({
-  className,
-  label,
-  checked,
-  onChange,
-}: CheckboxProps) => {
-  return (
-    <div className={classNames(cls.checkbox, {}, [className])}>
-      <input
-        type="checkbox"
-        id="myCheckbox"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-      />
-      <label htmlFor="myCheckbox" className={cls.checkboxLabel}>
-        {label}
-      </label>
-    </div>
-  )
-}
+export const Checkbox = forwardRef(
+  (
+    { className, label, checked, onChange }: CheckboxProps,
+    innerRef: React.MutableRefObject<HTMLInputElement>
+  ) => {
+    const uniqueId = `checkbox-${label}-${Math.floor(Math.random() * 1000)}`
+    return (
+      <div className={classNames(cls.checkbox, {}, [className])}>
+        <input
+          ref={innerRef}
+          type="checkbox"
+          id={uniqueId}
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+        />
+        <label htmlFor={uniqueId} className={cls.checkboxLabel}>
+          {label}
+        </label>
+      </div>
+    )
+  }
+)

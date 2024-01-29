@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+.pagination {
+  display: flex;
+
+  button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border-primary);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 18px;
+    min-width: 30px;
+    width: fit-content;
+    transition: color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: none;
+      outline-color: none;
+      box-shadow: none;
+      background-color: initial;
+    }
+
+    &.active {
+      border-color: var(--text-link-color);
+      color: var(--text-link-color);
+    }
+
+    &[disabled] {
+      opacity: 1;
+    }
+  }
+
+  .dots {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 1px;
+  }
+}
