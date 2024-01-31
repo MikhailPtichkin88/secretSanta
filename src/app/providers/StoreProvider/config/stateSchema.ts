@@ -1,3 +1,4 @@
+import { CreateSessionSchema } from '@/features/CreateSessionForm'
 import { ProfileSchema } from '@/entities/ProfileForm'
 
 import { UserSchema } from '@/entities/User'
@@ -10,6 +11,7 @@ export interface StateSchema {
   user: UserSchema
   profile: ProfileSchema
   profileSessions: ProfileSessionsSchema
+  createSession: CreateSessionSchema
 }
 
 export interface ThunkExtraArg {
