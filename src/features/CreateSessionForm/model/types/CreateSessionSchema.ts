@@ -1,6 +1,7 @@
 export interface CreateSessionSchema extends ICreateSessionData {
   isLoading: boolean
   error: string | undefined
+  createdSessionId: null | string
 }
 
 export interface ICreateSessionData {

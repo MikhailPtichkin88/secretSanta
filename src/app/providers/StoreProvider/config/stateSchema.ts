@@ -5,6 +5,7 @@ import { UserSchema } from '@/entities/User'
 import { authSchema } from '@/features/Authorization'
 import { ProfileSessionsSchema } from '@/features/ProfileSessions'
 import { AxiosInstance } from 'axios'
+import { CurrentSessionSchema } from '@/features/SessionForm'
 
 export interface StateSchema {
   auth: authSchema
@@ -12,6 +13,7 @@ export interface StateSchema {
   profile: ProfileSchema
   profileSessions: ProfileSessionsSchema
   createSession: CreateSessionSchema
+  currentSession: CurrentSessionSchema
 }
 
 export interface ThunkExtraArg {

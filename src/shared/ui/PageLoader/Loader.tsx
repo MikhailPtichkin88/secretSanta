@@ -3,11 +3,16 @@ import './Loader.scss'
 
 interface LoaderProps {
   className?: string
+  transparent?: boolean
 }
 
-export const Loader = ({ className }: LoaderProps) => {
+export const Loader = ({ className, transparent }: LoaderProps) => {
   return (
-    <div className={classNames('lds-ellipsis', {}, [className])}>
+    <div
+      className={classNames('lds-ellipsis', { transparent: transparent }, [
+        className,
+      ])}
+    >
       <div></div>
       <div></div>
       <div></div>

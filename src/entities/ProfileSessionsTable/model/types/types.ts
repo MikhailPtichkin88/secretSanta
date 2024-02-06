@@ -6,10 +6,11 @@ export interface ISession {
   _id: string
   created_by: string
   title: string
-  session_info: string
+  session_info?: string
+  session_img?: string
   status: TSessionStatus
   total_participants: number
   cards: string[]
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }

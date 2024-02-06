@@ -4,11 +4,12 @@ import { CreateSessionSchema } from '../types/CreateSessionSchema'
 import { createSession } from '../services/createSession'
 
 const initialState: CreateSessionSchema = {
-  title: null,
-  totalParticipants: null,
-  sessionInfo: null,
+  title: '',
+  totalParticipants: 3,
+  sessionInfo: '',
   isLoading: false,
   error: undefined,
+  createdSessionId: null,
 }
 
 const createSessionSlice = createSlice({
@@ -28,13 +29,15 @@ const createSessionSlice = createSlice({
       state.title = null
       state.sessionInfo = null
       state.totalParticipants = null
+      state.createdSessionId = null
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createSession.fulfilled, (state) => {
+      .addCase(createSession.fulfilled, (state, { payload }) => {
         state.error = undefined
         state.isLoading = false
+        state.createdSessionId = payload._id
       })
       .addCase(createSession.pending, (state) => {
         state.error = undefined

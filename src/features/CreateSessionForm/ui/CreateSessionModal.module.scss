@@ -1,3 +1,41 @@
-.createsessionmodal {
+.sessionform {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h3 {
+    color: var(--text-accent-color);
+    margin-bottom: 20px;
+  }
+}
+
+.fieldWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+
+  div {
+    width: 100%;
+  }
+}
+
+.label,
+.input {
+  color: var(--text-accent-color);
+}
+
+.label {
+  width: 70%;
+}
+
+.buttonWrapper {
+  margin-top: 20px;
+  display: flex;
   width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    max-width: 150px;
+  }
 }

@@ -7,6 +7,28 @@
     border-collapse: collapse;
   }
 
+  thead {
+    tr {
+      th {
+        &:nth-of-type(1) {
+          width: 220px;
+        }
+
+        &:nth-of-type(2) {
+          width: 150px;
+        }
+
+        &:nth-of-type(3) {
+          width: 200px;
+        }
+
+        &:nth-of-type(4) {
+          width: 180px;
+        }
+      }
+    }
+  }
+
   tbody {
     tr {
       td {
@@ -71,7 +93,6 @@
 
   .titleCell {
     padding: 20px;
-    width: 20%;
 
     & > div {
       display: -webkit-box;
@@ -83,8 +104,6 @@
   }
 
   .statusCell {
-    width: 15%;
-
     & > div {
       display: flex;
       gap: 10px;
@@ -126,19 +145,20 @@
       }
     }
   }
+
+  .link {
+    color: var(--tab-bg-selected-color);
+  }
 }
 
-.createdAtCell {
-  width: 20%;
-}
-
-.participantsCell {
-  width: 10%;
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .infoCell {
-  width: 30%;
-
   @media (max-width: 761px) {
     width: 20%;
   }

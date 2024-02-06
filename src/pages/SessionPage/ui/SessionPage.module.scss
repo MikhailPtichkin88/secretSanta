@@ -1,0 +1,31 @@
+.sessionpage {
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    'sessionForm sessionForm sessionParticipants'
+    'cardsBlock cardsBlock sessionParticipants'
+    'cardsBlock cardsBlock sessionParticipants'
+    'cardsBlock cardsBlock sessionControlls'
+    'sessionChat sessionChat sessionChat';
+  gap: 10px;
+}
+
+.sessionForm {
+  grid-area: sessionForm;
+}
+
+.cardsBlock {
+  grid-area: cardsBlock;
+}
+
+.sessionParticipants {
+  grid-area: sessionParticipants;
+}
+
+.sessionControlls {
+  grid-area: sessionControlls;
+}
+
+.sessionChat {
+  grid-area: sessionChat;
+}

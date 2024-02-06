@@ -16,6 +16,7 @@ import {
   TSessionStatusFilter,
 } from '../model/types/types'
 import { ProfileSortIcons } from './SessionSortIcons/ProfileSortIcons'
+import { NavLink } from 'react-router-dom'
 
 interface SessionsTableProps {
   className?: string
@@ -51,7 +52,9 @@ export const ProfileSessionsTable = ({
       return (
         <tr key={v4()} className={cls.bodyRow}>
           <td className={cls.titleCell}>
-            <div>{session.title} </div>
+            <NavLink className={cls.link} to={`/session/${session._id}`}>
+              {session.title}{' '}
+            </NavLink>
           </td>
           <td className={cls.participantsCell}>{session.total_participants}</td>
           <td className={cls.createdAtCell}>{parseDate(session.createdAt)}</td>
@@ -71,13 +74,6 @@ export const ProfileSessionsTable = ({
     })
   }, [sessions])
 
-  if (isLoading) {
-    return (
-      <div style={{ margin: '0 auto' }}>
-        <Loader />
-      </div>
-    )
-  }
   return (
     <>
       <table className={classNames(cls.sessionstable, {}, [className])}>
@@ -132,8 +128,16 @@ export const ProfileSessionsTable = ({
             <th className={cls.headerCell}>{t('Описание')}</th>
           </tr>
         </thead>
-        <tbody>{tableContent}</tbody>
+        <tbody>{isLoading ? null : tableContent}</tbody>
       </table>
+      {isLoading && (
+        <div
+          className={cls.loaderWrapper}
+          style={{ minHeight: sessions?.length > 5 ? 500 : 200 }}
+        >
+          <Loader />
+        </div>
+      )}
     </>
   )
 }

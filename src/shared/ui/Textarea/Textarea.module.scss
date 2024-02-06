@@ -1,0 +1,22 @@
+.textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px;
+  border: none;
+  border: 1px solid var(--text-accent-color);
+  border-radius: 10px;
+  outline: none;
+  background-color: var(--bg-main-color);
+  color: var(--text-accent-color);
+
+  &:focus,
+  &:hover {
+    border-color: var(--border-focus);
+  }
+}
+
+.readonly {
+  border: none;
+  border-radius: 0;
+  pointer-events: none;
+}

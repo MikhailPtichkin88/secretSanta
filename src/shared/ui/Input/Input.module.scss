@@ -7,7 +7,8 @@
 .input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid var(--border-primary);
+
+  // border-bottom: 1px solid var(--border-primary);
   outline: none;
   color: var(--text-main-color);
   background-color: var(--bg-main-color);
@@ -18,6 +19,11 @@
 
   &:hover {
     box-shadow: 0 2px 4px 0 var(--hover-color);
+  }
+
+  &:not(.bordered):hover {
+    box-shadow: none;
+    border-bottom-color: var(--border-focus);
   }
 }
 
@@ -84,7 +90,8 @@
 
 .readonly {
   border: none;
-  border-bottom: 1px solid var(--border-primary);
+
+  // border-bottom: 1px solid var(--border-primary);
   border-radius: 0;
   pointer-events: none;
 }

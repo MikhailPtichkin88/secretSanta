@@ -1,5 +1,5 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './SessionForm.module.scss'
+import cls from '../CreateSessionModal.module.scss'
 import { useTranslation } from 'react-i18next'
 import { Input } from '@/shared/ui/Input'
 import { getCreateSessionTitle } from '../../model/selectors/getCreateSessionTitle'
@@ -13,6 +13,8 @@ import { Button } from '@/shared/ui/Button'
 import { useState } from 'react'
 import { ICreateSessionData } from '../../model/types/CreateSessionSchema'
 import { validateFields } from '../../model/lib/validateFields'
+import { createSession } from '../../model/services/createSession'
+import { Textarea } from '@/shared/ui/Textarea'
 
 interface SessionFormProps {
   className?: string
@@ -36,7 +38,7 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
   }
 
   const onChangeTotalParticipants = (value: string) => {
-    if (!Number.isNaN(value)) {
+    if (!Number.isNaN(Number(value))) {
       dispatch(createSessionActions.setTotalParticipants(Number(value)))
     }
   }
@@ -51,10 +53,12 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
   }
 
   const onSubmit = () => {
-    validateFields({ title, totalParticipants })
+    const errors = validateFields({ title, totalParticipants })
     if (!errors.length) {
-      console.log('ok')
+      dispatch(createSession({ title, totalParticipants, sessionInfo }))
+      return onClose()
     }
+    setErrors(errors)
   }
 
   return (
@@ -73,22 +77,6 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
           type="secondary"
           id={'sessionTitle'}
           className={cls.input}
-        />
-      </div>
-
-      <div className={cls.fieldWrapper}>
-        <label htmlFor={'sessionTotalParticipants'} className={cls.label}>
-          {t('Количество учатсников')}
-        </label>
-        <Input
-          value={totalParticipants}
-          onChange={onChangeTotalParticipants}
-          autoFocus
-          bordered={false}
-          size="size_l"
-          type="secondary"
-          id={'sessionTotalParticipants'}
-          className={cls.input}
           errorMessage={
             Boolean(errors.includes('title')) && t('Некорректные данные')
           }
@@ -96,17 +84,16 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
       </div>
 
       <div className={cls.fieldWrapper}>
-        <label htmlFor={'sessionInfo'} className={cls.label}>
-          {t('Описание')}
+        <label htmlFor={'sessionTotalParticipants'} className={cls.label}>
+          {t('Кол-во участников')}
         </label>
         <Input
-          value={sessionInfo}
-          onChange={onChangeSessionInfo}
-          autoFocus
+          value={totalParticipants}
+          onChange={onChangeTotalParticipants}
           bordered={false}
           size="size_l"
           type="secondary"
-          id={'sessionInfo'}
+          id={'sessionTotalParticipants'}
           className={cls.input}
           errorMessage={
             Boolean(errors.includes('totalParticipants')) &&
@@ -115,11 +102,24 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
         />
       </div>
 
+      <div className={cls.fieldWrapper}>
+        <label htmlFor={'sessionInfo'} className={cls.label}>
+          {t('Описание')}
+        </label>
+        <Textarea
+          minHeight={80}
+          value={sessionInfo}
+          onChange={onChangeSessionInfo}
+          id={'sessionInfo'}
+          className={cls.textarea}
+        />
+      </div>
+
       <div className={cls.buttonWrapper}>
         <Button theme="danger" outlined onClick={onClearData}>
           {t('Отменить')}
         </Button>
-        <Button outlined disabled={isLoading}>
+        <Button outlined disabled={isLoading} onClick={onSubmit}>
           {t('Создать')}
         </Button>
       </div>

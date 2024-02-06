@@ -14,6 +14,7 @@ interface RoleTabsProps {
   isLoading: boolean
   onTabChangeHandler: (tabName: string) => void
   onSearchHandler: (value: string) => void
+  onOpenCreateSessionModal: () => void
 }
 
 export const ProfileSessionsControlls = memo(
@@ -22,6 +23,7 @@ export const ProfileSessionsControlls = memo(
     isLoading,
     onTabChangeHandler,
     onSearchHandler,
+    onOpenCreateSessionModal,
   }: RoleTabsProps) => {
     const [searchValue, setSearchValue] = useState('')
 
@@ -58,7 +60,12 @@ export const ProfileSessionsControlls = memo(
             value={searchValue}
           />
         </div>
-        <Button theme="secondary" outlined className={cls.createSessionBtn}>
+        <Button
+          theme="secondary"
+          outlined
+          className={cls.createSessionBtn}
+          onClick={onOpenCreateSessionModal}
+        >
           <SantaIcon className={cls.icon} width={30} height={30} />
           {t('Создать сессию')}
         </Button>

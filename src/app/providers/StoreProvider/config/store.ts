@@ -6,6 +6,7 @@ import { authReducer } from '@/features/Authorization'
 import { profileReducer } from '@/entities/ProfileForm'
 import { profileSessionsReducer } from '@/features/ProfileSessions'
 import { createSessionReducer } from '@/features/CreateSessionForm'
+import { currentSessionReducer } from '@/features/SessionForm'
 
 const extraArg: ThunkExtraArg = {
   api: $api,
@@ -19,6 +20,7 @@ export function createReduxStore(initialState?: StateSchema) {
       profile: profileReducer,
       profileSessions: profileSessionsReducer,
       createSession: createSessionReducer,
+      currentSession: currentSessionReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ thunk: { extraArgument: extraArg } }),

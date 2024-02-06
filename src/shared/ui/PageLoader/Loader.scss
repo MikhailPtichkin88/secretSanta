@@ -3,6 +3,10 @@
   position: relative;
   width: 80px;
   height: 80px;
+
+  &.transparent {
+    background-color: transparent;
+  }
 }
 
 .lds-ellipsis div {

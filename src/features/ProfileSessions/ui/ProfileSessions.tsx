@@ -1,34 +1,38 @@
-import cls from './ProfileSessions.module.scss'
-import { useTranslation } from 'react-i18next'
-import { useCallback, useEffect } from 'react'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import { getProfileSessions } from '../model/services/getProfileSessions'
-import { useSelector } from 'react-redux'
-import { getProfileSessionsData } from '../model/selectors/getProfileSessionsData'
 import { ProfileSessionsControlls } from '@/entities/ProfileSessionsControlls'
-import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
-import { getProfileSessionsIsLoading } from '../model/selectors/getProfileSessionsIsLoading'
 import {
   ISession,
   ProfileSessionsTable,
   TSessionSortOrder,
   TSessionStatusFilter,
 } from '@/entities/ProfileSessionsTable'
-import { getProfileSessionsSortOrder } from '../model/selectors/getProfileSessionsSortOrder'
-import { getProfileSessionsSortBy } from '../model/selectors/getProfileSessionsSortBy'
-import { getProfileSessionsStatus } from '../model/selectors/getProfileSessionsStatus'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Pagination, TPerPage } from '@/shared/ui/Pagination'
+import { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { getProfileSessionsCurrentPage } from '../model/selectors/getProfileSessionsCurrentPage'
+import { getProfileSessionsData } from '../model/selectors/getProfileSessionsData'
+import { getProfileSessionsIsLoading } from '../model/selectors/getProfileSessionsIsLoading'
 import { getProfileSessionsPageLimit } from '../model/selectors/getProfileSessionsPageLimit'
-import { getProfileSessionsTotalPages } from '../model/selectors/getProfileSessionsTotalPages'
-import { getProfileSessionsSearch } from '../model/selectors/getProfileSessionsSearch'
 import { getProfileSessionsRole } from '../model/selectors/getProfileSessionsRole'
+import { getProfileSessionsSearch } from '../model/selectors/getProfileSessionsSearch'
+import { getProfileSessionsSortBy } from '../model/selectors/getProfileSessionsSortBy'
+import { getProfileSessionsSortOrder } from '../model/selectors/getProfileSessionsSortOrder'
+import { getProfileSessionsStatus } from '../model/selectors/getProfileSessionsStatus'
+import { getProfileSessionsTotalPages } from '../model/selectors/getProfileSessionsTotalPages'
+import { getProfileSessions } from '../model/services/getProfileSessions'
+import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
+import cls from './ProfileSessions.module.scss'
 
 interface SessionsTableProps {
   className?: string
+  onOpenCreateSessionModal: () => void
 }
 
-export const ProfileSessions = ({ className }: SessionsTableProps) => {
+export const ProfileSessions = ({
+  className,
+  onOpenCreateSessionModal,
+}: SessionsTableProps) => {
   const isLoading = useSelector(getProfileSessionsIsLoading)
   const sessions = useSelector(getProfileSessionsData)
   const sortOrder = useSelector(getProfileSessionsSortOrder)
@@ -101,6 +105,7 @@ export const ProfileSessions = ({ className }: SessionsTableProps) => {
     <div className={cls.wrapper}>
       <h2>Сессии выбора подарков</h2>
       <ProfileSessionsControlls
+        onOpenCreateSessionModal={onOpenCreateSessionModal}
         onSearchHandler={onSearchHandler}
         onTabChangeHandler={onTabChangeHandler}
         isLoading={isLoading}

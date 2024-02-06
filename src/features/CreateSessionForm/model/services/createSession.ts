@@ -2,6 +2,7 @@ import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ICreateSessionData } from '../types/CreateSessionSchema'
 import { ISession } from '@/entities/ProfileSessionsTable'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 export const createSession = createAsyncThunk<
   ISession,
@@ -22,10 +23,15 @@ export const createSession = createAsyncThunk<
       throw new Error()
     }
 
+    alertMessage({ type: 'success', message: 'Сессия успешно создана' })
     return res?.data
   } catch (error) {
+    alertMessage({
+      type: 'error',
+      message: error?.response?.data?.message || 'Ошибка при создании сессии',
+    })
     return rejectWithValue(
-      error?.response?.data?.message || 'Ошибка обновления пароля'
+      error?.response?.data?.message || 'Ошибка при создании сессии'
     )
   }
 })

@@ -19,6 +19,7 @@ export const alertMessage = ({
   notification.style.display = 'flex'
   notification.style.gap = '20px'
   notification.style.alignItems = 'center'
+  notification.style.fontFamily = 'gotham, sans-serif'
 
   icon.style.fontSize = '24px'
   text.textContent = message
