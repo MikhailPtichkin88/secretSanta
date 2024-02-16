@@ -1,0 +1,37 @@
+.editParticipantsBlock {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.cancelIcon {
+  width: 25px;
+  height: 25px;
+  stroke: var(--text-danger-color);
+}
+
+.okIcon {
+  width: 25px;
+  height: 25px;
+  stroke: var(--text-link-color);
+}
+
+.loader {
+  position: absolute;
+  height: 20px;
+  width: 70px;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  & > div {
+    width: 10px;
+    height: 10px;
+    top: 5px;
+  }
+}

@@ -1,9 +1,102 @@
 .sessionparticipants {
-  width: 100%;
-  min-width: 300px;
+  min-width: 350px;
+  padding: 15px;
+  max-height: 350px;
+  overflow-y: auto;
+  align-self: stretch;
 }
 
-.block {
-  min-height: 200px;
-  background-color: lightblue;
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.participantWrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+
+  .fullName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+  }
+}
+
+.status {
+  min-width: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.grey {
+  background-color: var(--bg-disabled-color);
+}
+
+.green {
+  background-color: var(--bg-accent-color);
+}
+
+.totalParticipantsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+
+  & > div:first-of-type {
+    max-width: 50px;
+  }
+
+  .number {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .editIcon {
+    display: none;
+    stroke: var(--text-danger-color);
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  svg {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.editParticipantsBlock {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cancelIcon {
+  width: 25px;
+  height: 25px;
+  stroke: var(--text-danger-color);
+}
+
+.okIcon {
+  width: 25px;
+  height: 25px;
+  stroke: var(--text-link-color);
 }

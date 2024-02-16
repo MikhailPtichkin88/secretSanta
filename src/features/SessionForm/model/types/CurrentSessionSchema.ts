@@ -1,4 +1,6 @@
 import { ISession } from '@/entities/ProfileSessionsTable'
+import { ICard } from '@/features/CardsBlock'
+import { IParticipant } from '@/features/SessionParticipants'
 
 export type TSessionUpdateData = Pick<
   ICurrentSessionData,
@@ -6,8 +8,8 @@ export type TSessionUpdateData = Pick<
 >
 
 export interface ICurrentSessionData extends Omit<ISession, 'cards'> {
-  cards: object[]
-  participants: object[]
+  cards: ICard[]
+  participants: IParticipant[]
 }
 
 export interface CurrentSessionSchema {

@@ -1,0 +1,68 @@
+.cardformfields {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  & > div {
+    width: 100%;
+  }
+
+  span {
+    color: var(--text-secondary-color);
+    font-size: 18px;
+    margin-right: auto;
+  }
+
+  input {
+    font-size: 16px;
+
+    &:read-only {
+      text-align: right;
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 525px) {
+    gap: 20px;
+
+    & > div {
+      max-width: 100%;
+      margin-left: 0;
+    }
+  }
+}
+
+.editBtnWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 20px;
+
+  .loader {
+    height: 40px;
+
+    & > div {
+      top: 13px;
+    }
+  }
+}
+
+.editBtn {
+  gap: 15px;
+
+  &.visible {
+    display: inline-flex;
+  }
+
+  svg {
+    stroke: var(--text-inverted-color);
+  }
+}

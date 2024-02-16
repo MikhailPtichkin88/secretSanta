@@ -1,0 +1,15 @@
+.cardeditform {
+  position: relative;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.closeIcon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  stroke: var(--text-accent-color);
+}

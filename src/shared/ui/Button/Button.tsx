@@ -1,6 +1,7 @@
 import { Mods, classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Button.module.scss'
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
+import { Loader } from '../PageLoader'
 
 export type ButtonType = 'primary' | 'accent' | 'secondary' | 'danger'
 export type ButtonSize = 'size_s' | 'size_m' | 'size_l'
@@ -12,6 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean
   disabled?: boolean
   children: ReactNode
+  loading?: boolean
 }
 
 export const Button = forwardRef(
@@ -24,6 +26,7 @@ export const Button = forwardRef(
       fullWidth = true,
       type = 'button',
       disabled,
+      loading,
       children,
       ...props
     }: ButtonProps,
@@ -43,10 +46,18 @@ export const Button = forwardRef(
         ])}
         ref={innerRef}
         type={type}
-        disabled={disabled}
+        disabled={disabled || loading}
         {...props}
       >
-        {children}
+        {loading ? (
+          <Loader
+            className={`${cls.loader} ${
+              theme === 'danger' ? cls.whiteFill : ''
+            }`}
+          />
+        ) : (
+          children
+        )}
       </button>
     )
   }

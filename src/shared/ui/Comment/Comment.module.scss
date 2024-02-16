@@ -1,0 +1,56 @@
+.comment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.avatarImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.textWrapper {
+  flex-grow: 2;
+}
+
+.userName {
+  color: var(--text-danger-color);
+  margin-bottom: 10px;
+  letter-spacing: 0;
+}
+
+.text {
+  padding-left: 20px;
+}
+
+.createdAt {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+}
+
+.editBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.editIcon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-danger-color);
+  cursor: pointer;
+}
+
+.confirmBlock {
+  flex-direction: column;
+  padding-left: 10px;
+  align-items: flex-end;
+
+  & > div:nth-child(3) {
+    left: 100%;
+    transform: translateX(-100%);
+  }
+}

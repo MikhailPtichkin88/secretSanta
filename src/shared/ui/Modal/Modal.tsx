@@ -9,6 +9,7 @@ import { Overlay } from './Overlay/Overlay'
 
 interface ModalProps {
   className?: string
+  contentClassName?: string
   children?: ReactNode
   isOpen?: boolean
   onClose?: () => void
@@ -23,6 +24,7 @@ export const Modal = ({
   isOpen,
   onClose,
   lazy,
+  contentClassName,
 }: ModalProps) => {
   const { theme } = useTheme()
 
@@ -46,7 +48,12 @@ export const Modal = ({
         className={classNames(cls.modal, mods, [className, theme, 'app_modal'])}
       >
         <Overlay onClick={close}>
-          <div onClick={(e) => e.stopPropagation()} className={cls.content}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={`${contentClassName ? contentClassName : ''} ${
+              cls.content
+            }`}
+          >
             {children}
           </div>
         </Overlay>

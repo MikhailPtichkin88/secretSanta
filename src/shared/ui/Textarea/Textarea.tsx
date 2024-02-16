@@ -21,6 +21,7 @@ export const Textarea = ({
   readonly,
   onChange,
   minHeight = 100,
+  ...props
 }: TextareaProps) => {
   return (
     <textarea
@@ -31,6 +32,7 @@ export const Textarea = ({
       className={classNames(cls.textarea, { [cls.readonly]: readonly }, [
         className,
       ])}
+      {...props}
     />
   )
 }

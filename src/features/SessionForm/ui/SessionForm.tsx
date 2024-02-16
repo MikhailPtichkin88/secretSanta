@@ -1,39 +1,45 @@
+import { SessionFormFields } from '@/entities/SessionFormFields'
+import { SessionImg } from '@/entities/SessionImg/ui/SessionImg'
 import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './SessionForm.module.scss'
-import { useCallback, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { getProfileSession } from '../model/services/getCurrentSession'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Card } from '@/shared/ui/Card'
-import { SessionImg } from '@/entities/SessionImg/ui/SessionImg'
+import { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { getCurrentSessionImg } from '../model/selectors/getCurrentSessionImg'
-import { updateCurrentSession } from '../model/services/updateCurrentSession'
-import { getCurrentSessionIsLoading } from '../model/selectors/getCurrentSessionIsLoading'
-import { deleteSessionImg } from '../model/services/deleteSessionImg'
-import { SessionFormFields } from '@/entities/SessionFormFields'
 import { getCurrentSessionInfo } from '../model/selectors/getCurrentSessionInfo'
+import { getCurrentSessionIsLoading } from '../model/selectors/getCurrentSessionIsLoading'
 import { getCurrentSessionTitle } from '../model/selectors/getCurrentSessionTitle'
-import { getCurrentSessionTotalPart } from '../model/selectors/getCurrentSessionTotalPart'
+import { deleteSessionImg } from '../model/services/deleteSessionImg'
+import { getProfileSession } from '../model/services/getCurrentSession'
+import { updateCurrentSession } from '../model/services/updateCurrentSession'
+import cls from './SessionForm.module.scss'
 
 interface SessionCardProps {
+  sessionId: string
   className?: string
+  isCreator: boolean
+  participantId: string
+  isLoadingParticipants: boolean
 }
 
-export const SessionForm = ({ className }: SessionCardProps) => {
+export const SessionForm = ({
+  sessionId,
+  className,
+  isCreator,
+  participantId,
+  isLoadingParticipants,
+}: SessionCardProps) => {
   const sessionImg = useSelector(getCurrentSessionImg)
   const title = useSelector(getCurrentSessionTitle)
   const info = useSelector(getCurrentSessionInfo)
 
   const isLoading = useSelector(getCurrentSessionIsLoading)
 
-  const { id } = useParams()
-
   const dispatch = useAppDispatch()
 
   const deleteImgHandler = useCallback(() => {
-    dispatch(deleteSessionImg(id))
-  }, [dispatch, id])
+    dispatch(deleteSessionImg(sessionId))
+  }, [dispatch, sessionId])
 
   const changeSessionImg = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +55,7 @@ export const SessionForm = ({ className }: SessionCardProps) => {
         ) {
           const formData = new FormData()
           formData.append('session_img', file)
-          dispatch(updateCurrentSession({ sessionId: id, data: formData }))
+          dispatch(updateCurrentSession({ sessionId, data: formData }))
         } else {
           alert(
             'Please upload a file smaller than 500 KB and of type JPEG, PNG, or JPG'
@@ -62,17 +68,18 @@ export const SessionForm = ({ className }: SessionCardProps) => {
 
   const onUpdateHandler = useCallback(
     (data: FormData) => {
-      return dispatch(updateCurrentSession({ sessionId: id, data }))
+      return dispatch(updateCurrentSession({ sessionId, data }))
     },
-    [dispatch, id]
+    [dispatch, sessionId]
   )
 
   useEffect(() => {
-    dispatch(getProfileSession(id))
+    dispatch(getProfileSession(sessionId))
   }, [])
   return (
     <Card className={classNames(cls.sessionform, {}, [className])}>
       <SessionImg
+        isCreator={isCreator}
         sessionImg={sessionImg}
         isLoading={isLoading}
         onDeleteImg={deleteImgHandler}
@@ -80,9 +87,12 @@ export const SessionForm = ({ className }: SessionCardProps) => {
       />
 
       <SessionFormFields
+        isCreator={isCreator}
         title={title}
         info={info}
         isLoading={isLoading}
+        participantId={participantId}
+        isLoadingParticipants={isLoadingParticipants}
         onUpdateData={onUpdateHandler}
       />
     </Card>

@@ -3,17 +3,24 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { Loader } from '@/shared/ui/PageLoader'
+import { Textarea } from '@/shared/ui/Textarea'
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { validateFields } from '../lib/validateFields'
 import cls from './SessionForm.module.scss'
-import { Textarea } from '@/shared/ui/Textarea'
+import ExitIcon from '@/shared/assets/icons/logout.svg'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { deleteSessionParticipants } from '@/features/SessionParticipants/model/services/removeSessionParticipants'
+import { ConfirmBlock } from '@/shared/ui/ConfirmBlock'
 
 interface SessionFormProps {
   title: string
   info: string
+  isCreator: boolean
   isLoading?: boolean
   className?: string
+  participantId: string
+  isLoadingParticipants: boolean
   onUpdateData?: (data: FormData) => Promise<unknown>
 }
 
@@ -22,8 +29,10 @@ export const SessionFormFields = memo(
     className,
     title,
     info,
-
+    isCreator,
     isLoading,
+    participantId,
+    isLoadingParticipants,
     onUpdateData,
   }: SessionFormProps) => {
     const [sessionTitle, setSessionTitle] = useState('')
@@ -31,13 +40,15 @@ export const SessionFormFields = memo(
 
     const [errors, setErrors] = useState([])
     const [isEditMode, setIsEditMode] = useState(false)
+    const [isShowConfirm, setIsShowConfirm] = useState(false)
+
+    const dispatch = useAppDispatch()
 
     const { t } = useTranslation('profile')
 
     const resetProfileData = () => {
       setSessionTitle(title)
       setSessionInfo(info)
-      setSessionInfo
       setIsEditMode(false)
     }
 
@@ -56,6 +67,11 @@ export const SessionFormFields = memo(
         onUpdateData(formData).then(() => setIsEditMode(false))
       }
     }
+    const onLeaveSessionHandler = async () => {
+      await dispatch(deleteSessionParticipants(participantId))
+      setIsShowConfirm(false)
+    }
+
     useEffect(() => {
       if (title) {
         setSessionTitle(title)
@@ -122,14 +138,37 @@ export const SessionFormFields = memo(
               </Button>
             </>
           ) : (
-            <Button
-              theme="secondary"
-              className={cls.editBtn}
-              onClick={() => setIsEditMode(true)}
-            >
-              <EditIcon />
-              <span>{t('Редактировать')}</span>
-            </Button>
+            <div className={cls.leaveEditBtnsWrapper}>
+              <Button
+                theme="secondary"
+                className={`${isCreator ? cls.visible : ''} ${cls.editBtn}`}
+                onClick={() => setIsEditMode(true)}
+              >
+                <EditIcon />
+                <span>{t('Редактировать')}</span>
+              </Button>
+
+              {!isShowConfirm && participantId && (
+                <Button
+                  theme="danger"
+                  className={`${participantId ? cls.visible : ''} ${
+                    cls.exitBtn
+                  }`}
+                  onClick={() => setIsShowConfirm(true)}
+                >
+                  <ExitIcon />
+                  <span>{t('Покинуть сессию')}</span>
+                </Button>
+              )}
+
+              <ConfirmBlock
+                label={'Вы уверены? Ваша карточка будет удалена'}
+                isShow={isShowConfirm}
+                onCancel={() => setIsShowConfirm(false)}
+                onOkHandler={onLeaveSessionHandler}
+                isLoading={isLoadingParticipants}
+              />
+            </div>
           )}
         </div>
       </div>

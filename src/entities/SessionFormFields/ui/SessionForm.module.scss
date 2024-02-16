@@ -1,9 +1,9 @@
 .sessionform {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-self: stretch;
 }
 
 .container {
@@ -62,14 +62,45 @@
   max-width: 150px;
 }
 
+.leaveEditBtnsWrapper {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
 .editBtn {
+  display: none;
   margin-left: auto;
   max-width: 200px;
-  display: inline-flex;
   gap: 10px;
   align-items: center;
+  min-height: 49px;
+
+  &.visible {
+    display: inline-flex;
+  }
 
   svg {
     stroke: var(--text-inverted-color);
+  }
+}
+
+.exitBtn {
+  max-width: 200px;
+  display: none;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 25px;
+    height: 25px;
+    fill: var(--text-inverted-color);
+  }
+
+  &.visible {
+    padding: 12px;
+    display: inline-flex;
   }
 }

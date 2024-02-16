@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import cls from './ProfileAvatar.module.scss'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Loader } from '@/shared/ui/PageLoader/Loader'
+import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 
 interface ProfileAvatarProps {
   className?: string
@@ -28,9 +29,7 @@ export const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
   const dispatch = useAppDispatch()
   const { avatarUrl } = useSelector(getUserData)
 
-  const [userAvatar, setUserAvatar] = useState(
-    `${__API__}/uploads/avatars/${avatarUrl}`
-  )
+  const [userAvatar, setUserAvatar] = useState(``)
 
   const deleteUserAvatarHandler = () => {
     if (!isLoading) {
@@ -42,7 +41,7 @@ export const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
     if (!avatarUrl) {
       setUserAvatar(avatarPlaceholder)
     } else {
-      setUserAvatar(`${__API__}/uploads/avatars/${avatarUrl}`)
+      setUserAvatar(createUserAvatarUrl(avatarUrl))
     }
   }, [avatarUrl])
 

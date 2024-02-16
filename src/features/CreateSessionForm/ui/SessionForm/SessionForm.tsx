@@ -72,7 +72,6 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
           value={title}
           onChange={onChangeTitleHandler}
           autoFocus
-          bordered={false}
           size="size_l"
           type="secondary"
           id={'sessionTitle'}
@@ -90,7 +89,6 @@ const SessionForm = ({ className, onClose }: SessionFormProps) => {
         <Input
           value={totalParticipants}
           onChange={onChangeTotalParticipants}
-          bordered={false}
           size="size_l"
           type="secondary"
           id={'sessionTotalParticipants'}

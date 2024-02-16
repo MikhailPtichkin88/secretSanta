@@ -1,6 +1,6 @@
-import { getUserAvatar, getUserData, getUserId } from '@/entities/User'
+import { getUserData, getUserId } from '@/entities/User'
 import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
-import placeholder from '@/shared/assets/img/avatar.png'
+import placeholder from '@/shared/assets/img/profile_avatar.png'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { Tooltip } from '@/shared/ui/Tooltip'
 import { useEffect, useState } from 'react'

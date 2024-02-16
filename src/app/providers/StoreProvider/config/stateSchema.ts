@@ -6,6 +6,10 @@ import { authSchema } from '@/features/Authorization'
 import { ProfileSessionsSchema } from '@/features/ProfileSessions'
 import { AxiosInstance } from 'axios'
 import { CurrentSessionSchema } from '@/features/SessionForm'
+import { ParticipantsSchema } from '@/features/SessionParticipants'
+import { CardsBlockSchema } from '@/features/CardsBlock'
+import { CardSchema } from '@/features/CardEditForm'
+import { CommentSchema } from '@/features/SessionComments'
 
 export interface StateSchema {
   auth: authSchema
@@ -14,6 +18,10 @@ export interface StateSchema {
   profileSessions: ProfileSessionsSchema
   createSession: CreateSessionSchema
   currentSession: CurrentSessionSchema
+  participants: ParticipantsSchema
+  cardsBlock: CardsBlockSchema
+  card: CardSchema
+  comment: CommentSchema
 }
 
 export interface ThunkExtraArg {

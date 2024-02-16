@@ -1,6 +1,9 @@
 @use '@/app/styles/mixines/mixines.scss' as mixins;
 
 .button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 6px;
   color: var(--button-font-color);
   border: none;
@@ -13,6 +16,23 @@
     opacity: 0.8;
     pointer-events: none;
     color: var(--text-secondary-color);
+  }
+
+  .loader {
+    height: 20px;
+    width: 70px;
+
+    & > div {
+      width: 10px;
+      height: 10px;
+      top: 5px;
+    }
+
+    &.whiteFill {
+      & > div {
+        background: var(--bg-main-color);
+      }
+    }
   }
 }
 

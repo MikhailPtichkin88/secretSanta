@@ -1,8 +1,32 @@
-.cardsblock {
-  width: 100%;
+.cardsWrapper {
+  padding: 20px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 }
 
-.block {
-  min-height: 100%;
-  background-color: azure;
+.cardsblock {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.placeholderCard {
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-secondary-color);
+  box-shadow: 2px 2px 8px 0 var(--card-shadow-color);
+  display: inline-flex;
+  align-items: center;
+
+  img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+  }
 }

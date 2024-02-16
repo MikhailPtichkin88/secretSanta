@@ -1,0 +1,39 @@
+.sessioncard {
+  width: 100%;
+  width: 120px;
+  height: 170px;
+  border-radius: 14px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  border-color: var(--bg-secondary-color);
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  max-height: 120px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.infoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  gap: 5px;
+}
+
+.cardName {
+  width: 85px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardIcon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-link-color);
+}

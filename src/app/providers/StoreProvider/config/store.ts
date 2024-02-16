@@ -7,6 +7,10 @@ import { profileReducer } from '@/entities/ProfileForm'
 import { profileSessionsReducer } from '@/features/ProfileSessions'
 import { createSessionReducer } from '@/features/CreateSessionForm'
 import { currentSessionReducer } from '@/features/SessionForm'
+import { participantsReducer } from '@/features/SessionParticipants'
+import { cardsBlockReducer } from '@/features/CardsBlock'
+import { cardSliceReducer } from '@/features/CardEditForm'
+import { commentReducer } from '@/features/SessionComments/model/slice/commentSlice'
 
 const extraArg: ThunkExtraArg = {
   api: $api,
@@ -21,6 +25,10 @@ export function createReduxStore(initialState?: StateSchema) {
       profileSessions: profileSessionsReducer,
       createSession: createSessionReducer,
       currentSession: currentSessionReducer,
+      participants: participantsReducer,
+      cardsBlock: cardsBlockReducer,
+      card: cardSliceReducer,
+      comment: commentReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ thunk: { extraArgument: extraArg } }),

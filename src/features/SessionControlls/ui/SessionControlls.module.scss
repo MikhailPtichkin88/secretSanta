@@ -1,8 +1,27 @@
 .sessioncontrolls {
   width: 100%;
-}
+  max-width: 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
 
-.block {
-  min-height: 200px;
-  background-color: lightgoldenrodyellow;
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    button {
+      max-width: 190px;
+      line-height: 20px;
+    }
+  }
 }
