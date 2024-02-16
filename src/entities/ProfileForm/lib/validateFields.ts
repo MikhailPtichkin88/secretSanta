@@ -9,11 +9,14 @@ export const validateFields = (fields: ProfileSchema) => {
   if (!emailRegex.test(fields.email)) {
     errors.push('email')
   }
-  if (fields.city.trim().length < 2 || fields.city.trim().length > 50) {
+  if (
+    fields.city &&
+    (fields.city.trim().length < 2 || fields.city.trim().length > 50)
+  ) {
     errors.push('city')
   }
   if (
-    !Number.isNaN(fields.city) &&
+    !Number.isNaN(fields.age) &&
     (Number(fields.age) <= 0 || Number(fields.age) >= 100)
   ) {
     errors.push('age')

@@ -1,4 +1,3 @@
-import SuccessIcon from '@/shared/assets/icons/success_circle.svg'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Button } from '@/shared/ui/Button'
@@ -8,15 +7,15 @@ import { Input } from '@/shared/ui/Input'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { validateAuthData } from '../../model/lib/validateAuthData'
-import { getAuthError } from '../../model/selectors/getAuthError'
 import { getAuthIsLoading } from '../../model/selectors/getAuthIsLoading'
 import { getIsAuthResult } from '../../model/selectors/getIsAuthResult'
 import { register } from '../../model/services/loginOrRegister'
 import { authActions } from '../../model/slice/authSlice'
 import { IAuthData } from '../../model/types/authSchema'
 import cls from './RegisterForm.module.scss'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 interface RegisterFormProps {
   className?: string
@@ -25,7 +24,6 @@ interface RegisterFormProps {
 export const RegisterForm = ({ className }: RegisterFormProps) => {
   const { t } = useTranslation()
   const isRegistered = useSelector(getIsAuthResult)
-  const error = useSelector(getAuthError)
   const isLoading = useSelector(getAuthIsLoading)
 
   const dispatch = useAppDispatch()
@@ -34,8 +32,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
   const [errors, setErrors] = useState<Array<Partial<IAuthData>>>([])
-
-  const navigate = useNavigate()
+  const location = useLocation()
 
   const onChangeHandler = (
     value: string,
@@ -79,12 +76,6 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
   }
 
   useEffect(() => {
-    if (error) {
-      setErrors([{ email: error }, { password: ' ' }])
-    }
-  }, [error])
-
-  useEffect(() => {
     return () => {
       dispatch(authActions.setAuthResult(false))
       dispatch(authActions.resetAuthError())
@@ -92,86 +83,75 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
     }
   }, [])
 
+  if (isRegistered) {
+    const redirectPath = localStorage.getItem('redirectPath')
+
+    if (redirectPath) {
+      localStorage.removeItem('redirectPath')
+      alertMessage({
+        type: 'success',
+        message: 'Учетная запись успешно создана',
+      })
+      return (
+        <Navigate to={redirectPath} state={{ from: location }} replace={true} />
+      )
+    }
+  }
+
   return (
     <Card className={classNames(cls.registerform, {}, [className])}>
-      {!isRegistered ? (
-        <>
-          <h2 className={cls.title}>{t('Регистрация')}</h2>
-          <span className={cls.emailLabel}>{t('Почта')}</span>
-          <Input
-            className={cls.emailInput}
-            placeholder={'example@gmail.com'}
-            state={errors.find((error) => error.email) ? 'error' : null}
-            value={emailValue}
-            onChange={(value) => onChangeHandler(value, 'email')}
-            errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
-            onPressEnter={onSubmitHandler}
-          />
-          <span className={cls.passwordLabel}>{t('Пароль')}</span>
-          <Input
-            value={passwordValue}
-            onChange={(value) => onChangeHandler(value, 'password')}
-            className={cls.passwordInput}
-            placeholder={t('Пароль')}
-            state={errors.find((error) => error.password) ? 'error' : null}
-            passwordMode
-            errorMessage={t(
-              `${errors.find((error) => error.password)?.password}`
-            )}
-            onPressEnter={onSubmitHandler}
-          />
-          <span className={cls.passwordLabel}>{t('Подтвердите пароль')}</span>
-          <Input
-            value={confirmPasswordValue}
-            onChange={(value) => onChangeHandler(value, 'confirm')}
-            className={cls.passwordInput}
-            placeholder={t('Подтвердите пароль')}
-            state={errors.find((error) => error.password) ? 'error' : null}
-            passwordMode
-            errorMessage={t(
-              `${errors.find((error) => error.password)?.password}`
-            )}
-            onPressEnter={onSubmitHandler}
-          />
-          <Checkbox
-            className={cls.rememberMe}
-            label={t('Запомнить меня')}
-            checked={rememberMe}
-            onChange={setRememberMe}
-          />
-          <div className={cls.regLinkBlock}>
-            <span>{t('Уже есть учетная запись?')}</span>
-            <NavLink to="/login" className={cls.regLink}>
-              {t('Вход')}
-            </NavLink>
-          </div>
-          <Button
-            disabled={isLoading}
-            theme="secondary"
-            onClick={onSubmitHandler}
-          >
-            {t('Продолжить')}
-          </Button>
-        </>
-      ) : (
-        <>
-          {/* показываем уведомление и кнопку с редиректом после отправки письма */}
-          <h2 className={cls.title}>{t('Регистрация')}</h2>
-          <div className={cls.noticeBlock}>
-            <SuccessIcon className={cls.successIcon} />
-            <p className={cls.noticeText}>
-              {t('Учетная запись успешно создана')}
-            </p>
-          </div>
-          <Button
-            disabled={isLoading}
-            theme="secondary"
-            onClick={() => navigate('/login')}
-          >
-            {t('Вход')}
-          </Button>
-        </>
-      )}
+      <h2 className={cls.title}>{t('Регистрация')}</h2>
+      <span className={cls.emailLabel}>{t('Почта')}</span>
+      <Input
+        className={cls.emailInput}
+        placeholder={'example@gmail.com'}
+        state={errors.find((error) => error.email) ? 'error' : null}
+        value={emailValue}
+        onChange={(value) => onChangeHandler(value, 'email')}
+        errorMessage={t(`${errors.find((error) => error.email)?.email ?? ''}`)}
+        onPressEnter={onSubmitHandler}
+      />
+      <span className={cls.passwordLabel}>{t('Пароль')}</span>
+      <Input
+        value={passwordValue}
+        onChange={(value) => onChangeHandler(value, 'password')}
+        className={cls.passwordInput}
+        placeholder={t('Пароль')}
+        state={errors.find((error) => error.password) ? 'error' : null}
+        passwordMode
+        errorMessage={t(
+          `${errors.find((error) => error.password)?.password ?? ''}`
+        )}
+        onPressEnter={onSubmitHandler}
+      />
+      <span className={cls.passwordLabel}>{t('Подтвердите пароль')}</span>
+      <Input
+        value={confirmPasswordValue}
+        onChange={(value) => onChangeHandler(value, 'confirm')}
+        className={cls.passwordInput}
+        placeholder={t('Подтвердите пароль')}
+        state={errors.find((error) => error.password) ? 'error' : null}
+        passwordMode
+        errorMessage={t(
+          `${errors.find((error) => error.password)?.password ?? ''}`
+        )}
+        onPressEnter={onSubmitHandler}
+      />
+      <Checkbox
+        className={cls.rememberMe}
+        label={t('Запомнить меня')}
+        checked={rememberMe}
+        onChange={setRememberMe}
+      />
+      <div className={cls.regLinkBlock}>
+        <span>{t('Уже есть учетная запись?')}</span>
+        <NavLink to="/login" className={cls.regLink}>
+          {t('Вход')}
+        </NavLink>
+      </div>
+      <Button disabled={isLoading} theme="secondary" onClick={onSubmitHandler}>
+        {t('Продолжить')}
+      </Button>
     </Card>
   )
 }

@@ -15,7 +15,7 @@ export const authMe = createAsyncThunk<User, void, ThunkConfig<string>>(
       if (!res.data) {
         const token = localStorage.getItem(LOCAL_STORAGE_USER_TOKEN)
         if (token) {
-          localStorage.setItem(LOCAL_STORAGE_USER_TOKEN, token)
+          localStorage.removeItem(LOCAL_STORAGE_USER_TOKEN)
         }
         throw new Error()
       }

@@ -10,6 +10,7 @@ import { useDebounce } from '@/shared/lib/hooks/useDebounce'
 import cls from './ProfileSessionsControlls.module.scss'
 
 interface RoleTabsProps {
+  role: string
   className?: string
   isLoading: boolean
   onTabChangeHandler: (tabName: string) => void
@@ -19,6 +20,7 @@ interface RoleTabsProps {
 
 export const ProfileSessionsControlls = memo(
   ({
+    role,
     className,
     isLoading,
     onTabChangeHandler,
@@ -48,6 +50,7 @@ export const ProfileSessionsControlls = memo(
             tabTitleSecond={t('Участник')}
             onTabChange={onTabChangeHandler}
             loading={isLoading}
+            defaultCheckedIndex={role === 'creator' ? 0 : 1}
           />
         </div>
         <div className={cls.searchBlock}>

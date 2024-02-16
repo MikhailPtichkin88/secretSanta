@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { User, UserSchema } from '../types/userSchema'
-import { LOCAL_STORAGE_USER_TOKEN } from '@/shared/const/const'
+import {
+  LOCAL_STORAGE_REDIRECT_PATH,
+  LOCAL_STORAGE_USER_TOKEN,
+} from '@/shared/const/const'
 import { deleteUserAvatar } from '../services/deleteUserAvatar'
 import { updateUser } from '../services/updateUser'
 
@@ -26,6 +29,7 @@ const userSlice = createSlice({
       state._inited = false
       state.user = {}
       localStorage.removeItem(LOCAL_STORAGE_USER_TOKEN)
+      localStorage.removeItem(LOCAL_STORAGE_REDIRECT_PATH)
     },
   },
   extraReducers: (builder) => {

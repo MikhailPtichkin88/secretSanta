@@ -88,6 +88,7 @@ export const CardEditForm = ({
       isOpen={isOpen}
       onClose={onClose}
       contentClassName={classNames(cls.cardeditform, {}, [className])}
+      lazy
     >
       <CloseIcon className={cls.closeIcon} onClick={onClose} />
       <CardImg

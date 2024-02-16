@@ -34,11 +34,11 @@ export const CommentsList = ({ className, userId }: CommentsListProps) => {
           key={_id}
           commentId={_id}
           updatedAt={updatedAt}
-          canEdit={userId === user._id}
+          canEdit={userId === user?._id}
           text={text}
           createdAt={createdAt}
-          avatarImg={user.avatarUrl}
-          userName={user.fullName}
+          avatarImg={user?.avatarUrl}
+          userName={user?.fullName}
           onChangeComment={onChangeComment}
         />
       ))}

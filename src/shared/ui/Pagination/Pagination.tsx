@@ -184,7 +184,7 @@ export const Pagination = memo(
     }, [total, current])
 
     return (
-      <div className={cls.wrapper}>
+      <div className={`${cls.wrapper} ${total < 10 ? cls.hidden : ''}`}>
         <div className={cls.pagination}>{renderPages}</div>
         {onPerPageChange && (
           <Select<TPerPage>

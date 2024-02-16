@@ -9,6 +9,7 @@ interface TabsProps {
   className?: string
   tabTitleFirst: string
   tabTitleSecond: string
+  defaultCheckedIndex?: number
   onTabChange: (tabName: string) => void
 }
 
@@ -18,11 +19,11 @@ export const Tabs = ({
   tabTitleSecond,
   onTabChange,
   loading,
+  defaultCheckedIndex,
 }: TabsProps) => {
-  const [_, setActiveTab] = useState('tab1')
+  const [selectedIndex, setSelectedIndex] = useState(defaultCheckedIndex ?? 0)
 
   const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId)
     onTabChange(tabId)
   }
 
@@ -30,7 +31,7 @@ export const Tabs = ({
     <div
       className={classNames(cls.tabs, { [cls.loading]: loading }, [className])}
     >
-      <Tab.Group defaultIndex={0}>
+      <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <Tab.List>
           <Tab
             className={({ selected }) => `

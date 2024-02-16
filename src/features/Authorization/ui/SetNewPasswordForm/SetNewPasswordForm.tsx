@@ -105,7 +105,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
             passwordMode
             onPressEnter={onSubmitHandler}
             errorMessage={t(
-              `${errors.find((error) => error.password)?.password}`
+              `${errors.find((error) => error.password)?.password ?? ''}`
             )}
           />
           <span className={cls.passwordLabel}>{t('Подтвердите пароль')}</span>
@@ -118,7 +118,7 @@ export const SetNewPasswordForm = ({ className }: SetNewPasswordFormProps) => {
             marginBottom={20}
             passwordMode
             errorMessage={t(
-              `${errors.find((error) => error.password)?.password}`
+              `${errors.find((error) => error.password)?.password ?? ''}`
             )}
             onPressEnter={onSubmitHandler}
           />

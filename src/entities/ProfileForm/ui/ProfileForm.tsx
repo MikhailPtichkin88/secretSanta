@@ -41,9 +41,9 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
     setIsEditMode(false)
   }
 
-  const updateProfileData = () => {
+  const updateProfileData = async () => {
     setErrors([])
-    const errors = validateFields({ fullName, email, city, age })
+    const errors = validateFields({ fullName, email })
     setErrors(errors)
 
     if (!errors.length) {
@@ -53,8 +53,9 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
       formData.append('age', String(age))
       formData.append('city', city)
 
-      dispatch(updateUser(formData)).then(() => setIsEditMode(false))
+      await dispatch(updateUser(formData))
     }
+    setIsEditMode(false)
   }
 
   return (

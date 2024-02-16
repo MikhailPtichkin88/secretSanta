@@ -16,7 +16,7 @@ const profileSlice = createSlice({
     setProfileData: (state, { payload }: PayloadAction<User>) => {
       state.fullName = payload.fullName
       state.email = payload.email
-      state.age = String(payload.age)
+      state.age = String(payload.age ?? '')
       state.city = payload.city
     },
     setProfileName: (state, { payload }: PayloadAction<string>) => {

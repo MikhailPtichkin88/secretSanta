@@ -86,6 +86,14 @@ export const LoginForm = ({ className }: LoginFormProps) => {
   }, [])
 
   if (inited) {
+    const redirectPath = localStorage.getItem('redirectPath')
+
+    if (redirectPath) {
+      localStorage.removeItem('redirectPath')
+      return (
+        <Navigate to={redirectPath} state={{ from: location }} replace={true} />
+      )
+    }
     return (
       <Navigate to={`/profile/${userId}`} state={{ from: location }} replace />
     )
@@ -98,10 +106,9 @@ export const LoginForm = ({ className }: LoginFormProps) => {
       <Input
         className={cls.emailInput}
         placeholder={'example@gmail.com'}
-        state={errors.find((error) => error.email) ? 'error' : null}
         value={emailValue}
         onChange={(value) => onChangeHandler(value, 'email')}
-        errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
+        errorMessage={t(`${errors?.find((error) => error.email)?.email ?? ''}`)}
         onPressEnter={onSubmitHandler}
       />
       <span className={cls.passwordLabel}>{t('Пароль')}</span>
@@ -112,7 +119,9 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         placeholder={t('Пароль')}
         state={errors.find((error) => error.password) ? 'error' : null}
         passwordMode
-        errorMessage={t(`${errors.find((error) => error.password)?.password}`)}
+        errorMessage={t(
+          `${errors?.find((error) => error.password)?.password ?? ''}`
+        )}
         onPressEnter={onSubmitHandler}
       />
       <Checkbox

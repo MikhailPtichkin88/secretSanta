@@ -105,6 +105,7 @@ export const ProfileSessions = ({
     <div className={cls.wrapper}>
       <h2>Сессии выбора подарков</h2>
       <ProfileSessionsControlls
+        role={role}
         onOpenCreateSessionModal={onOpenCreateSessionModal}
         onSearchHandler={onSearchHandler}
         onTabChangeHandler={onTabChangeHandler}

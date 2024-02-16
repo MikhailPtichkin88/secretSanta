@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { getParticipantsData } from '../model/selectors/getParticipantsData'
 import { getSessionParticipants } from '../model/services/getSessionParticipants'
 import cls from './SessionParticipants.module.scss'
+import placeholer from '@/shared/assets/img/profile_avatar.png'
 
 interface SessionParticipantsProps {
   sessionId: string
@@ -103,8 +104,11 @@ export const SessionParticipants = ({
             <img
               src={`${__API__}/uploads/avatars/${part?.user?.avatarUrl}`}
               alt="participant avatar"
+              onError={(e) => ((e.target as HTMLImageElement).src = placeholer)}
             />
-            <div className={cls.fullName}>{part?.user?.fullName}</div>
+            <div className={cls.fullName}>
+              {part?.user?.fullName ?? 'Новый участник'}
+            </div>
           </div>
         )
       })}

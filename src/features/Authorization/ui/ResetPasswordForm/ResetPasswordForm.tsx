@@ -72,7 +72,9 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
             state={errors.find((error) => error.email) ? 'error' : null}
             value={emailValue}
             onChange={(value) => onChangeHandler(value)}
-            errorMessage={t(`${errors.find((error) => error.email)?.email}`)}
+            errorMessage={t(
+              `${errors.find((error) => error.email)?.email ?? ''}`
+            )}
             marginBottom={25}
             onPressEnter={onSubmitHandler}
           />

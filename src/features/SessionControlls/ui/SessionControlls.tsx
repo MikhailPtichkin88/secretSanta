@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import cls from './SessionControlls.module.scss'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 interface SessionControllsProps {
   sessionId: string
@@ -49,6 +50,24 @@ export const SessionControlls = ({
     setIsShowConfirmBlock(false)
   }
 
+  const handleCopyLink = () => {
+    const currentUrl = window.location.href
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        alertMessage({
+          type: 'success',
+          message: 'URL скопирован в буфер обмена!',
+        })
+      })
+      .catch((err) => {
+        alertMessage({
+          type: 'error',
+          message: `Не удалось скопировать URL: ', ${err}`,
+        })
+      })
+  }
+
   return (
     <Card className={classNames(cls.sessioncontrolls, {}, [className])}>
       <h3>{t('Управление')}</h3>
@@ -65,13 +84,21 @@ export const SessionControlls = ({
         )}
         {/* 2 шаг - создаем карточку */}
         {isParticipant && !cardId && (
-          <Button onClick={onCreateCard} outlined>
-            {t('Создать карточку')}
-          </Button>
+          <Flex direction="column" gap="16" className={cls.buttonWrapper}>
+            <Button theme="secondary" outlined onClick={handleCopyLink}>
+              {t('Скопировать ссылку')}
+            </Button>
+            <Button onClick={onCreateCard} outlined>
+              {t('Создать карточку')}
+            </Button>
+          </Flex>
         )}
-        {/* 2 шаг - редактируем или удаляем карточку */}
+        {/* 3 шаг - редактируем или удаляем карточку */}
         {isParticipant && cardId && (
-          <Flex direction="column" gap={'16'}>
+          <Flex direction="column" gap={'16'} className={cls.buttonWrapper}>
+            <Button theme="secondary" outlined onClick={handleCopyLink}>
+              {t('Скопировать ссылку')}
+            </Button>
             <Button outlined onClick={onOpenCardModal}>
               {t('Редактировать карточку')}
             </Button>
