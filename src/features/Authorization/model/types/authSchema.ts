@@ -11,5 +11,6 @@ export interface authSchema {
 export interface IAuthData {
   email?: string
   password?: string
+  fullName?: string
   confirmPassword?: string
 }

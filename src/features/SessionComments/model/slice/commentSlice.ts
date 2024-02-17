@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { CommentSchema } from '../types/commentSchema'
 import { getComments } from '../services/getComments'
 import { createComment } from '../services/createComment'
@@ -14,9 +14,11 @@ const commentSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    // changeTotalParticipants: (state, { payload }: PayloadAction<number>) => {
-    //   state.totalParticipants = payload
-    // },
+    clearComments: (state, { payload }: PayloadAction<{ userId: string }>) => {
+      state.comments = current(state.comments)?.filter((comment) => {
+        return comment.user._id !== payload.userId
+      })
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,7 +41,7 @@ const commentSlice = createSlice({
       .addCase(createComment.fulfilled, (state, { payload }) => {
         state.error = undefined
         state.isLoading = false
-        state.comments = [...state.comments, payload]
+        state.comments = payload
       })
       .addCase(createComment.rejected, (state, { error }) => {
         state.error = error?.message

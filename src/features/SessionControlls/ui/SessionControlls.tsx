@@ -99,7 +99,7 @@ export const SessionControlls = ({
             <Button theme="secondary" outlined onClick={handleCopyLink}>
               {t('Скопировать ссылку')}
             </Button>
-            <Button outlined onClick={onOpenCardModal}>
+            <Button outlined onClick={() => onOpenCardModal()}>
               {t('Редактировать карточку')}
             </Button>
             {isShowConfirmBlock ? (

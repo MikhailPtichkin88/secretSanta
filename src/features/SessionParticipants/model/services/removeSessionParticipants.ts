@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { IParticipant } from '../types/participantsSchema'
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { ICard, cardsBlockActions } from '@/features/CardsBlock'
+import { commentActions } from '@/features/SessionComments/model/slice/commentSlice'
 
 interface IReturnData {
   deletedParticipant: IParticipant
@@ -14,8 +15,8 @@ export const deleteSessionParticipants = createAsyncThunk<
   string,
   ThunkConfig<string>
 >(`participants/delete`, async (participantId, thunkAPI) => {
-  const { extra, rejectWithValue, dispatch } = thunkAPI
-
+  const { extra, rejectWithValue, dispatch, getState } = thunkAPI
+  const userId = getState()?.user?.user?._id
   try {
     const res = await extra.api.delete<IReturnData>(`/participants`, {
       params: { participantId },
@@ -27,7 +28,11 @@ export const deleteSessionParticipants = createAsyncThunk<
     if (res.data.deletedCard) {
       dispatch(cardsBlockActions.deleteCard(res.data.deletedCard))
     }
-
+    dispatch(
+      commentActions.clearComments({
+        userId,
+      })
+    )
     return res.data?.deletedParticipant
   } catch (error) {
     alertMessage({

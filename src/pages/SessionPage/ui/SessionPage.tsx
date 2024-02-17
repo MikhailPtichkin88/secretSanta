@@ -14,7 +14,7 @@ import { getParticipantsIsLoading } from '@/features/SessionParticipants/model/s
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Flex } from '@/shared/ui/Flex'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import cls from './SessionPage.module.scss'
@@ -32,10 +32,11 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   const participantId = participants?.find(
     (el) => el?.user?._id === userId
   )?._id
+
   const cards = useSelector(getCardsData)
-  const userCardId = cards?.find(
-    (el) => el.created_by.toString() === userId?.toString()
-  )?._id
+
+  const userCardId = cards?.find((el) => el.created_by === userId)?._id
+
   const isLoadingParticipants = useSelector(getParticipantsIsLoading)
 
   const dispatch = useAppDispatch()
@@ -50,11 +51,18 @@ export const SessionPage = ({ className }: SessionPageProps) => {
     setCardModalId('')
   }, [])
 
-  const onOpenCardModal = useCallback((cardId?: string) => {
-    if (cardId && typeof cardId === 'string') {
-      return setCardModalId(cardId)
-    }
-    setCardModalId(userCardId)
+  const onOpenCardModal = useCallback(
+    (cardId?: string) => {
+      if (cardId && typeof cardId === 'string') {
+        return setCardModalId(cardId)
+      }
+      setCardModalId(userCardId)
+    },
+    [userCardId]
+  )
+
+  useEffect(() => {
+    return () => setCardModalId('')
   }, [])
 
   return (

@@ -7,8 +7,8 @@ import { Input } from '@/shared/ui/Input'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { validateAuthData } from '../../model/lib/validateAuthData'
+import { NavLink, Navigate, useLocation } from 'react-router-dom'
+import { validateRegisterData } from '../../model/lib/validateAuthData'
 import { getAuthIsLoading } from '../../model/selectors/getAuthIsLoading'
 import { getIsAuthResult } from '../../model/selectors/getIsAuthResult'
 import { register } from '../../model/services/loginOrRegister'
@@ -16,6 +16,7 @@ import { authActions } from '../../model/slice/authSlice'
 import { IAuthData } from '../../model/types/authSchema'
 import cls from './RegisterForm.module.scss'
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
+import { getUserId } from '@/entities/User'
 
 interface RegisterFormProps {
   className?: string
@@ -25,9 +26,11 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
   const { t } = useTranslation()
   const isRegistered = useSelector(getIsAuthResult)
   const isLoading = useSelector(getAuthIsLoading)
+  const userId = useSelector(getUserId)
 
   const dispatch = useAppDispatch()
   const [emailValue, setEmailValue] = useState('')
+  const [fullNameValue, setFullNameValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
@@ -36,7 +39,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
 
   const onChangeHandler = (
     value: string,
-    type: 'email' | 'password' | 'confirm'
+    type: 'email' | 'fullName' | 'password' | 'confirm'
   ) => {
     if (errors.length) {
       setErrors([])
@@ -45,30 +48,27 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
       setEmailValue(value)
     } else if (type === 'password') {
       setPasswordValue(value)
+    } else if (type === 'fullName') {
+      setFullNameValue(value)
     } else {
       setConfirmPasswordValue(value)
     }
   }
 
   const onSubmitHandler = () => {
-    if (!emailValue) {
-      return setErrors([{ email: t('Введите почту') }])
-    }
-    if (!passwordValue || !confirmPasswordValue) {
-      return setErrors([{ password: t('Введите пароль') }])
-    }
-    const errors = validateAuthData({
+    const errors = validateRegisterData({
       email: emailValue,
+      fullName: fullNameValue,
       password: passwordValue,
       confirmPassword: confirmPasswordValue,
     })
     if (errors.length) {
       return setErrors(errors)
     }
-
     dispatch(
       register({
         email: emailValue,
+        fullName: fullNameValue,
         passwordHash: passwordValue,
         rememberMe,
       })
@@ -96,12 +96,22 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
         <Navigate to={redirectPath} state={{ from: location }} replace={true} />
       )
     }
+    return (
+      <Navigate
+        to={`/profile/${userId}`}
+        state={{ from: location }}
+        replace={true}
+      />
+    )
   }
 
   return (
     <Card className={classNames(cls.registerform, {}, [className])}>
       <h2 className={cls.title}>{t('Регистрация')}</h2>
-      <span className={cls.emailLabel}>{t('Почта')}</span>
+      <span className={cls.emailLabel}>
+        {t('Почта')}
+        <span className={cls.requiredMark}>*</span>
+      </span>
       <Input
         className={cls.emailInput}
         placeholder={'example@gmail.com'}
@@ -111,7 +121,27 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
         errorMessage={t(`${errors.find((error) => error.email)?.email ?? ''}`)}
         onPressEnter={onSubmitHandler}
       />
-      <span className={cls.passwordLabel}>{t('Пароль')}</span>
+      <span className={cls.passwordLabel}>
+        {t('Имя')}
+        <span className={cls.requiredMark}>*</span>
+      </span>
+
+      <Input
+        value={fullNameValue}
+        onChange={(value) => onChangeHandler(value, 'fullName')}
+        className={cls.emailInput}
+        placeholder={t('Имя')}
+        state={errors.find((error) => error.fullName) ? 'error' : null}
+        errorMessage={t(
+          `${errors.find((error) => error.fullName)?.fullName ?? ''}`
+        )}
+        onPressEnter={onSubmitHandler}
+      />
+      <span className={cls.passwordLabel}>
+        {t('Пароль')}
+        <span className={cls.requiredMark}>*</span>
+      </span>
+
       <Input
         value={passwordValue}
         onChange={(value) => onChangeHandler(value, 'password')}
@@ -124,7 +154,10 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
         )}
         onPressEnter={onSubmitHandler}
       />
-      <span className={cls.passwordLabel}>{t('Подтвердите пароль')}</span>
+      <span className={cls.passwordLabel}>
+        {t('Подтвердите пароль')}
+        <span className={cls.requiredMark}>*</span>
+      </span>
       <Input
         value={confirmPasswordValue}
         onChange={(value) => onChangeHandler(value, 'confirm')}

@@ -61,7 +61,8 @@ export const CardImg = ({
         />
       )}
       <div className={cls.iconsWrapper}>
-        {cardImg && canEdit && (
+        {/* временно убрал функционал смены картинки карточки т.к. нужно синхронизировать с картинкой участника и комментария, сейчас все подвязаны на аватарку пользователя */}
+        {/* {cardImg && canEdit && (
           <Tooltip title={t('Удалить картинку')} placement="bottom">
             <IconBtn ghost onClick={onDeleteImg}>
               <DeleteImgIcon
@@ -71,24 +72,25 @@ export const CardImg = ({
               />
             </IconBtn>
           </Tooltip>
-        )}
+        )} */}
         {canEdit && (
-          <Tooltip
-            title={cardImg ? t('Поменять картинку') : t('Загрузить картинку')}
-            placement="bottom"
-          >
-            <label htmlFor="card_img" className={cls.customButton}>
-              <EditImgIcon className={cls.editIcon} width={30} height={30} />
-              <input
-                type="file"
-                id="card_img"
-                name="card_img"
-                accept="image/jpeg, image/png, image/jpg"
-                className={cls.input}
-                onChange={onChangeImg}
-              />
-            </label>
-          </Tooltip>
+          <></>
+          // <Tooltip
+          //   title={cardImg ? t('Поменять картинку') : t('Загрузить картинку')}
+          //   placement="bottom"
+          // >
+          //   <label htmlFor="card_img" className={cls.customButton}>
+          //     {/* <EditImgIcon className={cls.editIcon} width={30} height={30} /> */}
+          //     <input
+          //       type="file"
+          //       id="card_img"
+          //       name="card_img"
+          //       accept="image/jpeg, image/png, image/jpg"
+          //       className={cls.input}
+          //       onChange={onChangeImg}
+          //     />
+          //   </label>
+          // </Tooltip>
         )}
       </div>
     </div>

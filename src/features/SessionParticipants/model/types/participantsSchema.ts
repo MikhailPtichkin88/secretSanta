@@ -6,6 +6,7 @@ export interface ParticipantsSchema {
 
 export interface IParticipant {
   _id: string
+  session_id?: string
   has_picked_own_card: boolean
   has_picked_random_card: boolean
   user: {

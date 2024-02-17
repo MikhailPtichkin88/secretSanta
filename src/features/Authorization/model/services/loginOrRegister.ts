@@ -6,10 +6,12 @@ import {
   User,
 } from '@/entities/User/model/types/userSchema'
 import { LOCAL_STORAGE_USER_TOKEN } from '@/shared/const/const'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 interface ILoginProps {
   email: string
+  fullName?: string
   passwordHash: string
   rememberMe: boolean
 }
@@ -36,6 +38,10 @@ export const loginOrRegister = (type: 'login' | 'registration') =>
         dispatch(profileActions.setProfileData(userData))
         return userData
       } catch (error) {
+        const message =
+          error?.response?.data?.message ??
+          'Что-то пошло не так, попробуйте еще раз'
+        alertMessage({ type: 'error', message })
         return rejectWithValue(
           error?.response?.data?.message || 'Ошибка логинизации'
         )
