@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import {
   CurrentSessionSchema,
@@ -6,6 +6,8 @@ import {
 } from '../types/CurrentSessionSchema'
 import { getProfileSession } from '../services/getCurrentSession'
 import { deleteSessionImg } from '../services/deleteSessionImg'
+import { updateCurrentSession } from '../services/updateCurrentSession'
+import { chooseCards } from '../services/chooseCards'
 
 const initialState: CurrentSessionSchema = {
   session: {} as ICurrentSessionData,
@@ -34,6 +36,34 @@ const currentSessionSlice = createSlice({
         state.isLoading = false
       })
       .addCase(getProfileSession.pending, (state) => {
+        state.error = undefined
+        state.isLoading = true
+      })
+      // update current session
+      .addCase(updateCurrentSession.fulfilled, (state, { payload }) => {
+        state.error = undefined
+        state.isLoading = false
+        state.session = payload
+      })
+      .addCase(updateCurrentSession.rejected, (state, { error }) => {
+        state.error = error?.message
+        state.isLoading = false
+      })
+      .addCase(updateCurrentSession.pending, (state) => {
+        state.error = undefined
+        state.isLoading = true
+      })
+      // choose cards in current session
+      .addCase(chooseCards.fulfilled, (state, { payload }) => {
+        state.error = undefined
+        state.isLoading = false
+        state.session = payload
+      })
+      .addCase(chooseCards.rejected, (state, { error }) => {
+        state.error = error?.message
+        state.isLoading = false
+      })
+      .addCase(chooseCards.pending, (state) => {
         state.error = undefined
         state.isLoading = true
       })

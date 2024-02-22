@@ -1,4 +1,5 @@
 import {
+  chooseCards,
   createCard,
   deleteCard,
   getCardsIsLoading,
@@ -14,9 +15,17 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import cls from './SessionControlls.module.scss'
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
+import {
+  deleteCurrentSession,
+  getCurrentSessionIsLoading,
+} from '@/features/SessionForm'
+import { useNavigate } from 'react-router-dom'
+import { Modal } from '@/shared/ui/Modal'
 
 interface SessionControllsProps {
   sessionId: string
+  canChooseCards: boolean
+  isCreator: boolean
   className?: string
   isParticipant: boolean
   cardId: string
@@ -28,16 +37,21 @@ interface SessionControllsProps {
 export const SessionControlls = ({
   sessionId,
   className,
+  canChooseCards,
   isParticipant,
+  isCreator,
   cardId,
   isLoadingParticipants,
   onAddParticipant,
   onOpenCardModal,
 }: SessionControllsProps) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isCardsLoading = useSelector(getCardsIsLoading)
+  const isSessionLoading = useSelector(getCurrentSessionIsLoading)
   const [isShowConfirmBlock, setIsShowConfirmBlock] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const onCreateCard = () => {
     dispatch(createCard(sessionId))
@@ -48,6 +62,17 @@ export const SessionControlls = ({
   const onConfirmHandler = async () => {
     await dispatch(deleteCard({ sessionId, cardId }))
     setIsShowConfirmBlock(false)
+  }
+
+  const onDeleteSession = async () => {
+    await dispatch(deleteCurrentSession(sessionId))
+    alertMessage({ type: 'success', message: t('Сессия успешно удалена') })
+    navigate('/')
+  }
+
+  const onChooseCardHandler = async () => {
+    await dispatch(chooseCards(sessionId))
+    setIsOpenModal(false)
   }
 
   const handleCopyLink = () => {
@@ -69,59 +94,111 @@ export const SessionControlls = ({
   }
 
   return (
-    <Card className={classNames(cls.sessioncontrolls, {}, [className])}>
-      <h3>{t('Управление')}</h3>
-      <div className={cls.buttonBlock}>
-        {/* 1 шаг - становимся участником */}
-        {!isParticipant && !cardId && (
-          <Button
-            onClick={onAddParticipant}
-            outlined
-            loading={isLoadingParticipants}
-          >
-            {t('Участвовать')}
-          </Button>
-        )}
-        {/* 2 шаг - создаем карточку */}
-        {isParticipant && !cardId && (
-          <Flex direction="column" gap="16" className={cls.buttonWrapper}>
-            <Button theme="secondary" outlined onClick={handleCopyLink}>
-              {t('Скопировать ссылку')}
+    <>
+      <Card className={classNames(cls.sessioncontrolls, {}, [className])}>
+        <h3>{t('Управление')}</h3>
+        <div className={cls.buttonWrapper}>
+          {/* 1 шаг - становимся участником */}
+          {!isParticipant && !cardId && (
+            <Button
+              onClick={onAddParticipant}
+              outlined
+              loading={isLoadingParticipants}
+            >
+              {t('Участвовать')}
             </Button>
-            <Button onClick={onCreateCard} outlined>
-              {t('Создать карточку')}
-            </Button>
-          </Flex>
-        )}
-        {/* 3 шаг - редактируем или удаляем карточку */}
-        {isParticipant && cardId && (
-          <Flex direction="column" gap={'16'} className={cls.buttonWrapper}>
-            <Button theme="secondary" outlined onClick={handleCopyLink}>
-              {t('Скопировать ссылку')}
-            </Button>
-            <Button outlined onClick={() => onOpenCardModal()}>
-              {t('Редактировать карточку')}
-            </Button>
-            {isShowConfirmBlock ? (
-              <ConfirmBlock
-                onOkHandler={onConfirmHandler}
-                label="Вы уверены?"
-                isShow={isShowConfirmBlock}
-                onCancel={onCancelConfirm}
-                isLoading={isCardsLoading}
-              />
-            ) : (
-              <Button
-                theme="danger"
-                outlined
-                onClick={() => setIsShowConfirmBlock(true)}
-              >
-                {t('Удалить карточку')}
+          )}
+          {!isParticipant && !cardId && isCreator && (
+            <>
+              {isShowConfirmBlock ? (
+                <ConfirmBlock
+                  onOkHandler={onDeleteSession}
+                  label="Вы уверены?"
+                  isShow={isShowConfirmBlock}
+                  onCancel={onCancelConfirm}
+                  isLoading={isSessionLoading}
+                />
+              ) : (
+                <Button
+                  theme="danger"
+                  onClick={() => setIsShowConfirmBlock(true)}
+                  outlined
+                  loading={isLoadingParticipants}
+                >
+                  {t('Удалить сессию')}
+                </Button>
+              )}
+            </>
+          )}
+          {/* 2 шаг - создаем карточку */}
+          {isParticipant && !cardId && (
+            <Flex direction="column" gap="16" className={cls.buttonWrapper}>
+              <Button theme="secondary" outlined onClick={handleCopyLink}>
+                {t('Скопировать ссылку')}
               </Button>
-            )}
-          </Flex>
-        )}
-      </div>
-    </Card>
+              <Button onClick={onCreateCard} outlined>
+                {t('Создать карточку')}
+              </Button>
+            </Flex>
+          )}
+          {/* 3 шаг - редактируем или удаляем карточку */}
+          {isParticipant && cardId && (
+            <Flex direction="column" gap={'16'} className={cls.buttonWrapper}>
+              {canChooseCards && (
+                <Button onClick={() => setIsOpenModal(true)}>
+                  {t('Провести жеребьевку')}
+                </Button>
+              )}
+              <Button theme="secondary" outlined onClick={handleCopyLink}>
+                {t('Скопировать ссылку')}
+              </Button>
+              <Button outlined onClick={() => onOpenCardModal()}>
+                {t('Редактировать карточку')}
+              </Button>
+              {isShowConfirmBlock ? (
+                <ConfirmBlock
+                  onOkHandler={onConfirmHandler}
+                  label="Вы уверены?"
+                  isShow={isShowConfirmBlock}
+                  onCancel={onCancelConfirm}
+                  isLoading={isCardsLoading}
+                />
+              ) : (
+                <Button
+                  theme="danger"
+                  outlined
+                  onClick={() => setIsShowConfirmBlock(true)}
+                >
+                  {t('Удалить карточку')}
+                </Button>
+              )}
+            </Flex>
+          )}
+        </div>
+      </Card>
+      <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
+        <div className={cls.modalWrapper}>
+          <div className={cls.modalBodyWrapper}>
+            <p className={cls.title}>
+              {t('Вы уверены, что хотите провести жеребьевку?')}
+            </p>
+
+            <p className={cls.body}>
+              {t(
+                'Каждому участнику выпадет карточка, на почту прийдет уведомление, а дальнейшее редактирование сессии (карточек, участников, комментариев) будет невозможно.'
+              )}
+            </p>
+          </div>
+          <div className={cls.modalBtns}>
+            <Button theme="danger" onClick={() => setIsOpenModal(false)}>
+              {t('Отмена')}
+            </Button>
+            <Button onClick={onChooseCardHandler} loading={isSessionLoading}>
+              {t('Принять')}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   )
 }

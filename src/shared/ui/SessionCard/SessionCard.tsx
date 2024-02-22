@@ -24,7 +24,6 @@ export const SessionCard = ({
   isLoading,
 }: SessionCardProps) => {
   const [cardImg, setCardImg] = useState(null)
-
   useEffect(() => {
     if (imgUrl) {
       setCardImg(imgUrl)

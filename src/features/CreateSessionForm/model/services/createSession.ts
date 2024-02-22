@@ -14,9 +14,11 @@ export const createSession = createAsyncThunk<
   const params = {
     title: data.title,
     total_participants: data.totalParticipants,
-    session_info: data?.sessionInfo ?? null,
+    session_info: data?.sessionInfo,
   }
-
+  if (!params.session_info) {
+    delete params.session_info
+  }
   try {
     const res = await extra.api.post<ISession>('/sessions', params)
     if (!res.data) {

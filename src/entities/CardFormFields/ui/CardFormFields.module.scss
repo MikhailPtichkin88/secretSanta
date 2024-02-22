@@ -57,6 +57,7 @@
 
 .editBtn {
   gap: 15px;
+  display: none;
 
   &.visible {
     display: inline-flex;

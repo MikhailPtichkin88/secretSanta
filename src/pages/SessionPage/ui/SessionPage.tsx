@@ -4,7 +4,11 @@ import { CardsBlock } from '@/features/CardsBlock'
 import { getCardsData } from '@/features/CardsBlock/model/selectors/getCardsData'
 import { SessionComments } from '@/features/SessionComments'
 import { SessionControlls } from '@/features/SessionControlls'
-import { SessionForm, getCurrentSessionCreatedBy } from '@/features/SessionForm'
+import {
+  SessionForm,
+  getCurrentSessionCreatedBy,
+  getCurrentSessionTotalPart,
+} from '@/features/SessionForm'
 import {
   SessionParticipants,
   createSessionParticipant,
@@ -27,6 +31,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   const { id } = useParams()
 
   const sessionCreatedBy = useSelector(getCurrentSessionCreatedBy)
+  const sessionTotalParticipants = useSelector(getCurrentSessionTotalPart)
   const userId = useSelector(getUserId)
   const participants = useSelector(getParticipantsData)
   const participantId = participants?.find(
@@ -34,7 +39,8 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   )?._id
 
   const cards = useSelector(getCardsData)
-
+  const canChooseCards =
+    sessionCreatedBy === userId && sessionTotalParticipants === cards?.length
   const userCardId = cards?.find((el) => el.created_by === userId)?._id
 
   const isLoadingParticipants = useSelector(getParticipantsIsLoading)
@@ -60,7 +66,8 @@ export const SessionPage = ({ className }: SessionPageProps) => {
     },
     [userCardId]
   )
-
+  console.log(cardModalId)
+  console.log(userCardId)
   useEffect(() => {
     return () => setCardModalId('')
   }, [])
@@ -87,7 +94,9 @@ export const SessionPage = ({ className }: SessionPageProps) => {
         />
         <SessionControlls
           sessionId={id}
+          canChooseCards={canChooseCards}
           cardId={userCardId}
+          isCreator={sessionCreatedBy === userId}
           isParticipant={Boolean(participantId)}
           isLoadingParticipants={isLoadingParticipants}
           onOpenCardModal={onOpenCardModal}

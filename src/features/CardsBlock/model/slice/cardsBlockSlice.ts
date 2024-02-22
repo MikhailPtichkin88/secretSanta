@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { CardsBlockSchema, ICard } from '../types/cardsBlockSchema'
 import { createCard } from '../services/createCard'
 import { getCards } from '../services/getCards'
@@ -16,6 +16,11 @@ const cardsBlockSlice = createSlice({
   name: 'cardsBlock',
   initialState,
   reducers: {
+    updateCard: (state, { payload }: PayloadAction<ICard>) => {
+      state.cards = current(state.cards)?.map((card) =>
+        card._id === payload._id ? payload : card
+      )
+    },
     changeTotalParticipants: (state, { payload }: PayloadAction<number>) => {
       state.totalParticipants = payload
     },
@@ -28,6 +33,7 @@ const cardsBlockSlice = createSlice({
         state.cards[cardIndex].card_img = null
       }
     },
+    resetCardsStore: (state) => (state = initialState),
   },
   extraReducers: (builder) => {
     builder

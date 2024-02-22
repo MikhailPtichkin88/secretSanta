@@ -1,7 +1,8 @@
 .sessioncontrolls {
   width: 100%;
-  max-width: 250px;
+  max-width: 280px;
   padding: 20px;
+  gap: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,8 +27,45 @@
   }
 
   .buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+
     button {
-      max-width: 220px;
+      max-width: 240px;
     }
+  }
+}
+
+.modalWrapper {
+  padding: 20px;
+  max-width: 500px;
+}
+
+.modalBodyWrapper {
+  margin-bottom: 30px;
+
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .body {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.modalBtns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  button {
+    max-width: 200px;
   }
 }

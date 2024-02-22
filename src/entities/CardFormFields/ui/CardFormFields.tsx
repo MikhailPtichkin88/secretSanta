@@ -53,9 +53,8 @@ export const CardFormFields = ({
     if (title) {
       setCardTitle(title)
     }
-    if (info) {
-      setCardInfo(info)
-    }
+
+    setCardInfo(info ?? '')
   }, [title, info])
 
   return (
@@ -74,11 +73,16 @@ export const CardFormFields = ({
       </div>
       <div className={cls.container}>
         <span>{t('Описание')}</span>
-        <Textarea
-          readonly={!isEditMode}
-          value={cardInfo}
-          onChange={setCardInfo}
-        />
+        {isLoading ? (
+          //TODO - добавить скелетоны для названия, описания и аватарки
+          <div style={{ height: 100 }} />
+        ) : (
+          <Textarea
+            readonly={!isEditMode}
+            value={cardInfo}
+            onChange={setCardInfo}
+          />
+        )}
       </div>
 
       <div className={cls.editBtnWrapper}>

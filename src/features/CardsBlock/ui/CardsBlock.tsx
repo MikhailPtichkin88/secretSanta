@@ -14,6 +14,7 @@ import {
   createCardImgUrl,
   createUserAvatarUrl,
 } from '@/shared/lib/createImgUrl/createImgUrl'
+import { cardsBlockActions } from '../model/slice/cardsBlockSlice'
 
 interface CardsBlockProps {
   className?: string
@@ -50,7 +51,19 @@ export const CardsBlock = ({
 
   useEffect(() => {
     dispatch(getCards(sessionId))
+    return () => {
+      dispatch(cardsBlockActions.resetCardsStore())
+    }
   }, [])
+
+  useEffect(() => {
+    if (cards && cards.length) {
+      const selectedCard = cards.find((card) => card.selected_by)
+      if (selectedCard) {
+        onCardClick(selectedCard._id)
+      }
+    }
+  }, [cards])
 
   return (
     <Card className={classNames(cls.cardsWrapper, {}, [className])}>
@@ -62,9 +75,10 @@ export const CardsBlock = ({
             if (card?.user?.avatarUrl) {
               cardImg = createUserAvatarUrl(card.user.avatarUrl)
             }
-            if (card?.card_img) {
-              cardImg = createCardImgUrl(sessionId, card.card_img)
-            }
+            // TODO связать аву карточки с комментариями и участниками
+            // if (card?.card_img) {
+            //   cardImg = createCardImgUrl(sessionId, card.card_img)
+            // }
             return (
               <SessionCard
                 key={card._id}
