@@ -15,10 +15,14 @@ import { updateCardTh } from '../model/services/updateCardTh'
 import cls from './CardEditForm.module.scss'
 import CloseIcon from '@/shared/assets/icons/close-square.svg'
 import { getCardUserAvatar } from '../model/selectors/getCardUserAvatar'
+import emojiImg from '@/shared/assets/img/partying-face.png'
+import fireworks from '@/shared/assets/img/fireworks.png'
+import { useTranslation } from 'react-i18next'
 
 interface CardEditFormProps {
   className?: string
   isOpen: boolean
+  isSelected?: boolean
   canEdit?: boolean
   sessionId: string
   cardId: string
@@ -29,12 +33,14 @@ export const CardEditForm = ({
   className,
   isOpen,
   sessionId,
+  isSelected,
   canEdit,
   cardId,
   onClose,
 }: CardEditFormProps) => {
   const dispatch = useAppDispatch()
 
+  const { t } = useTranslation()
   const title = useSelector(getCardTitle)
   const cardImg = useSelector(getCardImg)
   const info = useSelector(getCardInfo)
@@ -90,6 +96,15 @@ export const CardEditForm = ({
       contentClassName={classNames(cls.cardeditform, {}, [className])}
       lazy
     >
+      {isSelected && (
+        <div
+          className={cls.isSelectedBlock}
+          style={{ backgroundImage: `url(${fireworks})` }}
+        >
+          <img src={emojiImg} alt="santa img" className={cls.santaImg} />
+          <p className={cls.isSelectedTitle}>{t('Вы - тайный санта для:')}</p>
+        </div>
+      )}
       <CloseIcon className={cls.closeIcon} onClick={onClose} />
       <CardImg
         sessionId={sessionId}

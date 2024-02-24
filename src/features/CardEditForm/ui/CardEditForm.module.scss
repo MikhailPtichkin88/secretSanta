@@ -13,3 +13,18 @@
   right: 5px;
   stroke: var(--text-accent-color);
 }
+
+.isSelectedBlock {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  bottom: 100%;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: 250px -20px;
+}
+
+.santaImg {
+  width: 60px;
+  height: 60px;
+}

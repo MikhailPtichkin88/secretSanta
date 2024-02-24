@@ -17,6 +17,7 @@ import cls from './ProfileAvatar.module.scss'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Loader } from '@/shared/ui/PageLoader/Loader'
 import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
+import { Skeleton } from '@/shared/ui/Skeleton'
 
 interface ProfileAvatarProps {
   className?: string
@@ -70,9 +71,7 @@ export const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
   return (
     <div className={classNames(cls.profileavatar, {}, [className])}>
       {isLoading ? (
-        <div className={cls.loaderBlock}>
-          <Loader />
-        </div>
+        <Skeleton width={250} height={250} />
       ) : (
         <img
           className={cls.avatar}

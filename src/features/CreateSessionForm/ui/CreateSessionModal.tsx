@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { getCreateSessionId } from '../model/selectors/getCreateSessionId'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { createSessionActions } from '../model/slice/CreateSessionSlice'
-
+import cls from './CreateSessionModal.module.scss'
 interface CreateSessionModalProps {
   isOpen: boolean
   onClose: () => void
@@ -29,7 +29,7 @@ export const CreateSessionModal = ({
   }, [createdSessionId])
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} lazy>
+    <Modal className={cls.modal} isOpen={isOpen} onClose={onClose} lazy>
       <Suspense fallback={<Loader transparent />}>
         <SessionFormAsync onClose={onClose} />
       </Suspense>

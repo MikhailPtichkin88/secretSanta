@@ -4,6 +4,7 @@ import {
   ProfileSessionsTable,
   TSessionSortOrder,
   TSessionStatusFilter,
+  TSortSessions,
 } from '@/entities/ProfileSessionsTable'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Pagination, TPerPage } from '@/shared/ui/Pagination'
@@ -22,7 +23,9 @@ import { getProfileSessionsStatus } from '../model/selectors/getProfileSessionsS
 import { getProfileSessionsTotalPages } from '../model/selectors/getProfileSessionsTotalPages'
 import { getProfileSessions } from '../model/services/getProfileSessions'
 import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
+import { BrowserView, MobileView } from 'react-device-detect'
 import cls from './ProfileSessions.module.scss'
+import { MobileSession } from '@/shared/ui/MobileSession'
 
 interface SessionsTableProps {
   className?: string
@@ -63,7 +66,7 @@ export const ProfileSessions = ({
   )
 
   const onChangeSortHandler = (sort: {
-    sortBy: keyof Partial<ISession>
+    sortBy: TSortSessions
     sortOrder: TSessionSortOrder
   }) => {
     dispatch(profileSessionsActions.changeSort(sort))
@@ -110,16 +113,38 @@ export const ProfileSessions = ({
         onSearchHandler={onSearchHandler}
         onTabChangeHandler={onTabChangeHandler}
         isLoading={isLoading}
-      />
-      <ProfileSessionsTable
-        isLoading={isLoading}
-        sessions={sessions}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        status={status}
         onChangeSortOrder={onChangeSortHandler}
         onChangeStatusHandler={onChangeStatusHandler}
       />
+      <BrowserView>
+        <ProfileSessionsTable
+          isLoading={isLoading}
+          sessions={sessions}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          status={status}
+          onChangeSortOrder={onChangeSortHandler}
+          onChangeStatusHandler={onChangeStatusHandler}
+        />
+      </BrowserView>
+      <MobileView>
+        {sessions.map(
+          ({ _id, title, createdAt, total_participants, status, ...rest }) => {
+            return (
+              <MobileSession
+                key={_id}
+                sessionImg={rest?.session_img}
+                sessionId={_id}
+                title={title}
+                createdAt={createdAt}
+                totalParticipants={total_participants}
+                status={status}
+                isLoading={isLoading}
+              />
+            )
+          }
+        )}
+      </MobileView>
       <Pagination
         current={current}
         total={total}

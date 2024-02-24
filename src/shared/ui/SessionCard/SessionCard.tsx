@@ -3,11 +3,14 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import { useEffect, useState } from 'react'
 import { Button } from '../Button'
 import EditIcon from '@/shared/assets/icons/edit.svg'
+import santaImg from '@/shared/assets/img/cool-santa.png'
 
 import cls from './SessionCard.module.scss'
 import { Loader } from '../PageLoader'
+import { Skeleton } from '../Skeleton'
 interface SessionCardProps {
   className?: string
+  isSelected?: boolean
   imgUrl?: string
   cardName?: string
   canEdit?: boolean
@@ -17,6 +20,7 @@ interface SessionCardProps {
 
 export const SessionCard = ({
   className,
+  isSelected,
   imgUrl,
   cardName,
   canEdit,
@@ -32,6 +36,14 @@ export const SessionCard = ({
     }
   }, [imgUrl])
 
+  if (isLoading) {
+    return (
+      <div className={cls.sessioncard}>
+        <Skeleton width={'100%'} height={125} className={cls.skeletonImg} />
+        <Skeleton width={'100%'} height={20} className={cls.skeletonTitle} />
+      </div>
+    )
+  }
   return (
     <Button
       outlined
@@ -46,6 +58,15 @@ export const SessionCard = ({
         <div className={cls.infoWrapper}>
           <p className={cls.cardName}>{cardName}</p>
           {canEdit && <EditIcon className={cls.cardIcon} />}
+          {isSelected && (
+            <img
+              src={santaImg}
+              alt="santa img"
+              width={25}
+              height={25}
+              className={cls.santaImg}
+            />
+          )}
         </div>
       )}
     </Button>

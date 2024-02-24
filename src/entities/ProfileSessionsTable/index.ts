@@ -6,3 +6,4 @@ export type {
   TSessionSortOrder,
   ISession,
 } from './model/types/types'
+export type { TSortSessions } from './model/types/types'

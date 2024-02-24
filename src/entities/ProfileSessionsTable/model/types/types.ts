@@ -14,3 +14,5 @@ export interface ISession {
   createdAt?: string
   updatedAt?: string
 }
+
+export type TSortSessions = 'title' | 'total_participants' | 'createdAt'

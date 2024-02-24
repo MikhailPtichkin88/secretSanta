@@ -17,6 +17,7 @@ interface SessionFormProps {
   title: string
   info: string
   isCreator: boolean
+  isActiveSession: boolean
   isLoading?: boolean
   className?: string
   participantId: string
@@ -31,6 +32,7 @@ export const SessionFormFields = memo(
     info,
     isCreator,
     isLoading,
+    isActiveSession,
     participantId,
     isLoadingParticipants,
     onUpdateData,
@@ -95,26 +97,12 @@ export const SessionFormFields = memo(
         </div>
         <div className={cls.container}>
           <span>{t('Описание')}</span>
-          <Textarea
-            readonly={!isEditMode}
-            value={sessionInfo}
-            onChange={setSessionInfo}
-          />
+          {isEditMode ? (
+            <Textarea value={sessionInfo} onChange={setSessionInfo} />
+          ) : (
+            <p>{sessionInfo}</p>
+          )}
         </div>
-        {/* <div className={cls.container}>
-          <label htmlFor="total_participants">
-            {t('Количество участников')}
-          </label>
-          <Input
-            readonly={!isEditMode}
-            id="total_participants"
-            value={sessionTotalPart}
-            errorMessage={
-              errors.includes('total_participants') && t('Невалидные данные')
-            }
-            onChange={(value) => setSessionTotalPart(Number(value))}
-          />
-        </div> */}
 
         <div className={cls.editBtnWrapper}>
           {isEditMode ? (
@@ -141,14 +129,16 @@ export const SessionFormFields = memo(
             <div className={cls.leaveEditBtnsWrapper}>
               <Button
                 theme="secondary"
-                className={`${isCreator ? cls.visible : ''} ${cls.editBtn}`}
+                className={`${
+                  isCreator && isActiveSession ? cls.visible : ''
+                } ${cls.editBtn}`}
                 onClick={() => setIsEditMode(true)}
               >
                 <EditIcon />
                 <span>{t('Редактировать')}</span>
               </Button>
 
-              {!isShowConfirm && participantId && (
+              {!isShowConfirm && participantId && isActiveSession && (
                 <Button
                   theme="danger"
                   className={`${participantId ? cls.visible : ''} ${

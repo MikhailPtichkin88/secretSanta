@@ -11,7 +11,7 @@ import { memo } from 'react'
 import { createSessionImgUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 
 interface SessionImgProps {
-  isCreator: boolean
+  canEdit: boolean
   className?: string
   sessionImg?: string
   isLoading?: boolean
@@ -24,7 +24,7 @@ export const SessionImg = memo(
     className,
     isLoading,
     sessionImg,
-    isCreator,
+    canEdit,
     onChangeImg,
     onDeleteImg,
   }: SessionImgProps) => {
@@ -47,7 +47,7 @@ export const SessionImg = memo(
           />
         )}
         <div className={cls.iconsWrapper}>
-          {sessionImg && isCreator && (
+          {sessionImg && canEdit && (
             <Tooltip title={t('Удалить картинку')}>
               <IconBtn ghost onClick={onDeleteImg}>
                 <DeleteImgIcon
@@ -58,7 +58,7 @@ export const SessionImg = memo(
               </IconBtn>
             </Tooltip>
           )}
-          {isCreator && (
+          {canEdit && (
             <Tooltip
               title={
                 sessionImg ? t('Поменять картинку') : t('Загрузить картинку')

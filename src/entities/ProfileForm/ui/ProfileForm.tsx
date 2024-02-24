@@ -15,6 +15,7 @@ import { getProfileName } from '../model/selectors/getProfileName'
 import { profileActions } from '../model/slice/profileSlice'
 import cls from './ProfileForm.module.scss'
 import { Loader } from '@/shared/ui/PageLoader/Loader'
+import { Skeleton } from '@/shared/ui/Skeleton'
 
 interface ProfileFormProps {
   className?: string
@@ -62,44 +63,62 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
     <div className={classNames(cls.profileform, {}, [className])}>
       <div className={cls.container}>
         <label htmlFor="name">{t('Имя')}</label>
-        <Input
-          id="name"
-          autoFocus={isEditMode}
-          readonly={!isEditMode}
-          value={fullName}
-          errorMessage={errors.includes('fullName') && t('Невалидные данные')}
-          onChange={(value) => dispatch(profileActions.setProfileName(value))}
-        />
+        {isLoading ? (
+          <Skeleton width={'100%'} height={40} />
+        ) : (
+          <Input
+            id="name"
+            autoFocus={isEditMode}
+            readonly={!isEditMode}
+            value={fullName}
+            errorMessage={errors.includes('fullName') && t('Невалидные данные')}
+            onChange={(value) => dispatch(profileActions.setProfileName(value))}
+          />
+        )}
       </div>
       <div className={cls.container}>
         <label htmlFor="email">{t('Почта')}</label>
-        <Input
-          id="email"
-          readonly={!isEditMode}
-          value={email}
-          errorMessage={errors.includes('email') && t('Невалидные данные')}
-          onChange={(value) => dispatch(profileActions.setProfileEmail(value))}
-        />
+        {isLoading ? (
+          <Skeleton width={'100%'} height={40} />
+        ) : (
+          <Input
+            id="email"
+            readonly={!isEditMode}
+            value={email}
+            errorMessage={errors.includes('email') && t('Невалидные данные')}
+            onChange={(value) =>
+              dispatch(profileActions.setProfileEmail(value))
+            }
+          />
+        )}
       </div>
       <div className={cls.container}>
         <label htmlFor="age">{t('Возраст')}</label>
-        <Input
-          readonly={!isEditMode}
-          id="age"
-          value={age}
-          errorMessage={errors.includes('age') && t('Невалидные данные')}
-          onChange={(value) => dispatch(profileActions.setProfileAge(value))}
-        />
+        {isLoading ? (
+          <Skeleton width={'100%'} height={40} />
+        ) : (
+          <Input
+            readonly={!isEditMode}
+            id="age"
+            value={age}
+            errorMessage={errors.includes('age') && t('Невалидные данные')}
+            onChange={(value) => dispatch(profileActions.setProfileAge(value))}
+          />
+        )}
       </div>
       <div className={cls.container}>
         <label htmlFor="city">{t('Город')}</label>
-        <Input
-          id="city"
-          readonly={!isEditMode}
-          value={city}
-          errorMessage={errors.includes('city') && t('Невалидные данные')}
-          onChange={(value) => dispatch(profileActions.setProfileCity(value))}
-        />
+        {isLoading ? (
+          <Skeleton width={'100%'} height={40} />
+        ) : (
+          <Input
+            id="city"
+            readonly={!isEditMode}
+            value={city}
+            errorMessage={errors.includes('city') && t('Невалидные данные')}
+            onChange={(value) => dispatch(profileActions.setProfileCity(value))}
+          />
+        )}
       </div>
       <div className={cls.editBtnWrapper}>
         {isEditMode ? (

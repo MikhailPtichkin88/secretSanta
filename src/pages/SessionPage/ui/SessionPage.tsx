@@ -22,6 +22,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import cls from './SessionPage.module.scss'
+import { getCurrentSessionStatus } from '@/features/SessionForm/model/selectors/getCurrentSessionStatus'
 
 interface SessionPageProps {
   className?: string
@@ -32,8 +33,10 @@ export const SessionPage = ({ className }: SessionPageProps) => {
 
   const sessionCreatedBy = useSelector(getCurrentSessionCreatedBy)
   const sessionTotalParticipants = useSelector(getCurrentSessionTotalPart)
+  const sessionStatus = useSelector(getCurrentSessionStatus)
   const userId = useSelector(getUserId)
   const participants = useSelector(getParticipantsData)
+
   const participantId = participants?.find(
     (el) => el?.user?._id === userId
   )?._id
@@ -66,8 +69,6 @@ export const SessionPage = ({ className }: SessionPageProps) => {
     },
     [userCardId]
   )
-  console.log(cardModalId)
-  console.log(userCardId)
   useEffect(() => {
     return () => setCardModalId('')
   }, [])
@@ -78,38 +79,49 @@ export const SessionPage = ({ className }: SessionPageProps) => {
         <SessionForm
           sessionId={id}
           isCreator={sessionCreatedBy === userId}
+          isActiveSession={sessionStatus !== 'closed'}
           participantId={participantId}
           isLoadingParticipants={isLoadingParticipants}
         />
         <SessionParticipants
           sessionId={id}
-          isCreator={sessionCreatedBy === userId}
+          canEdit={sessionCreatedBy === userId && sessionStatus !== 'closed'}
         />
       </Flex>
       <div className={cls.cardsControllBlock}>
         <CardsBlock
           sessionId={id}
+          isActiveSession={sessionStatus !== 'closed'}
           userId={userId}
           onCardClick={onOpenCardModal}
         />
-        <SessionControlls
-          sessionId={id}
-          canChooseCards={canChooseCards}
-          cardId={userCardId}
-          isCreator={sessionCreatedBy === userId}
-          isParticipant={Boolean(participantId)}
-          isLoadingParticipants={isLoadingParticipants}
-          onOpenCardModal={onOpenCardModal}
-          onAddParticipant={onAddParticipant}
-        />
+        {sessionStatus !== 'closed' && (
+          <SessionControlls
+            sessionId={id}
+            canChooseCards={canChooseCards}
+            cardId={userCardId}
+            isCreator={sessionCreatedBy === userId}
+            isParticipant={Boolean(participantId)}
+            isLoadingParticipants={isLoadingParticipants}
+            onOpenCardModal={onOpenCardModal}
+            onAddParticipant={onAddParticipant}
+          />
+        )}
       </div>
-      <SessionComments sessionId={id} userId={userId} />
+      <SessionComments
+        sessionId={id}
+        userId={userId}
+        isActiveSession={sessionStatus !== 'closed'}
+      />
       <CardEditForm
         onClose={onCloseCardModal}
         isOpen={Boolean(cardModalId)}
         sessionId={id}
         cardId={cardModalId}
         canEdit={cardModalId === userCardId}
+        isSelected={Boolean(
+          cards?.find((card) => card._id === cardModalId)?.selected_by
+        )}
       />
     </div>
   )

@@ -18,6 +18,7 @@ interface SessionCardProps {
   sessionId: string
   className?: string
   isCreator: boolean
+  isActiveSession: boolean
   participantId: string
   isLoadingParticipants: boolean
 }
@@ -26,6 +27,7 @@ export const SessionForm = ({
   sessionId,
   className,
   isCreator,
+  isActiveSession,
   participantId,
   isLoadingParticipants,
 }: SessionCardProps) => {
@@ -79,7 +81,7 @@ export const SessionForm = ({
   return (
     <Card className={classNames(cls.sessionform, {}, [className])}>
       <SessionImg
-        isCreator={isCreator}
+        canEdit={isCreator && isActiveSession}
         sessionImg={sessionImg}
         isLoading={isLoading}
         onDeleteImg={deleteImgHandler}
@@ -88,6 +90,7 @@ export const SessionForm = ({
 
       <SessionFormFields
         isCreator={isCreator}
+        isActiveSession={isActiveSession}
         title={title}
         info={info}
         isLoading={isLoading}

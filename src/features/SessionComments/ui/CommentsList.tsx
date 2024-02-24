@@ -25,7 +25,7 @@ export const CommentsList = ({ className, userId }: CommentsListProps) => {
     },
     [dispatch]
   )
-  console.log(comments)
+
   return (
     <div className={classNames(cls.commentslist, {}, [className])}>
       {comments?.map(({ _id, text, createdAt, updatedAt, user }) => (

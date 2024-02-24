@@ -7,6 +7,10 @@
   flex-direction: column;
   margin-bottom: 20px;
 
+  @media (max-width: 576px) {
+    flex-direction: row;
+  }
+
   label {
     color: var(--text-secondary-color);
     font-size: 18px;

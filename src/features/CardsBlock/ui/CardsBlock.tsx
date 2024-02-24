@@ -10,14 +10,13 @@ import { getCardsTotalParticipants } from '../model/selectors/getCardsTotalParti
 import { getCards } from '../model/services/getCards'
 import cls from './CardsBlock.module.scss'
 import { SessionCard } from '@/shared/ui/SessionCard'
-import {
-  createCardImgUrl,
-  createUserAvatarUrl,
-} from '@/shared/lib/createImgUrl/createImgUrl'
+import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 import { cardsBlockActions } from '../model/slice/cardsBlockSlice'
+import { getCardsIsLoading } from '../model/selectors/getCardsIsLoading'
 
 interface CardsBlockProps {
   className?: string
+  isActiveSession?: boolean
   sessionId: string
   userId: string
   onCardClick?: (cardId: string) => void
@@ -26,12 +25,13 @@ interface CardsBlockProps {
 export const CardsBlock = ({
   className,
   sessionId,
+  isActiveSession,
   userId,
   onCardClick,
 }: CardsBlockProps) => {
   const totalParticipants = useSelector(getCardsTotalParticipants)
   const cards = useSelector(getCardsData)
-
+  const isLoading = useSelector(getCardsIsLoading)
   const { t } = useTranslation()
 
   const dispatch = useAppDispatch()
@@ -59,8 +59,28 @@ export const CardsBlock = ({
   useEffect(() => {
     if (cards && cards.length) {
       const selectedCard = cards.find((card) => card.selected_by)
+      const sessionsWithShownCards = JSON.parse(
+        localStorage.getItem('sessions_with_shown_cards')
+      )
       if (selectedCard) {
-        onCardClick(selectedCard._id)
+        if (
+          sessionsWithShownCards &&
+          !sessionsWithShownCards?.includes(sessionId)
+        ) {
+          onCardClick(selectedCard._id)
+          sessionsWithShownCards.push(sessionId)
+          localStorage.setItem(
+            'sessions_with_shown_cards',
+            JSON.stringify(sessionsWithShownCards)
+          )
+        }
+        if (!sessionsWithShownCards) {
+          onCardClick(selectedCard._id)
+          localStorage.setItem(
+            'sessions_with_shown_cards',
+            JSON.stringify([sessionId])
+          )
+        }
       }
     }
   }, [cards])
@@ -83,9 +103,11 @@ export const CardsBlock = ({
               <SessionCard
                 key={card._id}
                 imgUrl={cardImg}
-                canEdit={card.created_by === userId}
+                canEdit={card.created_by === userId && isActiveSession}
                 cardName={card.title}
                 onCardClick={() => onCardClick(card._id)}
+                isSelected={Boolean(card?.selected_by)}
+                isLoading={isLoading}
               />
             )
           })}

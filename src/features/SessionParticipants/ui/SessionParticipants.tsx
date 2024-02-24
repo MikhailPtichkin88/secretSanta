@@ -14,22 +14,24 @@ import { getParticipantsData } from '../model/selectors/getParticipantsData'
 import { getSessionParticipants } from '../model/services/getSessionParticipants'
 import cls from './SessionParticipants.module.scss'
 import placeholer from '@/shared/assets/img/profile_avatar.png'
+import { Skeleton } from '@/shared/ui/Skeleton'
+import { getParticipantsIsLoading } from '../model/selectors/getParticipantsIsLoading'
 
 interface SessionParticipantsProps {
   sessionId: string
   className?: string
-  isCreator: boolean
+  canEdit: boolean
 }
 
 export const SessionParticipants = ({
   sessionId,
   className,
-  isCreator,
+  canEdit,
 }: SessionParticipantsProps) => {
   const { t } = useTranslation()
   const participants = useSelector(getParticipantsData)
   const totalParticipants = useSelector(getCurrentSessionTotalPart)
-
+  const isLoading = useSelector(getParticipantsIsLoading)
   const [editMode, setEditMode] = useState(false)
   const [participantsNumber, setParticipantsNumber] = useState(
     totalParticipants ?? 0
@@ -91,27 +93,38 @@ export const SessionParticipants = ({
           </div>
         ) : (
           <EditIcon
-            className={`${isCreator ? cls.visible : ''} ${cls.editIcon}`}
+            className={`${canEdit ? cls.visible : ''} ${cls.editIcon}`}
             onClick={() => setEditMode(true)}
           />
         )}
       </div>
-      {participants.map((part) => {
-        const statusClass = part?.has_picked_own_card ? cls.green : cls.grey
-        return (
-          <div key={part?._id} className={cls.participantWrapper}>
-            <div className={`${statusClass} ${cls.status}`} />
-            <img
-              src={`${__API__}/uploads/avatars/${part?.user?.avatarUrl}`}
-              alt="participant avatar"
-              onError={(e) => ((e.target as HTMLImageElement).src = placeholer)}
-            />
-            <div className={cls.fullName}>
-              {part?.user?.fullName ?? 'Новый участник'}
-            </div>
-          </div>
-        )
-      })}
+      {isLoading ? (
+        <div className={cls.participantWrapper}>
+          <Skeleton width={'30px'} height={30} border={'50%'} />
+          <Skeleton width={'90%'} height={30} />
+        </div>
+      ) : (
+        <>
+          {participants.map((part) => {
+            const statusClass = part?.has_picked_own_card ? cls.green : cls.grey
+            return (
+              <div key={part?._id} className={cls.participantWrapper}>
+                <div className={`${statusClass} ${cls.status}`} />
+                <img
+                  src={`${__API__}/uploads/avatars/${part?.user?.avatarUrl}`}
+                  alt="participant avatar"
+                  onError={(e) =>
+                    ((e.target as HTMLImageElement).src = placeholer)
+                  }
+                />
+                <div className={cls.fullName}>
+                  {part?.user?.fullName ?? 'Новый участник'}
+                </div>
+              </div>
+            )
+          })}
+        </>
+      )}
     </Card>
   )
 }

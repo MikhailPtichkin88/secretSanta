@@ -1,3 +1,9 @@
+.modal {
+  & > div > div {
+    max-width: 80%;
+  }
+}
+
 .sessionform {
   display: flex;
   flex-direction: column;
@@ -7,6 +13,10 @@
     color: var(--text-accent-color);
     margin-bottom: 20px;
   }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 }
 
 .fieldWrapper {
@@ -14,8 +24,8 @@
   justify-content: space-between;
   gap: 25px;
 
-  div {
-    width: 100%;
+  @media (max-width: 576px) {
+    flex-direction: column;
   }
 }
 
@@ -37,5 +47,9 @@
 
   button {
     max-width: 150px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 20px;
   }
 }

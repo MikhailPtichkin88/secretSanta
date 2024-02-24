@@ -1,5 +1,4 @@
 .sessioncard {
-  width: 100%;
   width: 120px;
   height: 170px;
   border-radius: 14px;
@@ -7,6 +6,12 @@
   flex-direction: column;
   justify-content: space-between;
   border-color: var(--bg-secondary-color);
+  position: relative;
+
+  @media (max-width: 576px) {
+    width: 140px;
+    height: 180px;
+  }
 }
 
 .cardImg {
@@ -15,6 +20,10 @@
   max-height: 125px;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
+
+  @media (max-width: 576px) {
+    max-height: 140px;
+  }
 }
 
 .infoWrapper {
@@ -33,7 +42,29 @@
 }
 
 .cardIcon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   stroke: var(--text-link-color);
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+
+.santaImg {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+}
+
+.skeletonImg {
+  margin-bottom: 10px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.skeletonTitle {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
 }

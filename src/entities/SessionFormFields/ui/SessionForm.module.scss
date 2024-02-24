@@ -31,10 +31,17 @@
 
   @media (max-width: 525px) {
     gap: 20px;
+    flex-direction: row;
+    align-items: center;
 
     & > div {
+      text-align: right;
       max-width: 100%;
       margin-left: 0;
+    }
+
+    input {
+      text-align: right;
     }
   }
 }
@@ -67,6 +74,10 @@
   gap: 16px;
   width: 100%;
   justify-content: flex-end;
+
+  @media (max-width: 525px) {
+    margin-top: 10px;
+  }
 }
 
 .editBtn {
@@ -83,6 +94,11 @@
 
   svg {
     stroke: var(--text-inverted-color);
+  }
+
+  @media (max-width: 576px) {
+    width: fit-content;
+    padding: 18px;
   }
 }
 
@@ -102,5 +118,10 @@
   &.visible {
     padding: 12px;
     display: inline-flex;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+    padding: 12px;
   }
 }

@@ -5,4 +5,9 @@
   gap: 30px;
   padding: 30px;
   min-height: 350px;
+
+  @media (max-width: 576px) {
+    padding: 15px;
+    flex-direction: column;
+  }
 }

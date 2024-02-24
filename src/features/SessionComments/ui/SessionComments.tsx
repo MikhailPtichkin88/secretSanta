@@ -16,11 +16,13 @@ interface SessionChatProps {
   sessionId: string
   className?: string
   userId?: string
+  isActiveSession: boolean
 }
 
 export const SessionComments = ({
   className,
   sessionId,
+  isActiveSession,
   userId,
 }: SessionChatProps) => {
   const { t } = useTranslation()
@@ -46,23 +48,25 @@ export const SessionComments = ({
         <CommentsList userId={userId} />
       </Card>
 
-      <Card className={cls.leaveComment}>
-        <h3>{t('Оставить комментарий')}</h3>
-        <Textarea
-          placeholder={'Введите текст комментария'}
-          className={cls.textarea}
-          value={commentText}
-          onChange={setCommentText}
-        />
-        <Button
-          onClick={createCommentHandler}
-          disabled={!commentText}
-          theme="secondary"
-          loading={isLoading}
-        >
-          {t('Отправить')}
-        </Button>
-      </Card>
+      {isActiveSession && (
+        <Card className={cls.leaveComment}>
+          <h3>{t('Оставить комментарий')}</h3>
+          <Textarea
+            placeholder={'Введите текст комментария'}
+            className={cls.textarea}
+            value={commentText}
+            onChange={setCommentText}
+          />
+          <Button
+            onClick={createCommentHandler}
+            disabled={!commentText}
+            theme="secondary"
+            loading={isLoading}
+          >
+            {t('Отправить')}
+          </Button>
+        </Card>
+      )}
     </div>
   )
 }

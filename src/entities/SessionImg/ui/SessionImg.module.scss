@@ -2,6 +2,10 @@
   display: flex;
   gap: 10px;
   align-items: flex-end;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
 }
 
 .avatar {
@@ -27,6 +31,10 @@
 
   .deleteIcon {
     stroke: var(--text-danger-color);
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: row;
   }
 }
 
