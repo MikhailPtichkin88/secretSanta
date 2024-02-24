@@ -1,5 +1,5 @@
 cd ~/secretSanta
 npm run build:prod
 
-rm -rf ~/../var/www/UlbiTV_frontend/secret_santa
-mv ~/secretSanta/build ~/../var/www/UlbiTV_frontend/secret_santa
+rm -rf ~/../var/www/secretSanta/html
+mv ~/secretSanta/build ~/../var/www/secretSanta/html
