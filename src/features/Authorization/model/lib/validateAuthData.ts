@@ -40,7 +40,7 @@ export const validateRegisterData = ({
   if (!email) {
     errors.push({ email: 'Обязательное поле' })
   }
-  if (fullName && fullName.length < 2) {
+  if (fullName && fullName.length < 3) {
     errors.push({ fullName: 'Слишком короткое имя' })
   }
   if (!fullName) {

@@ -64,7 +64,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     }
     dispatch(
       login({
-        email: emailValue,
+        email: emailValue?.toLowerCase(),
         passwordHash: passwordValue,
         rememberMe,
       })

@@ -50,7 +50,7 @@ export const ResetPasswordForm = ({ className }: RestorePasswordFormProps) => {
     if (errors.length) {
       return setErrors(errors)
     }
-    dispatch(resetPassword({ email: emailValue }))
+    dispatch(resetPassword({ email: emailValue?.toLowerCase() }))
   }
 
   useEffect(() => {

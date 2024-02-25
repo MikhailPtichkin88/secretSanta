@@ -67,7 +67,7 @@ export const RegisterForm = ({ className }: RegisterFormProps) => {
     }
     dispatch(
       register({
-        email: emailValue,
+        email: emailValue?.toLowerCase(),
         fullName: fullNameValue,
         passwordHash: passwordValue,
         rememberMe,
