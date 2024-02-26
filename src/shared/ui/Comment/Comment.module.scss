@@ -28,6 +28,10 @@
 .createdAt {
   font-size: 12px;
   color: var(--text-secondary-color);
+
+  @media (max-width: 576px) {
+    text-align: right;
+  }
 }
 
 .editBlock {

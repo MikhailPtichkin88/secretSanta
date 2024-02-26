@@ -3,28 +3,40 @@
   border-radius: 14px;
   width: 100%;
   max-width: 400px;
+
+  @media (max-width: 576px) {
+    max-width: 80%;
+  }
 }
 
 .closeIcon {
   width: 25px;
   height: 25px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: -20px;
+  right: -20px;
   stroke: var(--text-accent-color);
 }
 
 .isSelectedBlock {
   align-items: center;
   display: flex;
-  gap: 20px;
-  bottom: 100%;
+  gap: 10px;
   background-size: 200px;
   background-repeat: no-repeat;
-  background-position: 250px -20px;
+  background-position: 270px -30px;
+  color: var(--text-accent-color);
+  position: relative;
+  left: -20px;
+  bottom: 15px;
+  width: calc(100% + 40px);
 }
 
 .santaImg {
   width: 60px;
   height: 60px;
+}
+
+.required {
+  color: var(--text-danger-color);
 }

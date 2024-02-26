@@ -16,6 +16,13 @@
   box-shadow: 2px 2px 8px 0 var(--card-shadow-color);
   background-color: transparent;
   align-self: center;
+
+  @media (max-width: 576px) {
+    min-width: 200px;
+    max-width: 280px;
+    min-height: 280px;
+    max-height: 350px;
+  }
 }
 
 .iconsWrapper {

@@ -6,6 +6,7 @@ import { Textarea } from '@/shared/ui/Textarea'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import cls from './CardFormFields.module.scss'
+import { Skeleton } from '@/shared/ui/Skeleton'
 
 interface CardFormFieldsProps {
   title: string
@@ -64,24 +65,29 @@ export const CardFormFields = ({
           {t('Название')}
           <span className={cls.required}>*</span>
         </span>
-        <Input
-          autoFocus={isEditMode}
-          readonly={!isEditMode}
-          value={cardTitle}
-          onChange={setCardTitle}
-        />
+        {isLoading ? (
+          <Skeleton width={'100%'} height={40} />
+        ) : (
+          <Input
+            autoFocus={isEditMode}
+            readonly={!isEditMode}
+            value={cardTitle}
+            onChange={setCardTitle}
+          />
+        )}
       </div>
       <div className={cls.container}>
         <span>{t('Описание')}</span>
         {isLoading ? (
-          //TODO - добавить скелетоны для названия, описания и аватарки
-          <div style={{ height: 100 }} />
-        ) : (
+          <Skeleton width={'100%'} height={60} />
+        ) : isEditMode ? (
           <Textarea
             readonly={!isEditMode}
             value={cardInfo}
             onChange={setCardInfo}
           />
+        ) : (
+          <span className={cls.cardInfo}>{cardInfo}</span>
         )}
       </div>
 

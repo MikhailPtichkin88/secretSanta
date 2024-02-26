@@ -44,6 +44,7 @@ export const SessionCard = ({
       </div>
     )
   }
+
   return (
     <Button
       outlined

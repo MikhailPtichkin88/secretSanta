@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 
 import { ParticipantsSchema } from '../types/participantsSchema'
 import { getSessionParticipants } from '../services/getSessionParticipants'
@@ -19,10 +19,11 @@ const participantsSlice = createSlice({
       state,
       { payload }: PayloadAction<{ participantId: string; isPickCard: boolean }>
     ) => {
-      const participantIndex = state.participants.findIndex(
-        (el) => el._id === payload.participantId
-      )
-      if (participantIndex) {
+      const participantIndex = current(state.participants).findIndex((el) => {
+        return el._id === payload.participantId
+      })
+
+      if (participantIndex !== undefined) {
         state.participants[participantIndex].has_picked_own_card =
           payload.isPickCard
       }

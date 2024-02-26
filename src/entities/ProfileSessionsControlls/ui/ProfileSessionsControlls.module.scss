@@ -15,7 +15,10 @@
 }
 
 .tabsWrapper {
+  max-width: 350px;
+
   @media (max-width: 576px) {
+    max-width: 100%;
     display: flex;
   }
 }
@@ -51,12 +54,14 @@
 .searchBlock {
   margin-right: 80px;
   position: relative;
+  max-width: 300px;
 
   @media (max-width: 995px) {
     margin-right: 0;
   }
 
   @media (max-width: 576px) {
+    max-width: 100%;
     width: 100%;
   }
 }
