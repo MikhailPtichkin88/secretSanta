@@ -42,13 +42,13 @@ export const ProfileSessionsTable = ({
   onChangeStatusHandler,
   onChangeSortOrder,
 }: SessionsTableProps) => {
-  const { t } = useTranslation('profile')
+  const { t, i18n } = useTranslation('profile')
 
   const tableContent = useMemo(() => {
     return sessions.map((session) => {
       const statusColor = session.status === 'closed' ? cls.grey : cls.green
       const statusTitle =
-        session.status === 'closed' ? 'завершена' : 'в процессе'
+        session.status === 'closed' ? t('завершена') : t('в процессе')
       return (
         <tr key={v4()} className={cls.bodyRow}>
           <td className={cls.titleCell}>
@@ -72,7 +72,7 @@ export const ProfileSessionsTable = ({
         </tr>
       )
     })
-  }, [sessions])
+  }, [sessions, i18n.language])
 
   return (
     <>

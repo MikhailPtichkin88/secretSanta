@@ -10,6 +10,8 @@
   "Название": "Title:",
   "Описание": "Description",
   "Статус": "Status",
+  "завершена": "closed",
+  "в процессе": "active",
   "Создать": "Create",
   "Создатель": "Creator",
   "Участник": "Participant",
