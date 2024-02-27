@@ -69,7 +69,6 @@ const cardsBlockSlice = createSlice({
       .addCase(deleteCard.fulfilled, (state, { payload, meta }) => {
         state.error = undefined
         state.isLoading = false
-        console.log(payload)
         if (Array.isArray(payload)) {
           state.cards = payload
         } else {

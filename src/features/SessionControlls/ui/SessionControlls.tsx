@@ -45,7 +45,7 @@ export const SessionControlls = ({
   onAddParticipant,
   onOpenCardModal,
 }: SessionControllsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isCardsLoading = useSelector(getCardsIsLoading)
@@ -113,7 +113,7 @@ export const SessionControlls = ({
               {isShowConfirmBlock ? (
                 <ConfirmBlock
                   onOkHandler={onDeleteSession}
-                  label="Вы уверены?"
+                  label={t('Вы уверены?')}
                   isShow={isShowConfirmBlock}
                   onCancel={onCancelConfirm}
                   isLoading={isSessionLoading}
@@ -158,7 +158,7 @@ export const SessionControlls = ({
               {isShowConfirmBlock ? (
                 <ConfirmBlock
                   onOkHandler={onConfirmHandler}
-                  label="Вы уверены?"
+                  label={t('Вы уверены?')}
                   isShow={isShowConfirmBlock}
                   onCancel={onCancelConfirm}
                   isLoading={isCardsLoading}

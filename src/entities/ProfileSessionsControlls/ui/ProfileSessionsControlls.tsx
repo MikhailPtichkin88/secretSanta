@@ -45,7 +45,7 @@ export const ProfileSessionsControlls = memo(
   }: SessionControllsProps) => {
     const [searchValue, setSearchValue] = useState('')
     const [showFilters, setShowFilters] = useState(false)
-    const { t } = useTranslation('profile')
+    const { t, i18n } = useTranslation('profile')
     const filtersBlock = useMemo(() => {
       return (
         <>
@@ -61,7 +61,7 @@ export const ProfileSessionsControlls = memo(
             />
           </div>
           <div className={cls.searchBlock}>
-            <p className={cls.searchTitle}>Название:</p>
+            <p className={cls.searchTitle}>{t('Название')}</p>
             <SearchIcon className={cls.searchIcon} />
             <Input
               className={cls.searchInput}
@@ -72,7 +72,7 @@ export const ProfileSessionsControlls = memo(
           </div>
         </>
       )
-    }, [])
+    }, [i18n.language])
     const debouncedSearch = useDebounce(
       () => onSearchHandler(searchValue),
       1000

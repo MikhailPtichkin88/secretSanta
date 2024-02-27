@@ -5,6 +5,7 @@ import FilterIcon from '@/shared/assets/icons/filter.svg'
 import { Checkbox } from '@/shared/ui/Checkbox'
 import { Card } from '@/shared/ui/Card'
 import { TSessionStatusFilter } from '../../model/types/types'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
   isLoading: boolean
@@ -20,7 +21,7 @@ export const SessionStatusFilter = ({
   const [filters, setFilters] = useState<TSessionStatusFilter[]>([status])
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-
+  const { t } = useTranslation('profile')
   const onCancelHandler = () => {
     setFilters([status])
     setIsOpen(false)
@@ -79,14 +80,14 @@ export const SessionStatusFilter = ({
             <Card className={cls.dropdown}>
               <Menu.Item as={React.Fragment}>
                 <Checkbox
-                  label="Все"
+                  label={t('Все')}
                   checked={filters.includes('all')}
                   onChange={(checked) => onChangeHandler(checked, 'all')}
                 />
               </Menu.Item>
               <Menu.Item as={React.Fragment}>
                 <Checkbox
-                  label="В процессе"
+                  label={t('В процессе')}
                   checked={filters.includes('active')}
                   onChange={(checked) => {
                     onChangeHandler(checked, 'active')
@@ -95,7 +96,7 @@ export const SessionStatusFilter = ({
               </Menu.Item>
               <Menu.Item as={React.Fragment}>
                 <Checkbox
-                  label="Завершенные"
+                  label={t('Завершенные')}
                   checked={filters.includes('closed')}
                   onChange={(checked) => onChangeHandler(checked, 'closed')}
                 />
@@ -107,7 +108,7 @@ export const SessionStatusFilter = ({
                   className={cls.cancelBtn}
                   onClick={onCancelHandler}
                 >
-                  Отмена
+                  {t('Отмена')}
                 </Menu.Item>
                 <Menu.Item
                   as={'button'}
@@ -115,7 +116,7 @@ export const SessionStatusFilter = ({
                   disabled={isLoading}
                   onClick={onConfirmHandler}
                 >
-                  Принять
+                  {t('Принять')}
                 </Menu.Item>
               </div>
             </Card>

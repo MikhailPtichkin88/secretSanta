@@ -25,7 +25,7 @@ export const SessionComments = ({
   isActiveSession,
   userId,
 }: SessionChatProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const [commentText, setCommentText] = useState('')
   const isLoading = useSelector(getCommentIsLoading)
   const dispatch = useAppDispatch()
@@ -52,7 +52,7 @@ export const SessionComments = ({
         <Card className={cls.leaveComment}>
           <h3>{t('Оставить комментарий')}</h3>
           <Textarea
-            placeholder={'Введите текст комментария'}
+            placeholder={t('Введите текст комментария')}
             className={cls.textarea}
             value={commentText}
             onChange={setCommentText}

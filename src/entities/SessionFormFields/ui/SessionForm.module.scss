@@ -29,6 +29,17 @@
     }
   }
 
+  .titleBlock,
+  .infoBlock {
+    font-size: 18px;
+    color: var(--text-accent-color);
+    text-align: right;
+  }
+
+  .infoBlock {
+    font-size: 16px;
+  }
+
   @media (max-width: 525px) {
     gap: 20px;
     flex-direction: row;

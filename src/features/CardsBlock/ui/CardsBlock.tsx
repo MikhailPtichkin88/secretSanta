@@ -32,7 +32,7 @@ export const CardsBlock = ({
   const totalParticipants = useSelector(getCardsTotalParticipants)
   const cards = useSelector(getCardsData)
   const isLoading = useSelector(getCardsIsLoading)
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
 
   const dispatch = useAppDispatch()
 

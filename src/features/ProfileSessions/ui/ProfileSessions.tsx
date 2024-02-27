@@ -106,7 +106,7 @@ export const ProfileSessions = ({
 
   return (
     <div className={cls.wrapper}>
-      <h2>Сессии выбора подарков</h2>
+      <h2>{t('Сессии выбора подарков')}</h2>
       <ProfileSessionsControlls
         role={role}
         onOpenCreateSessionModal={onOpenCreateSessionModal}

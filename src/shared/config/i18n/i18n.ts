@@ -8,6 +8,9 @@ i18n
   .init({
     fallbackLng: 'en',
     lng: 'ru', // default language
+    react: {
+      useSuspense: false,
+    },
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },

@@ -31,7 +31,7 @@ export const CardFormFields = ({
 
   const [isEditMode, setIsEditMode] = useState(false)
 
-  const { t } = useTranslation('profile')
+  const { t } = useTranslation('session')
 
   const resetProfileData = () => {
     setCardTitle(title)

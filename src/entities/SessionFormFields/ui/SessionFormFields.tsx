@@ -12,6 +12,7 @@ import ExitIcon from '@/shared/assets/icons/logout.svg'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { deleteSessionParticipants } from '@/features/SessionParticipants/model/services/removeSessionParticipants'
 import { ConfirmBlock } from '@/shared/ui/ConfirmBlock'
+import { spawn } from 'child_process'
 
 interface SessionFormProps {
   title: string
@@ -46,7 +47,7 @@ export const SessionFormFields = memo(
 
     const dispatch = useAppDispatch()
 
-    const { t } = useTranslation('profile')
+    const { t } = useTranslation('session')
 
     const resetProfileData = () => {
       setSessionTitle(title)
@@ -87,20 +88,24 @@ export const SessionFormFields = memo(
       <div className={classNames(cls.sessionform, {}, [className])}>
         <div className={cls.container}>
           <span>{t('Название')}</span>
-          <Input
-            autoFocus={isEditMode}
-            readonly={!isEditMode}
-            value={sessionTitle}
-            errorMessage={errors.includes('title') && t('Невалидные данные')}
-            onChange={setSessionTitle}
-          />
+          {isEditMode ? (
+            <Input
+              autoFocus={isEditMode}
+              readonly={!isEditMode}
+              value={sessionTitle}
+              errorMessage={errors.includes('title') && t('Невалидные данные')}
+              onChange={setSessionTitle}
+            />
+          ) : (
+            <p className={cls.titleBlock}>{sessionTitle}</p>
+          )}
         </div>
         <div className={cls.container}>
           <span>{t('Описание')}</span>
           {isEditMode ? (
             <Textarea value={sessionInfo} onChange={setSessionInfo} />
           ) : (
-            <p>{sessionInfo}</p>
+            <p className={cls.infoBlock}>{sessionInfo}</p>
           )}
         </div>
 
@@ -152,7 +157,7 @@ export const SessionFormFields = memo(
               )}
 
               <ConfirmBlock
-                label={'Вы уверены? Ваша карточка будет удалена'}
+                label={t('Вы уверены? Ваша карточка будет удалена')}
                 isShow={isShowConfirm}
                 onCancel={() => setIsShowConfirm(false)}
                 onOkHandler={onLeaveSessionHandler}

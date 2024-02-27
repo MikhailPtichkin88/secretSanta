@@ -9,6 +9,7 @@ import { IconBtn } from '@/shared/ui/IconBtn'
 import placeholder from '@/shared/assets/img/profile_avatar.png'
 import { memo } from 'react'
 import { createSessionImgUrl } from '@/shared/lib/createImgUrl/createImgUrl'
+import { Skeleton } from '@/shared/ui/Skeleton'
 
 interface SessionImgProps {
   canEdit: boolean
@@ -28,24 +29,26 @@ export const SessionImg = memo(
     onChangeImg,
     onDeleteImg,
   }: SessionImgProps) => {
-    const { t } = useTranslation('profile')
+    const { t } = useTranslation('session')
 
     const imgSrc = sessionImg ? createSessionImgUrl(sessionImg) : placeholder
+    if (isLoading) {
+      return (
+        <div className={cls.sessionimg}>
+          <Skeleton width={250} height={250} border="14px" />
+        </div>
+      )
+    }
 
     return (
       <div className={classNames(cls.sessionimg, {}, [className])}>
-        {isLoading ? (
-          <div className={cls.loaderBlock}>
-            <Loader />
-          </div>
-        ) : (
-          <img
-            className={cls.avatar}
-            src={imgSrc}
-            alt="sessions's photo"
-            loading="lazy"
-          />
-        )}
+        <img
+          className={cls.avatar}
+          src={imgSrc}
+          alt="sessions's photo"
+          loading="lazy"
+        />
+
         <div className={cls.iconsWrapper}>
           {sessionImg && canEdit && (
             <Tooltip title={t('Удалить картинку')}>

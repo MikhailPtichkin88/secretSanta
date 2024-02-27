@@ -15,7 +15,7 @@ interface CommentsListProps {
 }
 
 export const CommentsList = ({ className, userId }: CommentsListProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const comments = useSelector(getCommentsData)
   const isLoading = useSelector(getCommentIsLoading)
   const dispatch = useAppDispatch()

@@ -15,7 +15,6 @@ export const deleteSessionImg = createAsyncThunk<
     if (!res.data || res?.status !== 200) {
       throw new Error()
     }
-    console.log(res.data)
     return res.data
   } catch (error) {
     return rejectWithValue(

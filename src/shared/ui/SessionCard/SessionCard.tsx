@@ -6,7 +6,6 @@ import EditIcon from '@/shared/assets/icons/edit.svg'
 import santaImg from '@/shared/assets/img/cool-santa.png'
 
 import cls from './SessionCard.module.scss'
-import { Loader } from '../PageLoader'
 import { Skeleton } from '../Skeleton'
 interface SessionCardProps {
   className?: string
@@ -53,23 +52,20 @@ export const SessionCard = ({
       onClick={onCardClick}
     >
       <img className={cls.cardImg} src={cardImg} alt="picture in user's card" />
-      {isLoading ? (
-        <Loader className={cls.loader} />
-      ) : (
-        <div className={cls.infoWrapper}>
-          <p className={cls.cardName}>{cardName}</p>
-          {canEdit && <EditIcon className={cls.cardIcon} />}
-          {isSelected && (
-            <img
-              src={santaImg}
-              alt="santa img"
-              width={25}
-              height={25}
-              className={cls.santaImg}
-            />
-          )}
-        </div>
-      )}
+
+      <div className={cls.infoWrapper}>
+        <p className={cls.cardName}>{cardName}</p>
+        {canEdit && <EditIcon className={cls.cardIcon} />}
+        {isSelected && (
+          <img
+            src={santaImg}
+            alt="santa img"
+            width={25}
+            height={25}
+            className={cls.santaImg}
+          />
+        )}
+      </div>
     </Button>
   )
 }

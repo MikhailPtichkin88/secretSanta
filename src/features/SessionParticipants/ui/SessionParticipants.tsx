@@ -28,15 +28,12 @@ export const SessionParticipants = ({
   className,
   canEdit,
 }: SessionParticipantsProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const participants = useSelector(getParticipantsData)
   const totalParticipants = useSelector(getCurrentSessionTotalPart)
   const isLoading = useSelector(getParticipantsIsLoading)
   const [editMode, setEditMode] = useState(false)
-  const [participantsNumber, setParticipantsNumber] = useState(
-    totalParticipants ?? 0
-  )
-
+  const [participantsNumber, setParticipantsNumber] = useState(0)
   const dispatch = useAppDispatch()
 
   const onChangeNumber = (value: string) => {
@@ -64,11 +61,17 @@ export const SessionParticipants = ({
     dispatch(getSessionParticipants(sessionId))
   }, [])
 
+  useEffect(() => {
+    if (totalParticipants) {
+      setParticipantsNumber(totalParticipants)
+    }
+  }, [totalParticipants])
+
   return (
     <Card className={classNames(cls.sessionparticipants, {}, [className])}>
       <h3 className={cls.title}>{t('Участники')}</h3>
       <div className={cls.totalParticipantsWrapper}>
-        <p>{t('Общее количество участников:')}</p>
+        <p>{t('Общее количество участников')}</p>
         {editMode ? (
           <Input
             size="size_s"
