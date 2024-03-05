@@ -1,0 +1,94 @@
+/* Общие стили */
+.customTolltip {
+  width: 300px;
+  background-color: #292929;
+  color: #fff;
+  border-radius: 14px;
+}
+
+/* Силь стрелочки */
+.customTolltip .bottom {
+  border-top-color: #20679e;
+}
+
+.customTolltip .top {
+  border-bottom-color: #20679e;
+}
+
+.customTolltip .left-bottom {
+  border-right-color: #20679e;
+}
+
+.customTolltip .right-bottom {
+  border-left-color: #20679e;
+}
+
+/* HEADER */
+.customTolltip .introjs-tooltip-header {
+  padding: 0;
+  height: 10px;
+}
+
+.customTolltip .introjs-skipbutton {
+  padding: 4px 6px 0 4px;
+  color: #ced1d7;
+}
+
+/* Контейнер с текстом */
+.customTolltip .introjs-tooltiptext {
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+}
+
+.whiteSpacePreLine .introjs-tooltiptext {
+  white-space: pre-line;
+}
+
+/* Точки навигации */
+.introjs-bullets ul li a {
+  background-color: #fff;
+}
+
+.introjs-bullets ul li a.active {
+  background-color: #ced1d7;
+}
+
+.introjs-bullets ul li a:hover {
+  background-color: #ced1d7;
+}
+
+/* Блок с кнопками */
+.customTolltip .introjs-tooltipbuttons {
+  border: none;
+  padding: 0 15px 15px;
+}
+
+/* Кнопки */
+.customTolltip .introjs-button {
+  border: none;
+  text-shadow: none;
+  padding: 6px 20px;
+  background-color: #0075c9;
+  color: #fff;
+}
+
+.customTolltip .introjs-button:active {
+  box-shadow: none;
+}
+
+.customTolltip .introjs-button:focus {
+  box-shadow: none;
+}
+
+/* Helper */
+
+.customTolltip .introjs-helperNumberLayer {
+  color: #fff;
+}
+
+.introjs-helperLayer {
+  box-shadow: #20679e 0 0 1px 2px, rgb(33 33 33 / 50%) 0 0 0 5000px !important;
+}

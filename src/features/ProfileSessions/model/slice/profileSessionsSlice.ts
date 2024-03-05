@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { ProfileSessionsSchema } from '../types/profileSessionsSchema'
 import { getProfileSessions } from '../services/getProfileSessions'
 import { TPerPage } from '@/shared/ui/Pagination/Pagination'
@@ -8,6 +8,7 @@ import {
   TSessionSortOrder,
   TSessionStatusFilter,
 } from '@/entities/ProfileSessionsTable'
+import { mockOnboardingSession } from '../../lib/const'
 
 const initialState: ProfileSessionsSchema = {
   data: [],
@@ -66,6 +67,15 @@ const profileSessionsSlice = createSlice({
     ) => {
       state.filters.sortOrder = payload.sortOrder
       state.filters.sortBy = payload.sortBy
+    },
+    setOnboardingMockSession: (state, { payload }: PayloadAction<boolean>) => {
+      if (payload) {
+        state.data = [mockOnboardingSession as ISession, ...current(state.data)]
+      } else {
+        state.data = current(state.data)?.filter(
+          (session) => session._id !== 'mockSession'
+        )
+      }
     },
   },
   extraReducers: (builder) => {

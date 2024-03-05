@@ -53,7 +53,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
   }
 
   const scssLoader = {
-    test: /\.s[ac]ss$/i,
+    test: /\.(sass|scss|css)$/,
     use: [
       isProd ? MiniCssExtractPlugin.loader : 'style-loader',
       cssLoaderWithModules,

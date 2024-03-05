@@ -76,7 +76,12 @@ export const ProfileSessionsTable = ({
 
   return (
     <>
-      <table className={classNames(cls.sessionstable, {}, [className])}>
+      <table
+        className={classNames(cls.sessionstable, {}, [
+          className,
+          `profile_page_onboarding_step_4`,
+        ])}
+      >
         <thead>
           <tr>
             <th className={cls.headerCell}>

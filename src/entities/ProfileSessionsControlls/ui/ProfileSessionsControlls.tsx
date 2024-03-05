@@ -17,6 +17,8 @@ import {
   TSortSessions,
 } from '@/entities/ProfileSessionsTable'
 import { MobileStatusSelect } from './MobileStatusSelect'
+import { useSelector } from 'react-redux'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
 
 interface SessionControllsProps {
   role: string
@@ -43,6 +45,8 @@ export const ProfileSessionsControlls = memo(
     onChangeSortOrder,
     onOpenCreateSessionModal,
   }: SessionControllsProps) => {
+    const isOnboardingOpen = useSelector(getOnboardingIsOpen)
+
     const [searchValue, setSearchValue] = useState('')
     const [showFilters, setShowFilters] = useState(false)
     const { t, i18n } = useTranslation('profile')
@@ -52,7 +56,7 @@ export const ProfileSessionsControlls = memo(
           <div className={cls.tabsWrapper}>
             <p className={cls.tabsTitle}>{t('Роль')}</p>
             <Tabs
-              className={cls.tabs}
+              className={cls.tabs + ` profile_page_onboarding_step_5`}
               tabTitleFirst={t('Создатель')}
               tabTitleSecond={t('Участник')}
               onTabChange={onTabChangeHandler}
@@ -82,6 +86,14 @@ export const ProfileSessionsControlls = memo(
       debouncedSearch()
     }, [searchValue])
 
+    useEffect(() => {
+      if (isOnboardingOpen) {
+        setShowFilters(true)
+      } else {
+        setShowFilters(false)
+      }
+    }, [isOnboardingOpen])
+
     return (
       <>
         <BrowserView>
@@ -90,7 +102,9 @@ export const ProfileSessionsControlls = memo(
             <Button
               theme="secondary"
               outlined
-              className={cls.createSessionBtn}
+              className={
+                cls.createSessionBtn + ` profile_page_onboarding_step_6`
+              }
               onClick={onOpenCreateSessionModal}
             >
               <SantaIcon className={cls.icon} width={30} height={30} />
@@ -109,6 +123,9 @@ export const ProfileSessionsControlls = memo(
               <FilterIcon width={25} height={25} />
               {t('Фильтры')}
             </Button>
+            <div
+              className={`${cls.onboardingBlock} profile_page_onboarding_step_5`}
+            />
             {showFilters && (
               <>
                 {filtersBlock}
@@ -119,7 +136,9 @@ export const ProfileSessionsControlls = memo(
             <Button
               theme="secondary"
               outlined
-              className={cls.createSessionBtn}
+              className={
+                cls.createSessionBtn + ` profile_page_onboarding_step_6`
+              }
               onClick={onOpenCreateSessionModal}
             >
               <SantaIcon className={cls.icon} width={30} height={30} />

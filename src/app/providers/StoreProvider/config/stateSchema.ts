@@ -10,6 +10,7 @@ import { ParticipantsSchema } from '@/features/SessionParticipants'
 import { CardsBlockSchema } from '@/features/CardsBlock'
 import { CardSchema } from '@/features/CardEditForm'
 import { CommentSchema } from '@/features/SessionComments'
+import { OnboardingSchema } from '@/entities/Onboarding'
 
 export interface StateSchema {
   auth: authSchema
@@ -22,6 +23,7 @@ export interface StateSchema {
   cardsBlock: CardsBlockSchema
   card: CardSchema
   comment: CommentSchema
+  onboarding: OnboardingSchema
 }
 
 export interface ThunkExtraArg {

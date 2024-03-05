@@ -69,7 +69,12 @@ export const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
   }
 
   return (
-    <div className={classNames(cls.profileavatar, {}, [className])}>
+    <div
+      className={classNames(cls.profileavatar, {}, [
+        className,
+        'profile_page_onboarding_step_3',
+      ])}
+    >
       {isLoading ? (
         <Skeleton width={250} height={250} />
       ) : (

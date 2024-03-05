@@ -4,7 +4,7 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { validateFields } from '../lib/validateFields'
@@ -16,6 +16,8 @@ import { profileActions } from '../model/slice/profileSlice'
 import cls from './ProfileForm.module.scss'
 import { Loader } from '@/shared/ui/PageLoader/Loader'
 import { Skeleton } from '@/shared/ui/Skeleton'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
+import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
 
 interface ProfileFormProps {
   className?: string
@@ -28,6 +30,10 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
   const city = useSelector(getProfileCity)
   const age = useSelector(getProfileAge)
   const isLoading = useSelector(getUserIsLoading)
+
+  // onboarding
+  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
+  const onboardingStep = useSelector(getOnboardingStepNumber)
 
   const [errors, setErrors] = useState([])
   const [isEditMode, setIsEditMode] = useState(false)
@@ -59,8 +65,25 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
     setIsEditMode(false)
   }
 
+  useEffect(() => {
+    if (isOnboardingOpen) {
+      if (onboardingStep === 2) {
+        setIsEditMode(true)
+      } else {
+        setIsEditMode(false)
+      }
+    } else {
+      setIsEditMode(false)
+    }
+  }, [isOnboardingOpen, onboardingStep])
+
   return (
-    <div className={classNames(cls.profileform, {}, [className])}>
+    <div
+      className={classNames(cls.profileform, {}, [
+        className,
+        'profile_page_onboarding_step_2',
+      ])}
+    >
       <div className={cls.container}>
         <label htmlFor="name">{t('Имя')}</label>
         {isLoading ? (
@@ -151,6 +174,9 @@ export const ProfileForm = ({ className }: ProfileFormProps) => {
             <span>{t('Редактировать')}</span>
           </Button>
         )}
+        <div
+          className={cls.onBoardingBlock + ` profile_page_onboarding_step_1`}
+        />
       </div>
     </div>
   )

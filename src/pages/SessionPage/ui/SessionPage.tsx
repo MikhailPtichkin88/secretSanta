@@ -1,3 +1,4 @@
+import Onboarding from '@/entities/Onboarding'
 import { getUserId } from '@/entities/User'
 import { CardEditForm } from '@/features/CardEditForm'
 import { CardsBlock } from '@/features/CardsBlock'
@@ -9,6 +10,7 @@ import {
   getCurrentSessionCreatedBy,
   getCurrentSessionTotalPart,
 } from '@/features/SessionForm'
+import { getCurrentSessionStatus } from '@/features/SessionForm/model/selectors/getCurrentSessionStatus'
 import {
   SessionParticipants,
   createSessionParticipant,
@@ -18,11 +20,11 @@ import { getParticipantsIsLoading } from '@/features/SessionParticipants/model/s
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Flex } from '@/shared/ui/Flex'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { sessionOnboardingSteps } from '../lib/onboardingSteps'
 import cls from './SessionPage.module.scss'
-import { getCurrentSessionStatus } from '@/features/SessionForm/model/selectors/getCurrentSessionStatus'
 
 interface SessionPageProps {
   className?: string
@@ -123,6 +125,8 @@ export const SessionPage = ({ className }: SessionPageProps) => {
           cards?.find((card) => card._id === cardModalId)?.selected_by
         )}
       />
+
+      <Onboarding steps={sessionOnboardingSteps} />
     </div>
   )
 }

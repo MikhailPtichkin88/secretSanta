@@ -5,6 +5,8 @@ import { ProfileForm } from '@/entities/ProfileForm'
 import { ProfileSessions } from '@/features/ProfileSessions'
 import { useCallback, useState } from 'react'
 import { CreateSessionModal } from '@/features/CreateSessionForm'
+import Onboarding from '@/entities/Onboarding'
+import { PROFILE_PAGE_STEPS } from '../lib/constant'
 
 interface ProfileCardProps {
   className?: string
@@ -23,6 +25,8 @@ export const ProfileCard = ({ className }: ProfileCardProps) => {
       </div>
       <ProfileSessions onOpenCreateSessionModal={onOpenCreateSessionModal} />
       <CreateSessionModal isOpen={isOpenModal} onClose={onCloseHandler} />
+
+      <Onboarding steps={PROFILE_PAGE_STEPS} />
     </div>
   )
 }

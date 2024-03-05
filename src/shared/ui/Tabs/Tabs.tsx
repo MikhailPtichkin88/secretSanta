@@ -29,7 +29,10 @@ export const Tabs = ({
 
   return (
     <div
-      className={classNames(cls.tabs, { [cls.loading]: loading }, [className])}
+      className={classNames(cls.tabs, { [cls.loading]: loading }, [
+        className,
+        `profile_page_onboarding_step_5`,
+      ])}
     >
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <Tab.List>

@@ -11,6 +11,7 @@ import { participantsReducer } from '@/features/SessionParticipants'
 import { cardsBlockReducer } from '@/features/CardsBlock'
 import { cardSliceReducer } from '@/features/CardEditForm'
 import { commentReducer } from '@/features/SessionComments/model/slice/commentSlice'
+import { onboardingReducer } from '@/entities/Onboarding'
 
 const extraArg: ThunkExtraArg = {
   api: $api,
@@ -29,6 +30,7 @@ export function createReduxStore(initialState?: StateSchema) {
       cardsBlock: cardsBlockReducer,
       card: cardSliceReducer,
       comment: commentReducer,
+      onboarding: onboardingReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ thunk: { extraArgument: extraArg } }),

@@ -26,6 +26,8 @@ import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
 import { BrowserView, MobileView } from 'react-device-detect'
 import cls from './ProfileSessions.module.scss'
 import { MobileSession } from '@/shared/ui/MobileSession'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
+import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
 
 interface SessionsTableProps {
   className?: string
@@ -46,6 +48,10 @@ export const ProfileSessions = ({
   const total = useSelector(getProfileSessionsTotalPages)
   const search = useSelector(getProfileSessionsSearch)
   const role = useSelector(getProfileSessionsRole)
+
+  //onboarding
+  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
+  const onBoardingStep = useSelector(getOnboardingStepNumber)
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -104,6 +110,13 @@ export const ProfileSessions = ({
     )
   }, [sortBy, sortOrder, current, perPage, status, search, role])
 
+  useEffect(() => {
+    if (isOnboardingOpen) {
+      dispatch(profileSessionsActions.setOnboardingMockSession(true))
+    } else {
+      dispatch(profileSessionsActions.setOnboardingMockSession(false))
+    }
+  }, [isOnboardingOpen])
   return (
     <div className={cls.wrapper}>
       <h2>{t('Сессии выбора подарков')}</h2>
@@ -128,22 +141,31 @@ export const ProfileSessions = ({
         />
       </BrowserView>
       <MobileView>
-        {sessions.map(
-          ({ _id, title, createdAt, total_participants, status, ...rest }) => {
-            return (
-              <MobileSession
-                key={_id}
-                sessionImg={rest?.session_img}
-                sessionId={_id}
-                title={title}
-                createdAt={createdAt}
-                totalParticipants={total_participants}
-                status={status}
-                isLoading={isLoading}
-              />
-            )
-          }
-        )}
+        <div className={'profile_page_onboarding_step_4'}>
+          {sessions.map(
+            ({
+              _id,
+              title,
+              createdAt,
+              total_participants,
+              status,
+              ...rest
+            }) => {
+              return (
+                <MobileSession
+                  key={_id}
+                  sessionImg={rest?.session_img}
+                  sessionId={_id}
+                  title={title}
+                  createdAt={createdAt}
+                  totalParticipants={total_participants}
+                  status={status}
+                  isLoading={isLoading}
+                />
+              )
+            }
+          )}
+        </div>
       </MobileView>
       <Pagination
         current={current}

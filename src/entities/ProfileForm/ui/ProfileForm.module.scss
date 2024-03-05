@@ -41,10 +41,12 @@
 }
 
 .editBtnWrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
+  z-index: 1;
 
   .loader {
     height: 40px;
@@ -53,6 +55,21 @@
       top: 13px;
     }
   }
+
+  .onBoardingBlock {
+    position: absolute;
+    width: 200px;
+    height: 42px;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+}
+
+.editBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .cancelBtn {
