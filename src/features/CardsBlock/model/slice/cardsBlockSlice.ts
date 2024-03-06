@@ -4,6 +4,7 @@ import { createCard } from '../services/createCard'
 import { getCards } from '../services/getCards'
 import { deleteCard } from '../services/deleteCard'
 import { updateCardTh } from '@/features/CardEditForm/model/services/updateCardTh'
+import { mockOnboardingCard } from '../../lib/const'
 
 const initialState: CardsBlockSchema = {
   cards: [],
@@ -34,6 +35,15 @@ const cardsBlockSlice = createSlice({
       }
     },
     resetCardsStore: (state) => (state = initialState),
+    setOnboardingCard: (state, { payload }: PayloadAction<boolean>) => {
+      if (payload) {
+        state.cards = [mockOnboardingCard, ...current(state.cards)]
+      } else {
+        state.cards = current(state.cards)?.filter(
+          (card) => card._id !== 'mockCard'
+        )
+      }
+    },
   },
   extraReducers: (builder) => {
     builder

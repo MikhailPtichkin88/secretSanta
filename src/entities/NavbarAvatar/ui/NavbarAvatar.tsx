@@ -33,7 +33,10 @@ export const NavbarAvatar = ({ className }: AvatarProfileProps) => {
 
   return (
     <NavLink
-      className={classNames(cls.avatarprofile, {}, [className])}
+      className={classNames(cls.avatarprofile, {}, [
+        className,
+        'session_page_onboarding_step_4',
+      ])}
       to={inited ? `/profile/${userId}` : `/login`}
     >
       {inited ? (

@@ -1,4 +1,4 @@
-import Onboarding from '@/entities/Onboarding'
+import Onboarding, { onboardingActions } from '@/entities/Onboarding'
 import { getUserId } from '@/entities/User'
 import { CardEditForm } from '@/features/CardEditForm'
 import { CardsBlock } from '@/features/CardsBlock'
@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { sessionOnboardingSteps } from '../lib/onboardingSteps'
 import cls from './SessionPage.module.scss'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
 
 interface SessionPageProps {
   className?: string
@@ -36,9 +37,11 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   const sessionCreatedBy = useSelector(getCurrentSessionCreatedBy)
   const sessionTotalParticipants = useSelector(getCurrentSessionTotalPart)
   const sessionStatus = useSelector(getCurrentSessionStatus)
-  const userId = useSelector(getUserId)
-  const participants = useSelector(getParticipantsData)
 
+  const userId = useSelector(getUserId)
+
+  const participants = useSelector(getParticipantsData)
+  const isLoadingParticipants = useSelector(getParticipantsIsLoading)
   const participantId = participants?.find(
     (el) => el?.user?._id === userId
   )?._id
@@ -48,11 +51,18 @@ export const SessionPage = ({ className }: SessionPageProps) => {
     sessionCreatedBy === userId && sessionTotalParticipants === cards?.length
   const userCardId = cards?.find((el) => el.created_by === userId)?._id
 
-  const isLoadingParticipants = useSelector(getParticipantsIsLoading)
+  const [cardModalId, setCardModalId] = useState('')
 
   const dispatch = useAppDispatch()
 
-  const [cardModalId, setCardModalId] = useState('')
+  //onboarding
+  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
+  const onboardingShown = localStorage.getItem('session_onboarding_shown')
+
+  if (!onboardingShown) {
+    dispatch(onboardingActions.setIsOpen(true))
+    localStorage.setItem('session_onboarding_shown', 'true')
+  }
 
   const onAddParticipant = useCallback(() => {
     dispatch(createSessionParticipant(id))
@@ -79,6 +89,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
     <div className={classNames(cls.sessionpage, {}, [className])}>
       <Flex gap={'16'} className={cls.container}>
         <SessionForm
+          className="session_page_onboarding_step_7"
           sessionId={id}
           isCreator={sessionCreatedBy === userId}
           isActiveSession={sessionStatus !== 'closed'}
@@ -97,20 +108,20 @@ export const SessionPage = ({ className }: SessionPageProps) => {
           userId={userId}
           onCardClick={onOpenCardModal}
         />
-        {sessionStatus !== 'closed' && (
-          <SessionControlls
-            sessionId={id}
-            canChooseCards={canChooseCards}
-            cardId={userCardId}
-            isCreator={sessionCreatedBy === userId}
-            isParticipant={Boolean(participantId)}
-            isLoadingParticipants={isLoadingParticipants}
-            onOpenCardModal={onOpenCardModal}
-            onAddParticipant={onAddParticipant}
-          />
-        )}
+        <SessionControlls
+          sessionId={id}
+          sessionStatus={sessionStatus}
+          canChooseCards={canChooseCards}
+          cardId={userCardId}
+          isCreator={sessionCreatedBy === userId}
+          isParticipant={Boolean(participantId)}
+          isLoadingParticipants={isLoadingParticipants}
+          onOpenCardModal={onOpenCardModal}
+          onAddParticipant={onAddParticipant}
+        />
       </div>
       <SessionComments
+        className="session_page_onboarding_step_6"
         sessionId={id}
         userId={userId}
         isActiveSession={sessionStatus !== 'closed'}

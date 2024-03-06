@@ -8,6 +8,7 @@ export const PROFILE_PAGE_STEPS: Step[] = [
   },
   {
     element: '.profile_page_onboarding_step_1',
+    tooltipClass: 'customTolltip profileStep1',
     intro: 'По клику на кнопку "Редактировать" ты можешь изменить свои данные.',
   },
   {

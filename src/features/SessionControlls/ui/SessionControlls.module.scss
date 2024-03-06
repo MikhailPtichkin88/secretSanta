@@ -75,3 +75,9 @@
     max-width: 200px;
   }
 }
+
+.hidden {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}

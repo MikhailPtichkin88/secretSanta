@@ -92,3 +92,13 @@
 .introjs-helperLayer {
   box-shadow: #20679e 0 0 1px 2px, rgb(33 33 33 / 50%) 0 0 0 5000px !important;
 }
+
+@media (max-width: 576px) {
+  .sessionStep4 {
+    left: -150px !important;
+  }
+
+  .profileStep1 {
+    left: -100px;
+  }
+}

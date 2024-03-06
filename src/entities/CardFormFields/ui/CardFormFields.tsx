@@ -46,7 +46,6 @@ export const CardFormFields = ({
     const formData = new FormData()
     formData.append('title', cardTitle)
     formData.append('card_info', cardInfo)
-
     onUpdateData(formData).then(() => setIsEditMode(false))
   }
 

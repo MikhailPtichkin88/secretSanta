@@ -14,10 +14,25 @@
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  position: relative;
 
   @media (max-width: 576px) {
     justify-content: center;
     padding: 20px 0;
+  }
+
+  .onboardingBlock {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 135px;
+    height: 190px;
+
+    @media (max-width: 576px) {
+      left: 25px;
+      height: 200px;
+      width: 170px;
+    }
   }
 }
 
@@ -44,4 +59,9 @@
     width: 140px;
     height: 180px;
   }
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

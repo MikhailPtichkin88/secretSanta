@@ -13,6 +13,8 @@ import { SessionCard } from '@/shared/ui/SessionCard'
 import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 import { cardsBlockActions } from '../model/slice/cardsBlockSlice'
 import { getCardsIsLoading } from '../model/selectors/getCardsIsLoading'
+import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
 
 interface CardsBlockProps {
   className?: string
@@ -33,6 +35,10 @@ export const CardsBlock = ({
   const cards = useSelector(getCardsData)
   const isLoading = useSelector(getCardsIsLoading)
   const { t } = useTranslation('session')
+
+  // onboarding
+  const onboardingNumber = useSelector(getOnboardingStepNumber)
+  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
 
   const dispatch = useAppDispatch()
 
@@ -55,6 +61,16 @@ export const CardsBlock = ({
       dispatch(cardsBlockActions.resetCardsStore())
     }
   }, [])
+
+  // onboarding
+  useEffect(() => {
+    if (onboardingNumber === 3) {
+      dispatch(cardsBlockActions.setOnboardingCard(true))
+    }
+    if (onboardingNumber === 2 || onboardingNumber === 4 || !isOnboardingOpen) {
+      dispatch(cardsBlockActions.setOnboardingCard(false))
+    }
+  }, [onboardingNumber, isOnboardingOpen])
 
   useEffect(() => {
     if (cards && cards.length) {
@@ -89,12 +105,21 @@ export const CardsBlock = ({
     <Card className={classNames(cls.cardsWrapper, {}, [className])}>
       <h3>{t('Карточки участников')}</h3>
       <div className={cls.cardsblock}>
+        <div
+          className={`${cls.onboardingBlock} session_page_onboarding_step_3 ${
+            onboardingNumber !== 3 ? cls.hidden : ''
+          }`}
+        />
         <>
           {cards.map((card) => {
             let cardImg
             if (card?.user?.avatarUrl) {
               cardImg = createUserAvatarUrl(card.user.avatarUrl)
             }
+            const isCanEdit =
+              (card.created_by === userId && isActiveSession) ||
+              card._id === 'mockCard'
+
             // TODO связать аву карточки с комментариями и участниками
             // if (card?.card_img) {
             //   cardImg = createCardImgUrl(sessionId, card.card_img)
@@ -103,7 +128,7 @@ export const CardsBlock = ({
               <SessionCard
                 key={card._id}
                 imgUrl={cardImg}
-                canEdit={card.created_by === userId && isActiveSession}
+                canEdit={isCanEdit}
                 cardName={card.title}
                 onCardClick={() => onCardClick(card._id)}
                 isSelected={Boolean(card?.selected_by)}

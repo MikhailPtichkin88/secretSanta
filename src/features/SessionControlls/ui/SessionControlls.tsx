@@ -21,9 +21,14 @@ import {
 } from '@/features/SessionForm'
 import { useNavigate } from 'react-router-dom'
 import { Modal } from '@/shared/ui/Modal'
+import { TSessionStatus } from '@/entities/ProfileSessionsTable'
+import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
+import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
+import { OnboardingBlock } from './OnboardingBlock'
 
 interface SessionControllsProps {
   sessionId: string
+  sessionStatus: TSessionStatus
   canChooseCards: boolean
   isCreator: boolean
   className?: string
@@ -36,6 +41,7 @@ interface SessionControllsProps {
 
 export const SessionControlls = ({
   sessionId,
+  sessionStatus,
   className,
   canChooseCards,
   isParticipant,
@@ -52,6 +58,10 @@ export const SessionControlls = ({
   const isSessionLoading = useSelector(getCurrentSessionIsLoading)
   const [isShowConfirmBlock, setIsShowConfirmBlock] = useState(false)
   const [isOpenModal, setIsOpenModal] = useState(false)
+
+  // onboarding
+  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
+  const onboardingStep = useSelector(getOnboardingStepNumber)
 
   const onCreateCard = () => {
     dispatch(createCard(sessionId))
@@ -74,7 +84,7 @@ export const SessionControlls = ({
     await dispatch(chooseCards(sessionId))
     setIsOpenModal(false)
   }
-
+  console.log(onboardingStep)
   const handleCopyLink = () => {
     const currentUrl = window.location.href
     navigator.clipboard
@@ -91,6 +101,16 @@ export const SessionControlls = ({
           message: `Не удалось скопировать URL: ', ${err}`,
         })
       })
+  }
+
+  // для онбординга рисуем моковую разметку
+  if (isOnboardingOpen) {
+    return <OnboardingBlock onboardingStep={onboardingStep} />
+  }
+
+  // если сессия закрыта, то скрываем этот блок
+  if (sessionStatus === 'closed') {
+    return null
   }
 
   return (
