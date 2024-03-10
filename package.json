@@ -15,7 +15,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss}\"",
     "precommit": "pretty-quick --staged",
     "type-check": "tsc --noEmit",
-    "test": "jest"
+    "unit": "jest"
   },
   "keywords": [],
   "author": "",
