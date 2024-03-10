@@ -57,6 +57,12 @@ export const CardFormFields = ({
     setCardInfo(info ?? '')
   }, [title, info])
 
+  useEffect(() => {
+    if (!canEdit) {
+      setIsEditMode(false)
+    }
+  }, [canEdit])
+
   return (
     <div className={classNames(cls.cardformfields, {}, [className])}>
       <div className={cls.container}>

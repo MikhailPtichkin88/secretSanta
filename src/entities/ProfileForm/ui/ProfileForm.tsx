@@ -16,8 +16,10 @@ import { profileActions } from '../model/slice/profileSlice'
 import cls from './ProfileForm.module.scss'
 import { Loader } from '@/shared/ui/PageLoader/Loader'
 import { Skeleton } from '@/shared/ui/Skeleton'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
-import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
+import {
+  getOnboardingIsOpen,
+  getOnboardingStepNumber,
+} from '@/entities/Onboarding'
 
 interface ProfileFormProps {
   className?: string

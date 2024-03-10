@@ -18,7 +18,7 @@ import {
 } from '@/entities/ProfileSessionsTable'
 import { MobileStatusSelect } from './MobileStatusSelect'
 import { useSelector } from 'react-redux'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
+import { getOnboardingIsOpen } from '@/entities/Onboarding'
 
 interface SessionControllsProps {
   role: string

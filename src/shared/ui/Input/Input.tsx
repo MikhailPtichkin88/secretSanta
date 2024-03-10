@@ -58,7 +58,7 @@ export const Input = ({
   }
   const onEnterPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onPressEnter()
+      onPressEnter && onPressEnter()
     }
   }
 

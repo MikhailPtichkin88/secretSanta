@@ -10,8 +10,8 @@ export const alertMessage = ({
   const text = document.createElement('span')
 
   notification.style.position = 'fixed'
-  notification.style.bottom = '20px'
-  notification.style.right = '20px'
+  notification.style.bottom = '10px'
+  notification.style.right = '40px'
   notification.style.borderRadius = '10px'
   notification.style.background = '#fff'
   notification.style.padding = '10px 20px'
@@ -20,6 +20,7 @@ export const alertMessage = ({
   notification.style.gap = '20px'
   notification.style.alignItems = 'center'
   notification.style.fontFamily = 'gotham, sans-serif'
+  notification.style.zIndex = '100'
 
   icon.style.fontSize = '24px'
   text.textContent = message

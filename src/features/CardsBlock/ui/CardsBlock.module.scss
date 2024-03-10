@@ -38,7 +38,7 @@
 
 .placeholderCard {
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 14px;
   border: 1px solid var(--bg-secondary-color);
   box-shadow: 2px 2px 8px 0 var(--card-shadow-color);
   display: inline-flex;
@@ -64,4 +64,31 @@
 .hidden {
   opacity: 0;
   visibility: hidden;
+}
+
+.sessioncard {
+  width: 120px;
+  height: 170px;
+  border-radius: 14px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  border-color: var(--bg-secondary-color);
+  position: relative;
+
+  @media (max-width: 576px) {
+    width: 140px;
+    height: 180px;
+  }
+}
+
+.skeletonImg {
+  margin-bottom: 10px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.skeletonTitle {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
 }

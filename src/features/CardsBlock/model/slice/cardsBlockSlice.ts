@@ -26,7 +26,7 @@ const cardsBlockSlice = createSlice({
       state.totalParticipants = payload
     },
     deleteCard: (state, { payload }: PayloadAction<ICard>) => {
-      state.cards = state.cards.filter((el) => el._id !== payload._id)
+      state.cards = current(state.cards)?.filter((el) => el._id !== payload._id)
     },
     deleteCardImg: (state, { payload }: PayloadAction<string>) => {
       const cardIndex = state.cards.findIndex((el) => el._id === payload)
@@ -76,18 +76,14 @@ const cardsBlockSlice = createSlice({
         state.isLoading = true
       })
       // delete card or delete card img
-      .addCase(deleteCard.fulfilled, (state, { payload, meta }) => {
+      .addCase(deleteCard.fulfilled, (state, { meta }) => {
         state.error = undefined
         state.isLoading = false
-        if (Array.isArray(payload)) {
-          state.cards = payload
-        } else {
-          if (meta.arg.cardId) {
-            const index = state.cards.findIndex((card) => {
-              return card._id === meta.arg.cardId
-            })
-            state.cards[index].card_img = null
-          }
+
+        if (meta.arg.cardId) {
+          state.cards = current(state.cards)?.filter(
+            (el) => el._id !== meta.arg.cardId
+          )
         }
       })
       .addCase(deleteCard.rejected, (state, { error }) => {

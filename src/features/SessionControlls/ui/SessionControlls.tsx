@@ -22,9 +22,11 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { Modal } from '@/shared/ui/Modal'
 import { TSessionStatus } from '@/entities/ProfileSessionsTable'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
-import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
 import { OnboardingBlock } from './OnboardingBlock'
+import {
+  getOnboardingIsOpen,
+  getOnboardingStepNumber,
+} from '@/entities/Onboarding'
 
 interface SessionControllsProps {
   sessionId: string
@@ -84,7 +86,6 @@ export const SessionControlls = ({
     await dispatch(chooseCards(sessionId))
     setIsOpenModal(false)
   }
-  console.log(onboardingStep)
   const handleCopyLink = () => {
     const currentUrl = window.location.href
     navigator.clipboard

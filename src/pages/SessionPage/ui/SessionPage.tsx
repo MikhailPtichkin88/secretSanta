@@ -25,7 +25,6 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { sessionOnboardingSteps } from '../lib/onboardingSteps'
 import cls from './SessionPage.module.scss'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
 
 interface SessionPageProps {
   className?: string
@@ -56,7 +55,6 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   const dispatch = useAppDispatch()
 
   //onboarding
-  const isOnboardingOpen = useSelector(getOnboardingIsOpen)
   const onboardingShown = localStorage.getItem('session_onboarding_shown')
 
   if (!onboardingShown) {

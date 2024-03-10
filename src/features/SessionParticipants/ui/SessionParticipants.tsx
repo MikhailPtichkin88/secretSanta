@@ -77,6 +77,7 @@ export const SessionParticipants = ({
             size="size_s"
             className={cls.editInput}
             autoFocus
+            onPressEnter={onChangeParticipants}
             value={participantsNumber}
             onChange={onChangeNumber}
           />

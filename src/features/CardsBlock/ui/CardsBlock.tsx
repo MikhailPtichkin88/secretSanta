@@ -1,20 +1,23 @@
+import { getCurrentSessionTotalPart } from '@/features/SessionForm'
 import placeholder from '@/shared/assets/img/profile_avatar.png'
 import { classNames } from '@/shared/lib/classNames/classNames'
+import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Card } from '@/shared/ui/Card'
+import { SessionCard } from '@/shared/ui/SessionCard'
+import { Skeleton } from '@/shared/ui/Skeleton'
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { getCardsData } from '../model/selectors/getCardsData'
-import { getCardsTotalParticipants } from '../model/selectors/getCardsTotalParticipants'
-import { getCards } from '../model/services/getCards'
-import cls from './CardsBlock.module.scss'
-import { SessionCard } from '@/shared/ui/SessionCard'
-import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
-import { cardsBlockActions } from '../model/slice/cardsBlockSlice'
 import { getCardsIsLoading } from '../model/selectors/getCardsIsLoading'
-import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
+import { getCards } from '../model/services/getCards'
+import { cardsBlockActions } from '../model/slice/cardsBlockSlice'
+import cls from './CardsBlock.module.scss'
+import {
+  getOnboardingIsOpen,
+  getOnboardingStepNumber,
+} from '@/entities/Onboarding'
 
 interface CardsBlockProps {
   className?: string
@@ -31,7 +34,7 @@ export const CardsBlock = ({
   userId,
   onCardClick,
 }: CardsBlockProps) => {
-  const totalParticipants = useSelector(getCardsTotalParticipants)
+  const totalParticipants = useSelector(getCurrentSessionTotalPart)
   const cards = useSelector(getCardsData)
   const isLoading = useSelector(getCardsIsLoading)
   const { t } = useTranslation('session')
@@ -41,19 +44,43 @@ export const CardsBlock = ({
   const isOnboardingOpen = useSelector(getOnboardingIsOpen)
 
   const dispatch = useAppDispatch()
-
+  console.log(totalParticipants)
   const cardsPlaceholders = useMemo(() => {
-    const total = totalParticipants - cards.length
     const arr = []
-    for (let i = 0; i < total; i++) {
-      arr.push(
-        <div key={i} className={cls.placeholderCard}>
-          <img src={placeholder} alt="card placeholder" />
-        </div>
-      )
+    if (totalParticipants) {
+      const total = totalParticipants - cards.length
+
+      if (isLoading) {
+        for (let i = 0; i < total; i++) {
+          arr.push(
+            <div className={cls.sessioncard}>
+              <Skeleton
+                width={'100%'}
+                height={125}
+                className={cls.skeletonImg}
+              />
+              <Skeleton
+                width={'100%'}
+                height={20}
+                className={cls.skeletonTitle}
+              />
+            </div>
+          )
+        }
+        return arr
+      }
+
+      for (let i = 0; i < total; i++) {
+        arr.push(
+          <div key={i} className={cls.placeholderCard}>
+            <img src={placeholder} alt="card placeholder" />
+          </div>
+        )
+      }
     }
+
     return arr
-  }, [totalParticipants, cards])
+  }, [totalParticipants, cards?.length, isLoading])
 
   useEffect(() => {
     dispatch(getCards(sessionId))

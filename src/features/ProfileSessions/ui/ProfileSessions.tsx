@@ -26,8 +26,10 @@ import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
 import { BrowserView, MobileView } from 'react-device-detect'
 import cls from './ProfileSessions.module.scss'
 import { MobileSession } from '@/shared/ui/MobileSession'
-import { getOnboardingIsOpen } from '@/entities/Onboarding/model/selectors/getOnboardingOpen'
-import { getOnboardingStepNumber } from '@/entities/Onboarding/model/selectors/getOnboardingStep'
+import {
+  getOnboardingIsOpen,
+  getOnboardingStepNumber,
+} from '@/entities/Onboarding'
 
 interface SessionsTableProps {
   className?: string

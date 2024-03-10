@@ -1,5 +1,6 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
 import { ICard } from '@/features/CardsBlock'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const updateCardTh = createAsyncThunk<
@@ -24,6 +25,10 @@ export const updateCardTh = createAsyncThunk<
 
     return res.data
   } catch (error) {
+    alertMessage({
+      type: 'error',
+      message: error?.response?.data?.error ?? 'Произошла ошибка',
+    })
     return rejectWithValue(
       error?.response?.data?.message || 'Ошибка получения сессии'
     )
