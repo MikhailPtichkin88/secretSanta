@@ -76,7 +76,8 @@ export const ProfileSessionsControlls = memo(
           </div>
         </>
       )
-    }, [i18n.language])
+    }, [i18n.language, role])
+
     const debouncedSearch = useDebounce(
       () => onSearchHandler(searchValue),
       1000
