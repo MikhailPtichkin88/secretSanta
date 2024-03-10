@@ -44,7 +44,6 @@ export const CardsBlock = ({
   const isOnboardingOpen = useSelector(getOnboardingIsOpen)
 
   const dispatch = useAppDispatch()
-  console.log(totalParticipants)
   const cardsPlaceholders = useMemo(() => {
     const arr = []
     if (totalParticipants) {

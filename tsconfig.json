@@ -8,6 +8,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "types": ["jest", "@types/jest"],
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
