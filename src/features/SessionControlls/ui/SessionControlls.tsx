@@ -30,7 +30,6 @@ import {
 
 interface SessionControllsProps {
   sessionId: string
-  sessionStatus: TSessionStatus
   canChooseCards: boolean
   isCreator: boolean
   className?: string
@@ -43,7 +42,6 @@ interface SessionControllsProps {
 
 export const SessionControlls = ({
   sessionId,
-  sessionStatus,
   className,
   canChooseCards,
   isParticipant,
@@ -107,11 +105,6 @@ export const SessionControlls = ({
   // для онбординга рисуем моковую разметку
   if (isOnboardingOpen) {
     return <OnboardingBlock onboardingStep={onboardingStep} />
-  }
-
-  // если сессия закрыта, то скрываем этот блок
-  if (sessionStatus === 'closed') {
-    return null
   }
 
   return (

@@ -1,38 +1,34 @@
+import { SendMessageBlock } from '@/entities/SendMessageBlock'
 import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './SessionComments.module.scss'
-import { useTranslation } from 'react-i18next'
-import { Card } from '@/shared/ui/Card'
-import { Textarea } from '@/shared/ui/Textarea'
-import { useEffect, useState } from 'react'
-import { Button } from '@/shared/ui/Button'
-import { CommentsList } from './CommentsList'
-import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { Card } from '@/shared/ui/Card'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { getCommentIsLoading } from '../model/selectors/getCommentIsLoading'
 import { createComment } from '../model/services/createComment'
 import { getComments } from '../model/services/getComments'
+import { CommentsList } from './CommentsList'
+import cls from './SessionComments.module.scss'
 
 interface SessionChatProps {
   sessionId: string
   className?: string
   userId?: string
-  isActiveSession: boolean
 }
 
 export const SessionComments = ({
   className,
   sessionId,
-  isActiveSession,
   userId,
 }: SessionChatProps) => {
   const { t } = useTranslation('session')
-  const [commentText, setCommentText] = useState('')
+
   const isLoading = useSelector(getCommentIsLoading)
   const dispatch = useAppDispatch()
 
-  const createCommentHandler = async () => {
-    await dispatch(createComment({ sessionId, text: commentText }))
-    setCommentText('')
+  const createCommentHandler = async (text: string) => {
+    await dispatch(createComment({ sessionId, text }))
   }
 
   useEffect(() => {
@@ -48,25 +44,13 @@ export const SessionComments = ({
         <CommentsList userId={userId} />
       </Card>
 
-      {isActiveSession && (
-        <Card className={cls.leaveComment}>
-          <h3>{t('Оставить комментарий')}</h3>
-          <Textarea
-            placeholder={t('Введите текст комментария')}
-            className={cls.textarea}
-            value={commentText}
-            onChange={setCommentText}
-          />
-          <Button
-            onClick={createCommentHandler}
-            disabled={!commentText}
-            theme="secondary"
-            loading={isLoading}
-          >
-            {t('Отправить')}
-          </Button>
-        </Card>
-      )}
+      <Card className={cls.leaveComment}>
+        <SendMessageBlock
+          title={t('Введите текст комментария')}
+          onSend={createCommentHandler}
+          isLoading={isLoading}
+        />
+      </Card>
     </div>
   )
 }

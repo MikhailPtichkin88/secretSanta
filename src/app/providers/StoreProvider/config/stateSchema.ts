@@ -11,6 +11,7 @@ import { CardsBlockSchema } from '@/features/CardsBlock'
 import { CardSchema } from '@/features/CardEditForm'
 import { CommentSchema } from '@/features/SessionComments'
 import { OnboardingSchema } from '@/entities/Onboarding'
+import { IMessagesFromSantaSchema } from '@/features/SendMessageFromSanta'
 
 export interface StateSchema {
   auth: authSchema
@@ -24,6 +25,7 @@ export interface StateSchema {
   card: CardSchema
   comment: CommentSchema
   onboarding: OnboardingSchema
+  messagesFromSanta: IMessagesFromSantaSchema
 }
 
 export interface ThunkExtraArg {

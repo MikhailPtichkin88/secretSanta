@@ -1,0 +1,23 @@
+.leaveComment {
+  width: 100%;
+  max-width: 350px;
+  max-height: 280px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .textarea {
+    flex-grow: 2;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+}

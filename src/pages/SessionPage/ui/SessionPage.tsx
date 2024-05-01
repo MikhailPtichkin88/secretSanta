@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { sessionOnboardingSteps } from '../lib/onboardingSteps'
 import cls from './SessionPage.module.scss'
+import { SendMessageFromSanta } from '@/features/SendMessageFromSanta'
 
 interface SessionPageProps {
   className?: string
@@ -35,7 +36,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
 
   const sessionCreatedBy = useSelector(getCurrentSessionCreatedBy)
   const sessionTotalParticipants = useSelector(getCurrentSessionTotalPart)
-  const sessionStatus = useSelector(getCurrentSessionStatus)
+  const isActiveSession = useSelector(getCurrentSessionStatus) !== 'closed'
 
   const userId = useSelector(getUserId)
 
@@ -48,7 +49,8 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   const cards = useSelector(getCardsData)
   const canChooseCards =
     sessionCreatedBy === userId && sessionTotalParticipants === cards?.length
-  const userCardId = cards?.find((el) => el.created_by === userId)?._id
+  const userCard = cards?.find((el) => el.created_by === userId)
+  const selectedCard = cards?.find((el) => el.selected_by === userId)
 
   const [cardModalId, setCardModalId] = useState('')
 
@@ -75,9 +77,9 @@ export const SessionPage = ({ className }: SessionPageProps) => {
       if (cardId && typeof cardId === 'string') {
         return setCardModalId(cardId)
       }
-      setCardModalId(userCardId)
+      setCardModalId(userCard?._id)
     },
-    [userCardId]
+    [userCard]
   )
   useEffect(() => {
     return () => setCardModalId('')
@@ -90,46 +92,58 @@ export const SessionPage = ({ className }: SessionPageProps) => {
           className="session_page_onboarding_step_7"
           sessionId={id}
           isCreator={sessionCreatedBy === userId}
-          isActiveSession={sessionStatus !== 'closed'}
+          isActiveSession={isActiveSession}
           participantId={participantId}
           isLoadingParticipants={isLoadingParticipants}
         />
         <SessionParticipants
           sessionId={id}
-          canEdit={sessionCreatedBy === userId && sessionStatus !== 'closed'}
+          canEdit={sessionCreatedBy === userId && isActiveSession}
         />
       </Flex>
       <div className={cls.cardsControllBlock}>
         <CardsBlock
           sessionId={id}
-          isActiveSession={sessionStatus !== 'closed'}
           userId={userId}
           onCardClick={onOpenCardModal}
         />
-        <SessionControlls
-          sessionId={id}
-          sessionStatus={sessionStatus}
-          canChooseCards={canChooseCards}
-          cardId={userCardId}
-          isCreator={sessionCreatedBy === userId}
-          isParticipant={Boolean(participantId)}
-          isLoadingParticipants={isLoadingParticipants}
-          onOpenCardModal={onOpenCardModal}
-          onAddParticipant={onAddParticipant}
-        />
+
+        {isActiveSession && (
+          <SessionControlls
+            sessionId={id}
+            canChooseCards={canChooseCards}
+            cardId={userCard?._id}
+            isCreator={sessionCreatedBy === userId}
+            isParticipant={Boolean(participantId)}
+            isLoadingParticipants={isLoadingParticipants}
+            onOpenCardModal={onOpenCardModal}
+            onAddParticipant={onAddParticipant}
+          />
+        )}
       </div>
-      <SessionComments
-        className="session_page_onboarding_step_6"
-        sessionId={id}
-        userId={userId}
-        isActiveSession={sessionStatus !== 'closed'}
-      />
+
+      {isActiveSession && (
+        <SessionComments
+          className="session_page_onboarding_step_6"
+          sessionId={id}
+          userId={userId}
+        />
+      )}
+
+      {!isActiveSession && (
+        <SendMessageFromSanta
+          sessionId={id}
+          userCard={userCard}
+          selectedCard={selectedCard}
+        />
+      )}
+
       <CardEditForm
         onClose={onCloseCardModal}
         isOpen={Boolean(cardModalId)}
         sessionId={id}
         cardId={cardModalId}
-        canEdit={cardModalId === userCardId}
+        canEdit={cardModalId === userCard?._id}
         isSelected={Boolean(
           cards?.find((card) => card._id === cardModalId)?.selected_by
         )}

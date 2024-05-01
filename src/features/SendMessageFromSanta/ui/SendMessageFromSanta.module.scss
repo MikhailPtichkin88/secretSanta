@@ -1,0 +1,26 @@
+.sendmessagefromsanta {
+  padding: 20px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.messageBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+
+  & > textarea {
+    height: 70%;
+  }
+}

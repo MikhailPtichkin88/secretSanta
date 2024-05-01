@@ -95,7 +95,7 @@ const cardsBlockSlice = createSlice({
         state.isLoading = true
       })
 
-      // delete card
+      // change card
       .addCase(updateCardTh.fulfilled, (state, { payload }) => {
         state.error = undefined
         state.isLoading = false
