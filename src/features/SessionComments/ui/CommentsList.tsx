@@ -32,7 +32,7 @@ export const CommentsList = ({ className, userId }: CommentsListProps) => {
           isLoading={isLoading}
           key={_id}
           commentId={_id}
-          updatedAt={updatedAt}
+          updatedAt={createdAt}
           canEdit={userId === user?._id}
           text={text}
           createdAt={createdAt}

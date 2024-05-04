@@ -1,23 +1,22 @@
 import {
   deleteUserAvatar,
   getUserData,
-  updateUser,
   getUserIsLoading,
+  updateUser,
 } from '@/entities/User'
 import DeleteImgIcon from '@/shared/assets/icons/delete_img.svg'
 import EditImgIcon from '@/shared/assets/icons/edit_img.svg'
 import avatarPlaceholder from '@/shared/assets/img/profile_avatar.png'
 import { classNames } from '@/shared/lib/classNames/classNames'
+import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { IconBtn } from '@/shared/ui/IconBtn'
+import { Skeleton } from '@/shared/ui/Skeleton'
 import { Tooltip } from '@/shared/ui/Tooltip'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import cls from './ProfileAvatar.module.scss'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import { Loader } from '@/shared/ui/PageLoader/Loader'
-import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
-import { Skeleton } from '@/shared/ui/Skeleton'
 
 interface ProfileAvatarProps {
   className?: string

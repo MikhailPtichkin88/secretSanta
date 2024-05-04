@@ -1,5 +1,6 @@
 .sendmessagefromsanta {
   padding: 20px;
+  width: 100%;
 
   h3 {
     font-size: 20px;
@@ -10,12 +11,15 @@
 
 .wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
+  // justify-content: space-between;
   gap: 20px;
 }
 
 .messageBlock {
   display: flex;
+  gap: 10px;
   flex-direction: column;
   justify-content: space-between;
   min-width: 200px;

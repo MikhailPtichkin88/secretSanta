@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { IGetMessagesData, IMessage } from '../types/messagesFromSantaSchema'
+import { notificationsActions } from '@/entities/NotificationDropdown'
 
 export const getMessages = createAsyncThunk<
   IMessage[],
@@ -15,8 +16,9 @@ export const getMessages = createAsyncThunk<
     const res = await extra.api.get<IMessage[]>(`/messages/fromSanta`, {
       params,
     })
+
     if (!res.data || res?.status !== 200) {
-      throw new Error()
+      rejectWithValue('Ошибка получения сообщений')
     }
 
     return res.data

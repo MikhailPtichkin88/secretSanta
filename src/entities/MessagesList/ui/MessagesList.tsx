@@ -2,20 +2,11 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './MessagesList.module.scss'
 import { useTranslation } from 'react-i18next'
 import { Comment } from '@/shared/ui/Comment'
-interface IMessage {
-  id: string
-  text: string
-  createdAt: string
-  updatedAt: string
-  canEdit: boolean
-  avatar: string
-  userName: string
-  onChangeHandler: (id: string, text: string) => Promise<unknown>
-}
+import { IMessageOption } from '@/features/SendMessageFromSanta/model/types/messagesFromSantaSchema'
 
 interface MessagesListProps {
   className?: string
-  messages: IMessage[]
+  messages: IMessageOption[]
   isLoading?: boolean
 }
 
@@ -36,6 +27,7 @@ export const MessagesList = ({
           updatedAt,
           canEdit,
           avatar,
+          placeholderAvatar,
           userName,
           onChangeHandler,
         }) => (
@@ -43,11 +35,12 @@ export const MessagesList = ({
             isLoading={isLoading}
             key={id}
             commentId={id}
-            updatedAt={updatedAt}
+            updatedAt={createdAt}
             canEdit={canEdit}
             text={text}
             createdAt={createdAt}
             avatarImg={avatar}
+            placeholderAvatar={placeholderAvatar}
             userName={userName}
             onChangeComment={onChangeHandler}
           />

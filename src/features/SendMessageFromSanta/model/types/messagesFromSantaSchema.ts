@@ -29,3 +29,15 @@ export interface IChangeMessagesData {
   messageId: string
   text: string
 }
+
+export interface IMessageOption {
+  id: string
+  text: string
+  createdAt: string
+  updatedAt: string
+  canEdit: boolean
+  avatar: string
+  userName: string
+  placeholderAvatar?: string
+  onChangeHandler: (id: string, text: string) => Promise<unknown>
+}

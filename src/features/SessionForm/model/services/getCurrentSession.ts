@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { cardsBlockActions } from '@/features/CardsBlock'
 import { ICurrentSessionData } from '../types/CurrentSessionSchema'
+import { notificationsActions } from '@/entities/NotificationDropdown'
 
 export const getProfileSession = createAsyncThunk<
   ICurrentSessionData,
@@ -23,6 +24,11 @@ export const getProfileSession = createAsyncThunk<
       dispatch(
         cardsBlockActions.changeTotalParticipants(res.data.total_participants)
       )
+
+    if (res.data?.status === 'closed') {
+      dispatch(notificationsActions.updateNotifications(sessionId))
+    }
+
     return res.data
   } catch (error) {
     return rejectWithValue(

@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './NavbarProfile.module.scss'
-import { NavbarAvatar } from '@/entities/NavbarAvatar'
+import { NavbarAvatar } from '@/entities/CardImg/NavbarAvatar'
 import LogoutIcon from '@/shared/assets/icons/logout.svg'
 import { useSelector } from 'react-redux'
 import { getUserIsInited } from '@/entities/User/model/selectors/getUserIsInited'
@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { userActions } from '@/entities/User'
 import { useNavigate } from 'react-router-dom'
 import { authActions } from '@/features/Authorization/model/slice/authSlice'
+import { notificationsActions } from '@/entities/NotificationDropdown'
 
 interface ProfileBlockProps {
   className?: string
@@ -20,6 +21,7 @@ export const NavbarProfile = ({ className }: ProfileBlockProps) => {
   const onLogoutHandler = () => {
     dispatch(userActions.clearUserData())
     dispatch(authActions.setAuthResult(false))
+    dispatch(notificationsActions.reset())
     navigate('/login')
   }
   return (

@@ -52,7 +52,7 @@ export const CardsBlock = ({
       if (isLoading) {
         for (let i = 0; i < total; i++) {
           arr.push(
-            <div className={cls.sessioncard}>
+            <div className={cls.sessioncard} key={i}>
               <Skeleton
                 width={'100%'}
                 height={125}
@@ -86,7 +86,7 @@ export const CardsBlock = ({
     return () => {
       dispatch(cardsBlockActions.resetCardsStore())
     }
-  }, [])
+  }, [sessionId])
 
   // onboarding
   useEffect(() => {

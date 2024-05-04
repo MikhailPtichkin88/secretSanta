@@ -59,7 +59,7 @@ export const SessionParticipants = ({
 
   useEffect(() => {
     dispatch(getSessionParticipants(sessionId))
-  }, [])
+  }, [sessionId])
 
   useEffect(() => {
     if (totalParticipants) {

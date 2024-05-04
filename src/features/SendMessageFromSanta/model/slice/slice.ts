@@ -3,6 +3,7 @@ import { IMessagesFromSantaSchema } from '../types/messagesFromSantaSchema'
 import { getMessages } from '../services/getMessages'
 import { createMessage } from '../services/createMessage'
 import { editMessage } from '../services/editMessage'
+import { subscribe } from '../services/subscribe'
 
 const initialState: IMessagesFromSantaSchema = {
   messages: [],
@@ -14,11 +15,9 @@ const messagesFromSantaSlice = createSlice({
   name: 'messagesFromSanta',
   initialState,
   reducers: {
-    // updateCard: (state, { payload }: PayloadAction<ICard>) => {
-    //   state.cards = current(state.cards)?.map((card) =>
-    //     card._id === payload._id ? payload : card
-    //   )
-    // },
+    reset: (state) => {
+      state = initialState
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,6 +65,13 @@ const messagesFromSantaSlice = createSlice({
       .addCase(editMessage.pending, (state) => {
         state.error = undefined
         state.isLoading = true
+      })
+      .addCase(subscribe.fulfilled, (state, { payload }) => {
+        state.error = undefined
+        state.isLoading = false
+        if (payload.card_from) {
+          state.messages.push(payload)
+        }
       })
   },
 })

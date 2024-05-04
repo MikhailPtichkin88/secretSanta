@@ -25,7 +25,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { sessionOnboardingSteps } from '../lib/onboardingSteps'
 import cls from './SessionPage.module.scss'
-import { SendMessageFromSanta } from '@/features/SendMessageFromSanta'
+import { SessionChatsBlock } from '@/widgets/SessionChatsBlock'
 
 interface SessionPageProps {
   className?: string
@@ -88,6 +88,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
   return (
     <div className={classNames(cls.sessionpage, {}, [className])}>
       <Flex gap={'16'} className={cls.container}>
+        {/* Название, описание, аватарка сессии */}
         <SessionForm
           className="session_page_onboarding_step_7"
           sessionId={id}
@@ -96,11 +97,15 @@ export const SessionPage = ({ className }: SessionPageProps) => {
           participantId={participantId}
           isLoadingParticipants={isLoadingParticipants}
         />
+
+        {/* Участники */}
         <SessionParticipants
           sessionId={id}
           canEdit={sessionCreatedBy === userId && isActiveSession}
         />
       </Flex>
+
+      {/* Карточки */}
       <div className={cls.cardsControllBlock}>
         <CardsBlock
           sessionId={id}
@@ -108,6 +113,8 @@ export const SessionPage = ({ className }: SessionPageProps) => {
           onCardClick={onOpenCardModal}
         />
 
+        {/* для активной сессии выводим кнопки управления: 
+        Принять участие, создать карточку, скопировать ссылку, провести жеребьевку */}
         {isActiveSession && (
           <SessionControlls
             sessionId={id}
@@ -122,6 +129,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
         )}
       </div>
 
+      {/* для активной сессии выводим панель с комментариями */}
       {isActiveSession && (
         <SessionComments
           className="session_page_onboarding_step_6"
@@ -130,14 +138,16 @@ export const SessionPage = ({ className }: SessionPageProps) => {
         />
       )}
 
+      {/* для завершенной сессии выводим чаты с тем, кому мы дарим подарок и с тем, кто дарит подарок нам */}
       {!isActiveSession && (
-        <SendMessageFromSanta
+        <SessionChatsBlock
           sessionId={id}
           userCard={userCard}
           selectedCard={selectedCard}
         />
       )}
 
+      {/*  модалка с карточкой */}
       <CardEditForm
         onClose={onCloseCardModal}
         isOpen={Boolean(cardModalId)}
@@ -149,6 +159,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
         )}
       />
 
+      {/* Онбординг */}
       <Onboarding steps={sessionOnboardingSteps} />
     </div>
   )

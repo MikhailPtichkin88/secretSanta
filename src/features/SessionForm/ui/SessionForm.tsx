@@ -77,7 +77,8 @@ export const SessionForm = ({
 
   useEffect(() => {
     dispatch(getProfileSession(sessionId))
-  }, [])
+  }, [sessionId])
+
   return (
     <Card className={classNames(cls.sessionform, {}, [className])}>
       <SessionImg

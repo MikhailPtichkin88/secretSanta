@@ -12,7 +12,7 @@ export const editMessage = createAsyncThunk<
   const { extra, rejectWithValue } = thunkAPI
 
   try {
-    const res = await extra.api.patch<IMessage>(`/messages/fromSanta`, data)
+    const res = await extra.api.patch<IMessage>(`/messages`, data)
     if (!res.data || res?.status !== 200) {
       throw new Error()
     }

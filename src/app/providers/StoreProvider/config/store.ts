@@ -13,6 +13,8 @@ import { cardSliceReducer } from '@/features/CardEditForm'
 import { commentReducer } from '@/features/SessionComments/model/slice/commentSlice'
 import { onboardingReducer } from '@/entities/Onboarding'
 import { messagesFromSantaReducer } from '@/features/SendMessageFromSanta'
+import { messagesToSantaReducer } from '@/features/SendMessageToSanta'
+import { notificationsReducer } from '@/entities/NotificationDropdown'
 
 const extraArg: ThunkExtraArg = {
   api: $api,
@@ -33,6 +35,8 @@ export function createReduxStore(initialState?: StateSchema) {
       comment: commentReducer,
       onboarding: onboardingReducer,
       messagesFromSanta: messagesFromSantaReducer,
+      messagesToSanta: messagesToSantaReducer,
+      notifications: notificationsReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

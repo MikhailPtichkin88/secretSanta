@@ -13,7 +13,8 @@ import cls from './Comment.module.scss'
 interface CommentProps {
   commentId: string
   userName: string
-  avatarImg: string
+  avatarImg?: string
+  placeholderAvatar?: string
   text: string
   createdAt: string
   className?: string
@@ -33,6 +34,7 @@ export const Comment = ({
   updatedAt,
   canEdit,
   isLoading,
+  placeholderAvatar,
   onChangeComment,
 }: CommentProps) => {
   const { t } = useTranslation()
@@ -62,6 +64,8 @@ export const Comment = ({
   useEffect(() => {
     if (avatarImg) {
       setImgUrl(createUserAvatarUrl(avatarImg))
+    } else if (placeholderAvatar) {
+      setImgUrl(placeholderAvatar)
     } else {
       setImgUrl(placeholder)
     }

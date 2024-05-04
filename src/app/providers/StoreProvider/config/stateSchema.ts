@@ -1,3 +1,4 @@
+import { INotificationSchema } from './../../../../entities/NotificationDropdown/model/types/notificationsSchema'
 import { CreateSessionSchema } from '@/features/CreateSessionForm'
 import { ProfileSchema } from '@/entities/ProfileForm'
 
@@ -12,6 +13,7 @@ import { CardSchema } from '@/features/CardEditForm'
 import { CommentSchema } from '@/features/SessionComments'
 import { OnboardingSchema } from '@/entities/Onboarding'
 import { IMessagesFromSantaSchema } from '@/features/SendMessageFromSanta'
+import { IMessageToSantaSchema } from '@/features/SendMessageToSanta'
 
 export interface StateSchema {
   auth: authSchema
@@ -26,6 +28,8 @@ export interface StateSchema {
   comment: CommentSchema
   onboarding: OnboardingSchema
   messagesFromSanta: IMessagesFromSantaSchema
+  messagesToSanta: IMessageToSantaSchema
+  notifications: INotificationSchema
 }
 
 export interface ThunkExtraArg {
