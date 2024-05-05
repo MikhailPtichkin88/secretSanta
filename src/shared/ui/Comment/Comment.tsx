@@ -73,7 +73,12 @@ export const Comment = ({
 
   return (
     <div className={classNames(cls.comment, {}, [className])}>
-      <img className={cls.avatarImg} src={imgUrl} alt="comment's avatar" />
+      <img
+        className={cls.avatarImg}
+        src={imgUrl}
+        alt="comment's avatar"
+        onError={() => setImgUrl(placeholder)}
+      />
       <div className={cls.textWrapper}>
         <p className={cls.userName}>{userName}</p>
         {isEdit ? (

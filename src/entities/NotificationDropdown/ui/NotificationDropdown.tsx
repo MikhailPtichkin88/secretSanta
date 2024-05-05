@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { notificationsActions } from '../model/slice/slice'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 interface NotificationDropdownProps {
   className?: string
   isInited?: boolean
@@ -27,6 +28,7 @@ export const NotificationDropdown = ({
   const notifications = useSelector(getNotifications)
   const isLoading = useSelector(getNotificationsIsLoading)
   const navigate = useNavigate()
+  const { t } = useTranslation()
   let timeout: ReturnType<typeof setTimeout>
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export const NotificationDropdown = ({
     <Popup
       className={classNames(cls.notificationdropdown, {}, [className])}
       trigger={
-        <Tooltip placement="left" title={'Новые сообщения в сессиях'}>
+        <Tooltip placement="left" title={t('Новые сообщения в сессиях')}>
           <div className={cls.iconWrapper}>
             <NotificationSvg className={cls.icon} />
             {isLoading && <Loader className={cls.loader} />}

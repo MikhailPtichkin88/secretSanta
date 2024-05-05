@@ -30,7 +30,7 @@ export const SendMessageToSanta = ({
   sessionId,
   cardId,
 }: SendMessageToSantaProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const messages = useSelector(getMessagesToSanta)
   const isLoading = useSelector(getMessagesIsLoading)
   const dispatch = useAppDispatch()

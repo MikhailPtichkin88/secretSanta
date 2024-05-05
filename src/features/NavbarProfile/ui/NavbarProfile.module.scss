@@ -16,4 +16,9 @@
     cursor: pointer;
     transform: scale(1.1);
   }
+
+  @media (max-width: 576px) {
+    width: 40px;
+    height: 40px;
+  }
 }

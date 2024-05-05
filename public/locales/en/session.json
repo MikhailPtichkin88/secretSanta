@@ -30,6 +30,9 @@
   "Отменить": "Cancel",
   "Отмена": "Cancel",
   "Принять": "OK",
+  "Ты даришь подарок": "You give the gift:",
+  "Чат с тем, кому ты даришь подарок": "Chat with whom you give the gift",
+  "Чат с тем, кто дарит подарок тебе": "Chat with whom you receive the gift",
   "Вы уверены, что хотите провести жеребьевку?": "Do you want to start Secret Santa?",
   "Каждому участнику выпадет карточка, на почту прийдет уведомление, а дальнейшее редактирование сессии (карточек, участников, комментариев) будет невозможно.": "Every participant will get card, email notice and further session edit will be impossible"
 }

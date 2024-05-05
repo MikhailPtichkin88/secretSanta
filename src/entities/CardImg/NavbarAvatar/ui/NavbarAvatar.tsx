@@ -46,6 +46,7 @@ export const NavbarAvatar = ({ className }: AvatarProfileProps) => {
             src={avatar}
             alt="users avatar img"
             loading="lazy"
+            onError={() => setAvatar(placeholder)}
           />
         </Tooltip>
       ) : (

@@ -57,7 +57,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           <LangSwitcher />
         </Flex>
 
-        <Flex gap="32">
+        <Flex gap="32" className={cls.notificationBlock}>
           <NotificationDropdown isInited={isInited} />
           <NavbarProfile className={cls.profile} />
         </Flex>

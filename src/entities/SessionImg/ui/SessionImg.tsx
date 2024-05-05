@@ -3,10 +3,9 @@ import cls from './SessionImg.module.scss'
 import { useTranslation } from 'react-i18next'
 import DeleteImgIcon from '@/shared/assets/icons/delete_img.svg'
 import EditImgIcon from '@/shared/assets/icons/edit_img.svg'
-import { Loader } from '@/shared/ui/PageLoader'
 import { Tooltip } from '@/shared/ui/Tooltip'
 import { IconBtn } from '@/shared/ui/IconBtn'
-import placeholder from '@/shared/assets/img/profile_avatar.png'
+import placeholder from '@/shared/assets/img/present.jpeg'
 import { memo } from 'react'
 import { createSessionImgUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 import { Skeleton } from '@/shared/ui/Skeleton'
@@ -47,6 +46,7 @@ export const SessionImg = memo(
           src={imgSrc}
           alt="sessions's photo"
           loading="lazy"
+          onError={(e) => (e.currentTarget.src = placeholder)}
         />
 
         <div className={cls.iconsWrapper}>

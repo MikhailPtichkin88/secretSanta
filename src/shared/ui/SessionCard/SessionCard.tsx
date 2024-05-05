@@ -27,6 +27,7 @@ export const SessionCard = ({
   isLoading,
 }: SessionCardProps) => {
   const [cardImg, setCardImg] = useState(null)
+
   useEffect(() => {
     if (imgUrl) {
       setCardImg(imgUrl)
@@ -51,7 +52,12 @@ export const SessionCard = ({
       className={classNames(cls.sessioncard, {}, [className])}
       onClick={onCardClick}
     >
-      <img className={cls.cardImg} src={cardImg} alt="picture in user's card" />
+      <img
+        className={cls.cardImg}
+        src={cardImg}
+        alt="picture in user's card"
+        onError={() => setCardImg(placeholder)}
+      />
 
       <div className={cls.infoWrapper}>
         <p className={cls.cardName}>{cardName}</p>

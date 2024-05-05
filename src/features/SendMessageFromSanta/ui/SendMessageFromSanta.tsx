@@ -14,6 +14,10 @@ import { editMessage } from '../model/services/editMessage'
 import { getMessages } from '../model/services/getMessages'
 import { IMessageOption } from '../model/types/messagesFromSantaSchema'
 import cls from './SendMessageFromSanta.module.scss'
+import { Flex } from '@/shared/ui/Flex'
+import { Popup } from '@/shared/ui/Popup'
+import { SessionCard } from '@/shared/ui/SessionCard'
+import AttentionSvg from '@/shared/assets/icons/attention.svg'
 
 interface SendMessageFromSantaProps {
   className?: string
@@ -28,7 +32,7 @@ export const SendMessageFromSanta = ({
   userCard,
   selectedCard,
 }: SendMessageFromSantaProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('session')
   const messages = useSelector(getMessagesFromSanta)
   const isLoading = useSelector(getMessagesIsLoading)
   const dispatch = useAppDispatch()
@@ -85,7 +89,26 @@ export const SendMessageFromSanta = ({
 
   return (
     <Card className={classNames(cls.sendmessagefromsanta, {}, [className])}>
-      <h3>{t('Чат с тем, кому ты даришь подарок')}</h3>
+      <Flex justify="between" align="start" max>
+        <h3>{t('Чат с тем, кому ты даришь подарок')}</h3>
+        <Popup
+          className={cls.popup}
+          trigger={<AttentionSvg className={cls.triggerIcon} />}
+        >
+          <Card className={cls.popupCard}>
+            <Flex gap="16" direction="column">
+              <p>{t('Ты даришь подарок')}</p>
+              <SessionCard
+                className={cls.sessionCard}
+                imgUrl={selectedCard?.user?.avatarUrl}
+                cardName={selectedCard?.user?.fullName}
+                canEdit={false}
+                onCardClick={() => ({})}
+              />
+            </Flex>
+          </Card>
+        </Popup>
+      </Flex>
       <div className={cls.wrapper}>
         <MessagesList messages={messagesOptions} isLoading={isLoading} />
         <div className={cls.messageBlock}>
