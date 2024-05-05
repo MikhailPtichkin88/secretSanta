@@ -20,10 +20,14 @@ export const subscribe = createAsyncThunk<
   } catch (error) {
     const message =
       error?.response?.data?.error ?? 'Что-то пошло не так, попробуйте еще раз'
-    alertMessage({
-      type: 'error',
-      message,
-    })
+
+    if (error?.response?.status !== 504) {
+      alertMessage({
+        type: 'error',
+        message,
+      })
+    }
+
     return rejectWithValue(message || 'Ошибка получения сообщений')
   }
 })
