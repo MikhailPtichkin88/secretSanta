@@ -83,7 +83,7 @@ export const SendMessageFromSanta = ({
   }
 
   useEffect(() => {
-    if (!messages?.length && cardId && cardToId) {
+    if (sessionId && cardId && cardToId) {
       dispatch(getMessages({ sessionId, cardId, cardToId }))
     }
   }, [sessionId, cardId, cardToId])
