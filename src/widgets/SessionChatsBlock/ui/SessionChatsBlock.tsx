@@ -11,7 +11,7 @@ import {
   SendMessageToSanta,
   messagesToSantaActions,
 } from '@/features/SendMessageToSanta'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
@@ -30,8 +30,10 @@ export const SessionChatsBlock = ({
 }: SessionChatsProps) => {
   const dispatch = useAppDispatch()
   const cardId = userCard?._id
+  const [isPageOpen, setIsPageOpen] = useState(false)
 
   const subscribeHandler = async () => {
+    if (!isPageOpen) return
     try {
       await dispatch(subscribe({ sessionId, cardId }))
       await subscribeHandler()
@@ -44,10 +46,15 @@ export const SessionChatsBlock = ({
   }
 
   useEffect(() => {
-    if (sessionId && cardId) {
+    setIsPageOpen(true)
+    return () => setIsPageOpen(false)
+  }, [])
+
+  useEffect(() => {
+    if (sessionId && cardId && isPageOpen) {
       subscribeHandler()
     }
-  }, [sessionId, cardId])
+  }, [sessionId, cardId, isPageOpen])
 
   useEffect(() => {
     return () => {
