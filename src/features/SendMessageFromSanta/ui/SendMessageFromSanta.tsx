@@ -18,6 +18,7 @@ import { Flex } from '@/shared/ui/Flex'
 import { Popup } from '@/shared/ui/Popup'
 import { SessionCard } from '@/shared/ui/SessionCard'
 import AttentionSvg from '@/shared/assets/icons/attention.svg'
+import { createUserAvatarUrl } from '@/shared/lib/createImgUrl/createImgUrl'
 
 interface SendMessageFromSantaProps {
   className?: string
@@ -100,7 +101,7 @@ export const SendMessageFromSanta = ({
               <p>{t('Ты даришь подарок')}</p>
               <SessionCard
                 className={cls.sessionCard}
-                imgUrl={selectedCard?.card_img}
+                imgUrl={createUserAvatarUrl(selectedCard.user.avatarUrl)}
                 cardName={selectedCard?.title}
                 canEdit={false}
                 onCardClick={() => ({})}
