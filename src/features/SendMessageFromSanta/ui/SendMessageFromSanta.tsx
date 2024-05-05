@@ -87,7 +87,7 @@ export const SendMessageFromSanta = ({
       dispatch(getMessages({ sessionId, cardId, cardToId }))
     }
   }, [sessionId, cardId, cardToId])
-
+  console.log(selectedCard)
   return (
     <Card className={classNames(cls.sendmessagefromsanta, {}, [className])}>
       <Flex justify="between" align="start" max>
@@ -101,10 +101,9 @@ export const SendMessageFromSanta = ({
               <p>{t('Ты даришь подарок')}</p>
               <SessionCard
                 className={cls.sessionCard}
-                imgUrl={createUserAvatarUrl(selectedCard.user.avatarUrl)}
+                imgUrl={createUserAvatarUrl(selectedCard?.user?.avatarUrl)}
                 cardName={selectedCard?.title}
                 canEdit={false}
-                onCardClick={() => ({})}
               />
             </Flex>
           </Card>

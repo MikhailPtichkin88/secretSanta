@@ -13,7 +13,7 @@ interface SessionCardProps {
   imgUrl?: string
   cardName?: string
   canEdit?: boolean
-  onCardClick: () => void
+  onCardClick?: () => void
   isLoading?: boolean
 }
 
