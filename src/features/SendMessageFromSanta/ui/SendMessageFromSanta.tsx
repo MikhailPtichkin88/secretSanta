@@ -87,7 +87,7 @@ export const SendMessageFromSanta = ({
       dispatch(getMessages({ sessionId, cardId, cardToId }))
     }
   }, [sessionId, cardId, cardToId])
-  console.log(selectedCard)
+
   return (
     <Card className={classNames(cls.sendmessagefromsanta, {}, [className])}>
       <Flex justify="between" align="start" max>
