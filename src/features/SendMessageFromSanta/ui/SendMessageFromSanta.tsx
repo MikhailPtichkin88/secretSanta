@@ -100,8 +100,8 @@ export const SendMessageFromSanta = ({
               <p>{t('Ты даришь подарок')}</p>
               <SessionCard
                 className={cls.sessionCard}
-                imgUrl={selectedCard?.user?.avatarUrl}
-                cardName={selectedCard?.user?.fullName}
+                imgUrl={selectedCard?.card_img}
+                cardName={selectedCard?.title}
                 canEdit={false}
                 onCardClick={() => ({})}
               />
