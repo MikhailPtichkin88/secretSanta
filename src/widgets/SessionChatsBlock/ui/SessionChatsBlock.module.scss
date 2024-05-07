@@ -1,4 +1,14 @@
 .sessionchats {
+  .oneLine {
+    & > div:nth-of-type(2) {
+      @media (min-width: 769px) {
+        min-height: 300px;
+        padding: 20px;
+        flex-direction: row;
+      }
+    }
+  }
+
   @media (max-width: 768px) {
     flex-wrap: wrap;
   }

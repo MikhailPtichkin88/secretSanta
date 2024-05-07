@@ -1,4 +1,4 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
+import { Mods, classNames } from '@/shared/lib/classNames/classNames'
 import cls from './SessionChatsBlock.module.scss'
 import { Flex } from '@/shared/ui/Flex'
 import {
@@ -14,6 +14,8 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
+import { getIsHaveToSantaMessages } from '@/features/SendMessageToSanta/model/selectors/getIsHaveMessages'
+import { useSelector } from 'react-redux'
 
 interface SessionChatsProps {
   className?: string
@@ -31,6 +33,9 @@ export const SessionChatsBlock = ({
   const dispatch = useAppDispatch()
   const cardId = userCard?._id
   const isPageOpenRef = useRef(true)
+
+  // показываем чат с Сантой, когда есть хотя бы одно сообщение от Санты
+  const isHaveToSantaMessages = useSelector(getIsHaveToSantaMessages)
 
   const subscribeHandler = async () => {
     if (!isPageOpenRef.current) return
@@ -65,6 +70,7 @@ export const SessionChatsBlock = ({
     <Flex gap="16" className={classNames(cls.sessionchats, {}, [className])}>
       {/* Чат с тем, кому ты даришь подарок (для кого ты Тайный Санта)*/}
       <SendMessageFromSanta
+        className={`${!isHaveToSantaMessages ? cls.oneLine : ''}`}
         sessionId={sessionId}
         userCard={userCard}
         selectedCard={selectedCard}

@@ -190,7 +190,11 @@ export const SessionControlls = ({
           )}
         </div>
       </Card>
-      <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
+      <Modal
+        className={cls.modal}
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+      >
         <div className={cls.modalWrapper}>
           <div className={cls.modalBodyWrapper}>
             <p className={cls.title}>

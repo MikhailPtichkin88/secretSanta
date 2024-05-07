@@ -12,7 +12,6 @@ import ExitIcon from '@/shared/assets/icons/logout.svg'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { deleteSessionParticipants } from '@/features/SessionParticipants/model/services/removeSessionParticipants'
 import { ConfirmBlock } from '@/shared/ui/ConfirmBlock'
-import { spawn } from 'child_process'
 
 interface SessionFormProps {
   title: string

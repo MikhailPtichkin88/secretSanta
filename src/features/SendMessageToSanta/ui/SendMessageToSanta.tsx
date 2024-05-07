@@ -68,10 +68,12 @@ export const SendMessageToSanta = ({
   }
 
   useEffect(() => {
-    if (sessionId) {
+    if (sessionId && cardId) {
       dispatch(getMessages(sessionId))
     }
-  }, [sessionId])
+  }, [sessionId, cardId])
+
+  if (!messagesOptions.length) return null
 
   return (
     <Card className={classNames(cls.sendmessagetosanta, {}, [className])}>

@@ -3,7 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { IGetMessagesData, IMessage } from '../types/messagesFromSantaSchema'
-import { notificationsActions } from '@/entities/NotificationDropdown'
 
 export const getMessages = createAsyncThunk<
   IMessage[],

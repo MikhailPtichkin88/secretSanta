@@ -23,7 +23,6 @@ export const MessagesList = ({
         ({
           id,
           text,
-          createdAt,
           updatedAt,
           canEdit,
           avatar,
@@ -35,10 +34,10 @@ export const MessagesList = ({
             isLoading={isLoading}
             key={id}
             commentId={id}
-            updatedAt={createdAt}
+            updatedAt={updatedAt}
             canEdit={canEdit}
             text={text}
-            createdAt={createdAt}
+            createdAt={updatedAt}
             avatarImg={avatar}
             placeholderAvatar={placeholderAvatar}
             userName={userName}

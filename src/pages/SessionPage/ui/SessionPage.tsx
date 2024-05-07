@@ -36,8 +36,9 @@ export const SessionPage = ({ className }: SessionPageProps) => {
 
   const sessionCreatedBy = useSelector(getCurrentSessionCreatedBy)
   const sessionTotalParticipants = useSelector(getCurrentSessionTotalPart)
-  const isActiveSession = useSelector(getCurrentSessionStatus) !== 'closed'
+  const sessionStatus = useSelector(getCurrentSessionStatus)
 
+  const isActiveSession = sessionStatus !== 'closed'
   const userId = useSelector(getUserId)
 
   const participants = useSelector(getParticipantsData)
@@ -139,7 +140,7 @@ export const SessionPage = ({ className }: SessionPageProps) => {
       )}
 
       {/* для завершенной сессии выводим чаты с тем, кому мы дарим подарок и с тем, кто дарит подарок нам */}
-      {!isActiveSession && (
+      {sessionStatus === 'closed' && (
         <SessionChatsBlock
           sessionId={id}
           userCard={userCard}
