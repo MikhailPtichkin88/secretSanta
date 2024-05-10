@@ -32,7 +32,6 @@ export const Pagination = memo(
   }: IProps) => {
     const renderPages = useMemo(() => {
       const pages = []
-
       pages.push(
         <Button
           key={v4()}
@@ -184,7 +183,7 @@ export const Pagination = memo(
     }, [total, current])
 
     return (
-      <div className={`${cls.wrapper} ${total < 10 ? cls.hidden : ''}`}>
+      <div className={`${cls.wrapper} ${total === 1 ? cls.hidden : ''}`}>
         <div className={cls.pagination}>{renderPages}</div>
         {onPerPageChange && (
           <Select<TPerPage>

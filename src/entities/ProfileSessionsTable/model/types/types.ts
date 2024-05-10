@@ -1,6 +1,6 @@
 export type TSessionStatus = 'open' | 'in_progress' | 'closed'
 export type TSessionStatusFilter = 'all' | 'active' | 'closed'
-export type TSessionRoles = 'participant' | 'creator'
+export type TSessionRoles = 'participant' | 'creator' | 'all'
 export type TSessionSortOrder = 'asc' | 'desc'
 export interface ISession {
   _id: string

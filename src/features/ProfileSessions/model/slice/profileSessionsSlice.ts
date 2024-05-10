@@ -21,7 +21,7 @@ const initialState: ProfileSessionsSchema = {
     sortOrder: null,
     sortBy: 'title',
     status: 'all',
-    role: 'creator',
+    role: 'all',
     search: '',
   },
   isLoading: false,

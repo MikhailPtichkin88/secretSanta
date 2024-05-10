@@ -1,13 +1,13 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './SessionComments.module.scss'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import { getCommentsData } from '../model/selectors/getCommentsData'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Comment } from '@/shared/ui/Comment'
 import { useCallback } from 'react'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import { updateComment } from '../model/services/updateComment'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { getCommentIsLoading } from '../model/selectors/getCommentIsLoading'
+import { getCommentsData } from '../model/selectors/getCommentsData'
+import { updateComment } from '../model/services/updateComment'
+import cls from './SessionComments.module.scss'
 
 interface CommentsListProps {
   className?: string
@@ -27,7 +27,7 @@ export const CommentsList = ({ className, userId }: CommentsListProps) => {
   )
   return (
     <div className={classNames(cls.commentslist, {}, [className])}>
-      {comments?.map(({ _id, text, createdAt, updatedAt, user }) => (
+      {comments?.map(({ _id, text, createdAt, user }) => (
         <Comment
           isLoading={isLoading}
           key={_id}

@@ -1,6 +1,6 @@
 import { Modal } from '@/shared/ui/Modal'
 import { Suspense, useEffect } from 'react'
-import { Loader, PageLoader } from '@/shared/ui/PageLoader'
+import { Loader } from '@/shared/ui/PageLoader'
 import { SessionFormAsync } from './SessionForm/SessionForm.async'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'

@@ -1,17 +1,12 @@
+import placeholder from '@/shared/assets/img/profile_avatar.png'
 import { classNames } from '@/shared/lib/classNames/classNames'
-import cls from './CardImg.module.scss'
-import { useTranslation } from 'react-i18next'
-import { Loader } from '@/shared/ui/PageLoader'
 import {
   createCardImgUrl,
   createUserAvatarUrl,
 } from '@/shared/lib/createImgUrl/createImgUrl'
-import placeholder from '@/shared/assets/img/profile_avatar.png'
-import { Tooltip } from '@/shared/ui/Tooltip'
-import DeleteImgIcon from '@/shared/assets/icons/delete_img.svg'
-import EditImgIcon from '@/shared/assets/icons/edit_img.svg'
-import { IconBtn } from '@/shared/ui/IconBtn'
+import { Loader } from '@/shared/ui/PageLoader'
 import { useEffect, useState } from 'react'
+import cls from './CardImg.module.scss'
 
 interface CardImgProps {
   canEdit: boolean
@@ -31,10 +26,9 @@ export const CardImg = ({
   sessionId,
   cardUserAvatar,
   canEdit,
-  onChangeImg,
-  onDeleteImg,
-}: CardImgProps) => {
-  const { t } = useTranslation()
+}: // onChangeImg,
+// onDeleteImg,
+CardImgProps) => {
   const [imgSrc, setImgSrc] = useState(null)
 
   useEffect(() => {

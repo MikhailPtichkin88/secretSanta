@@ -1,32 +1,31 @@
 import {
+  getOnboardingIsOpen,
+  getOnboardingStepNumber,
+} from '@/entities/Onboarding'
+import {
   chooseCards,
   createCard,
   deleteCard,
   getCardsIsLoading,
 } from '@/features/CardsBlock'
+import {
+  deleteCurrentSession,
+  getCurrentSessionIsLoading,
+} from '@/features/SessionForm'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { Button } from '@/shared/ui/Button'
 import { Card } from '@/shared/ui/Card'
 import { ConfirmBlock } from '@/shared/ui/ConfirmBlock'
 import { Flex } from '@/shared/ui/Flex'
+import { Modal } from '@/shared/ui/Modal'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import cls from './SessionControlls.module.scss'
-import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
-import {
-  deleteCurrentSession,
-  getCurrentSessionIsLoading,
-} from '@/features/SessionForm'
 import { useNavigate } from 'react-router-dom'
-import { Modal } from '@/shared/ui/Modal'
-import { TSessionStatus } from '@/entities/ProfileSessionsTable'
 import { OnboardingBlock } from './OnboardingBlock'
-import {
-  getOnboardingIsOpen,
-  getOnboardingStepNumber,
-} from '@/entities/Onboarding'
+import cls from './SessionControlls.module.scss'
 
 interface SessionControllsProps {
   sessionId: string

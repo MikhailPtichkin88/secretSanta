@@ -1,5 +1,3 @@
-import { ISession } from '@/entities/ProfileSessionsTable'
-
 export const mockOnboardingSession = {
   createdAt: '2023-12-20T06:55:38.531Z',
   session_info: 'Распределение подарков в отделе маркетинга',

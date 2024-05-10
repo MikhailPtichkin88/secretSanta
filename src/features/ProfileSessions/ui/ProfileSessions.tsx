@@ -1,7 +1,7 @@
 import { ProfileSessionsControlls } from '@/entities/ProfileSessionsControlls'
 import {
-  ISession,
   ProfileSessionsTable,
+  TSessionRoles,
   TSessionSortOrder,
   TSessionStatusFilter,
   TSortSessions,
@@ -26,10 +26,7 @@ import { profileSessionsActions } from '../model/slice/profileSessionsSlice'
 import { BrowserView, MobileView } from 'react-device-detect'
 import cls from './ProfileSessions.module.scss'
 import { MobileSession } from '@/shared/ui/MobileSession'
-import {
-  getOnboardingIsOpen,
-  getOnboardingStepNumber,
-} from '@/entities/Onboarding'
+import { getOnboardingIsOpen } from '@/entities/Onboarding'
 
 interface SessionsTableProps {
   className?: string
@@ -37,7 +34,7 @@ interface SessionsTableProps {
 }
 
 export const ProfileSessions = ({
-  className,
+  // className,
   onOpenCreateSessionModal,
 }: SessionsTableProps) => {
   const isLoading = useSelector(getProfileSessionsIsLoading)
@@ -53,17 +50,12 @@ export const ProfileSessions = ({
 
   //onboarding
   const isOnboardingOpen = useSelector(getOnboardingIsOpen)
-  const onBoardingStep = useSelector(getOnboardingStepNumber)
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const onTabChangeHandler = (tabName: string) => {
-    if (tabName === 'Создатель') {
-      dispatch(profileSessionsActions.changeRole('creator'))
-    } else {
-      dispatch(profileSessionsActions.changeRole('participant'))
-    }
+  const onTabChangeHandler = (tabName: TSessionRoles) => {
+    dispatch(profileSessionsActions.changeRole(tabName))
   }
 
   const onSearchHandler = useCallback(

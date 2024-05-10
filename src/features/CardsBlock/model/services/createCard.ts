@@ -1,7 +1,7 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ICard, cardsBlockActions } from '@/features/CardsBlock'
+import { ICard } from '@/features/CardsBlock'
 import {
   IParticipant,
   participantsActions,

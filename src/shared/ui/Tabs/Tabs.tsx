@@ -3,28 +3,28 @@ import cls from './Tabs.module.scss'
 
 import { Tab } from '@headlessui/react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-interface TabsProps {
+interface TabsProps<T extends string> {
+  tabs: T[]
   loading?: boolean
   className?: string
-  tabTitleFirst: string
-  tabTitleSecond: string
-  defaultCheckedIndex?: number
-  onTabChange: (tabName: string) => void
+  defaultValue?: T
+  onTabChange: (tabName: T) => void
 }
 
-export const Tabs = ({
+export const Tabs = <T extends string>({
   className,
-  tabTitleFirst,
-  tabTitleSecond,
+  tabs,
   onTabChange,
   loading,
-  defaultCheckedIndex,
-}: TabsProps) => {
-  const [selectedIndex, setSelectedIndex] = useState(defaultCheckedIndex ?? 0)
-
-  const handleTabChange = (tabId: string) => {
-    onTabChange(tabId)
+  defaultValue,
+}: TabsProps<T>) => {
+  const defaultValueIndex = tabs.findIndex((tab) => tab === defaultValue)
+  const [selectedIndex, setSelectedIndex] = useState(defaultValueIndex ?? 0)
+  const { t } = useTranslation('profile')
+  const handleTabChange = (tabIndex: number) => {
+    onTabChange(tabs[tabIndex])
   }
 
   return (
@@ -36,20 +36,16 @@ export const Tabs = ({
     >
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <Tab.List>
-          <Tab
-            className={({ selected }) => `
-              ${cls.tab} ${selected ? cls.selected : ''}`}
-            onClick={() => handleTabChange(tabTitleFirst)}
-          >
-            {tabTitleFirst}
-          </Tab>
-          <Tab
-            className={({ selected }) => `
-              ${cls.tab} ${selected ? cls.selected : ''}`}
-            onClick={() => handleTabChange(tabTitleSecond)}
-          >
-            {tabTitleSecond}
-          </Tab>
+          {tabs.map((tab, index) => (
+            <Tab
+              key={tab}
+              className={({ selected }) => `
+                ${cls.tab} ${selected ? cls.selected : ''}`}
+              onClick={() => handleTabChange(index)}
+            >
+              {t(tab)}
+            </Tab>
+          ))}
         </Tab.List>
       </Tab.Group>
     </div>

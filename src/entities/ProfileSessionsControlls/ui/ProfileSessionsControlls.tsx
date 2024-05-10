@@ -12,6 +12,7 @@ import { MobileView, BrowserView } from 'react-device-detect'
 import { MobileSortSelect } from './MobileSortSelect'
 import FilterIcon from '@/shared/assets/icons/filter.svg'
 import {
+  TSessionRoles,
   TSessionSortOrder,
   TSessionStatusFilter,
   TSortSessions,
@@ -24,7 +25,7 @@ interface SessionControllsProps {
   role: string
   className?: string
   isLoading: boolean
-  onTabChangeHandler: (tabName: string) => void
+  onTabChangeHandler: (tabName: TSessionRoles) => void
   onSearchHandler: (value: string) => void
   onOpenCreateSessionModal: () => void
   onChangeStatusHandler: (status: TSessionStatusFilter) => void
@@ -48,20 +49,22 @@ export const ProfileSessionsControlls = memo(
     const isOnboardingOpen = useSelector(getOnboardingIsOpen)
 
     const [searchValue, setSearchValue] = useState('')
-    const [showFilters, setShowFilters] = useState(false)
+    const [showFilters, setShowFilters] = useState(true)
     const { t, i18n } = useTranslation('profile')
+
+    const tabs: TSessionRoles[] = ['all', 'creator', 'participant']
+
     const filtersBlock = useMemo(() => {
       return (
         <>
           <div className={cls.tabsWrapper}>
             <p className={cls.tabsTitle}>{t('Роль')}</p>
             <Tabs
+              tabs={tabs}
               className={cls.tabs + ` profile_page_onboarding_step_5`}
-              tabTitleFirst={t('Создатель')}
-              tabTitleSecond={t('Участник')}
               onTabChange={onTabChangeHandler}
               loading={isLoading}
-              defaultCheckedIndex={role === 'creator' ? 0 : 1}
+              defaultValue={role}
             />
           </div>
           <div className={cls.searchBlock}>
@@ -88,10 +91,8 @@ export const ProfileSessionsControlls = memo(
     }, [searchValue])
 
     useEffect(() => {
-      if (isOnboardingOpen) {
+      if (isOnboardingOpen && !showFilters) {
         setShowFilters(true)
-      } else {
-        setShowFilters(false)
       }
     }, [isOnboardingOpen])
 

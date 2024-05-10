@@ -1,21 +1,21 @@
-import { Mods, classNames } from '@/shared/lib/classNames/classNames'
-import cls from './SessionChatsBlock.module.scss'
-import { Flex } from '@/shared/ui/Flex'
+import { ICard } from '@/features/CardsBlock'
 import {
   SendMessageFromSanta,
   messagesFromSantaActions,
   subscribe,
 } from '@/features/SendMessageFromSanta'
-import { ICard } from '@/features/CardsBlock'
 import {
   SendMessageToSanta,
   messagesToSantaActions,
 } from '@/features/SendMessageToSanta'
-import { useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
-import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { getIsHaveToSantaMessages } from '@/features/SendMessageToSanta/model/selectors/getIsHaveMessages'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
+import { Flex } from '@/shared/ui/Flex'
+import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import cls from './SessionChatsBlock.module.scss'
 
 interface SessionChatsProps {
   className?: string
