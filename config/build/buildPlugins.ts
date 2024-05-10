@@ -25,7 +25,7 @@ export function buildPlugins({
     new DefinePlugin({
       __IS_DEV__: JSON.stringify(isDev),
       __API__: JSON.stringify(
-        !isDev ? 'http://localhost:8010' : process.env.BASE_URL
+        isDev ? 'http://localhost:8010' : process.env.BASE_URL
       ),
       __PROJECT__: JSON.stringify(project),
     }),
