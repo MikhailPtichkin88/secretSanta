@@ -36,6 +36,17 @@
     button {
       max-width: 240px;
     }
+
+    &.mobile {
+      & > div {
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
   }
 
   @media (max-width: 576px) {
@@ -44,6 +55,7 @@
 }
 
 .modal {
+  /* stylelint-disable-next-line no-descending-specificity */
   & > div > div {
     @media (max-width: 576px) {
       padding: 10px;

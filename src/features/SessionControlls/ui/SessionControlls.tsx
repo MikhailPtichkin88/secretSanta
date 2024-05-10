@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { OnboardingBlock } from './OnboardingBlock'
+import { isMobile } from 'react-device-detect'
 import cls from './SessionControlls.module.scss'
 
 interface SessionControllsProps {
@@ -110,7 +111,7 @@ export const SessionControlls = ({
     <>
       <Card className={classNames(cls.sessioncontrolls, {}, [className])}>
         <h3>{t('Управление')}</h3>
-        <div className={cls.buttonWrapper}>
+        <div className={`${cls.buttonWrapper} ${isMobile ? cls.mobile : ''}`}>
           {/* 1 шаг - становимся участником */}
           {!isParticipant && !cardId && (
             <Button

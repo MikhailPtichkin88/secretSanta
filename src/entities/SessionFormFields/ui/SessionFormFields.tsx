@@ -12,6 +12,7 @@ import ExitIcon from '@/shared/assets/icons/logout.svg'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch'
 import { deleteSessionParticipants } from '@/features/SessionParticipants/model/services/removeSessionParticipants'
 import { ConfirmBlock } from '@/shared/ui/ConfirmBlock'
+import { isMobile } from 'react-device-detect'
 
 interface SessionFormProps {
   title: string
@@ -45,7 +46,7 @@ export const SessionFormFields = memo(
     const [isShowConfirm, setIsShowConfirm] = useState(false)
 
     const dispatch = useAppDispatch()
-
+    console.log(isMobile)
     const { t } = useTranslation('session')
 
     const resetProfileData = () => {
@@ -130,7 +131,11 @@ export const SessionFormFields = memo(
               </Button>
             </>
           ) : (
-            <div className={cls.leaveEditBtnsWrapper}>
+            <div
+              className={`${cls.leaveEditBtnsWrapper} ${
+                isMobile ? cls.mobile : ''
+              }`}
+            >
               <Button
                 theme="secondary"
                 className={`${
