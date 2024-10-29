@@ -1,5 +1,6 @@
 import { ThunkConfig } from '@/app/providers/StoreProvider/config/stateSchema'
 import { User } from '@/entities/User/model/types/userSchema'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const updateUser = createAsyncThunk<User, FormData, ThunkConfig<string>>(
@@ -15,6 +16,10 @@ export const updateUser = createAsyncThunk<User, FormData, ThunkConfig<string>>(
 
       return res.data
     } catch (error) {
+      alertMessage({
+        type: 'error',
+        message: error?.response?.data?.message || 'Ошибка обновления данных',
+      })
       return rejectWithValue(
         error?.response?.data?.message || 'Ошибка обновления данных'
       )

@@ -27,10 +27,10 @@ export const updateCardTh = createAsyncThunk<
   } catch (error) {
     alertMessage({
       type: 'error',
-      message: error?.response?.data?.error ?? 'Произошла ошибка',
+      message: error?.response?.data?.error || 'Ошибка обновления карточки',
     })
     return rejectWithValue(
-      error?.response?.data?.message || 'Ошибка получения сессии'
+      error?.response?.data?.message || 'Ошибка обновления карточки'
     )
   }
 })

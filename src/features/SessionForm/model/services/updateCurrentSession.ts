@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { ICurrentSessionData } from '../types/CurrentSessionSchema'
 import { cardsBlockActions } from '@/features/CardsBlock'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 export const updateCurrentSession = createAsyncThunk<
   ICurrentSessionData,
@@ -27,8 +28,12 @@ export const updateCurrentSession = createAsyncThunk<
     )
     return res.data
   } catch (error) {
+    alertMessage({
+      type: 'error',
+      message: error?.response?.data?.message || 'Ошибка обновления сессии',
+    })
     return rejectWithValue(
-      error?.response?.data?.message || 'Ошибка получения сессии'
+      error?.response?.data?.message || 'Ошибка обновления сессии'
     )
   }
 })
