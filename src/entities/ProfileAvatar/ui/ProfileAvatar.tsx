@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import cls from './ProfileAvatar.module.scss'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 interface ProfileAvatarProps {
   className?: string
@@ -48,21 +49,18 @@ export const ProfileAvatar = ({ className }: ProfileAvatarProps) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0]
 
+    const MAX_SIZE = 3 * 1024 * 1024
     if (file) {
-      // Проверка размера файла (менее 500 KB) и типа изображения
-      if (
-        file.size <= 500 * 1024 &&
-        (file.type === 'image/jpeg' ||
-          file.type === 'image/png' ||
-          file.type === 'image/jpg')
-      ) {
+      if (file.size <= MAX_SIZE) {
         const formData = new FormData()
         formData.append('avatar', file)
         dispatch(updateUser(formData))
       } else {
-        alert(
-          'Please upload a file smaller than 500 KB and of type JPEG, PNG, or JPG'
-        )
+        alertMessage({
+          type: 'error',
+          message:
+            'Please upload a file smaller than 3 MB and of type JPEG, PNG, or JPG',
+        })
       }
     }
   }

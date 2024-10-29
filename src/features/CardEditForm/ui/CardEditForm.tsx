@@ -18,6 +18,7 @@ import { getCardUserAvatar } from '../model/selectors/getCardUserAvatar'
 import emojiImg from '@/shared/assets/img/partying-face.png'
 import fireworks from '@/shared/assets/img/fireworks.png'
 import { useTranslation } from 'react-i18next'
+import { alertMessage } from '@/shared/lib/alertMessage/alertMessage'
 
 interface CardEditFormProps {
   className?: string
@@ -55,21 +56,18 @@ export const CardEditForm = ({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files && event.target.files[0]
 
+      const MAX_SIZE = 1 * 1024 * 1024
       if (file) {
-        // Проверка размера файла (менее 500 KB) и типа изображения
-        if (
-          file.size <= 500 * 1024 &&
-          (file.type === 'image/jpeg' ||
-            file.type === 'image/png' ||
-            file.type === 'image/jpg')
-        ) {
+        if (file.size <= MAX_SIZE) {
           const formData = new FormData()
           formData.append('card_img', file)
           dispatch(updateCardTh({ sessionId, cardId, data: formData }))
         } else {
-          alert(
-            'Please upload a file smaller than 500 KB and of type JPEG, PNG, or JPG'
-          )
+          alertMessage({
+            type: 'error',
+            message:
+              'Please upload a file smaller than 1 MB and of type JPEG, PNG, or JPG',
+          })
         }
       }
     },
