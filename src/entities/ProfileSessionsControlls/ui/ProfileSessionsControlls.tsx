@@ -48,12 +48,11 @@ export const ProfileSessionsControlls = memo(
   }: SessionControllsProps) => {
     const isOnboardingOpen = useSelector(getOnboardingIsOpen)
 
-    const [searchValue, setSearchValue] = useState('')
     const [showFilters, setShowFilters] = useState(true)
     const { t, i18n } = useTranslation('profile')
 
     const tabs: TSessionRoles[] = ['all', 'creator', 'participant']
-
+    const debouncedSearch = useDebounce((value) => onSearchHandler(value), 1000)
     const filtersBlock = useMemo(() => {
       return (
         <>
@@ -73,22 +72,12 @@ export const ProfileSessionsControlls = memo(
             <Input
               className={cls.searchInput}
               bordered={false}
-              onChange={setSearchValue}
-              value={searchValue}
+              onChange={debouncedSearch}
             />
           </div>
         </>
       )
     }, [i18n.language, role])
-
-    const debouncedSearch = useDebounce(
-      () => onSearchHandler(searchValue),
-      1000
-    )
-
-    useEffect(() => {
-      debouncedSearch()
-    }, [searchValue])
 
     useEffect(() => {
       if (isOnboardingOpen && !showFilters) {

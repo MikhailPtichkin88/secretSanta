@@ -41,7 +41,6 @@ const messagesToSantaSlice = createSlice({
         state.error = undefined
         state.isLoading = false
         state.messages.push(payload)
-        console.log(state.messages)
       })
       .addCase(createMessage.rejected, (state, { error }) => {
         state.error = error?.message

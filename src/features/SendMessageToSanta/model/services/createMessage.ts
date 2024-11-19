@@ -13,7 +13,7 @@ export const createMessage = createAsyncThunk<
 
   try {
     const res = await extra.api.post<IMessage>(`/messages/toSanta`, data)
-    console.log(res.data)
+
     if (!res.data || res?.status !== 201) {
       throw new Error()
     }

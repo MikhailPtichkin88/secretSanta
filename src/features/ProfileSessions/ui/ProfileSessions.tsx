@@ -60,7 +60,7 @@ export const ProfileSessions = ({
 
   const onSearchHandler = useCallback(
     (searchValue: string) => {
-      dispatch(dispatch(profileSessionsActions.changeSearch(searchValue)))
+      dispatch(profileSessionsActions.changeSearch(searchValue))
     },
     [dispatch]
   )

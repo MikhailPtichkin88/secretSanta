@@ -46,7 +46,7 @@ export const SessionFormFields = memo(
     const [isShowConfirm, setIsShowConfirm] = useState(false)
 
     const dispatch = useAppDispatch()
-    console.log(isMobile)
+
     const { t } = useTranslation('session')
 
     const resetProfileData = () => {

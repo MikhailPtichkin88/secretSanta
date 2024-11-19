@@ -182,6 +182,9 @@ export const Pagination = memo(
       return pages
     }, [total, current])
 
+    if (!total || total < 10) {
+      return null
+    }
     return (
       <div className={`${cls.wrapper} ${total === 1 ? cls.hidden : ''}`}>
         <div className={cls.pagination}>{renderPages}</div>
